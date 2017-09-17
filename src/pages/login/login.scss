@@ -1,0 +1,19 @@
+page-login {
+
+    #login{
+        background: color($colors, bGround);
+
+        .loginButton{
+            margin-top: 60px;
+        }
+
+        .loginFields{
+            margin-top: 95px;
+            margin-bottom:  15px;
+            margin-left: 10%;
+            width: 80%;
+
+        }
+    }
+
+}

@@ -1,0 +1,43 @@
+<ion-content id="signup">
+    <ion-header>
+    
+      <ion-navbar>
+        <ion-title>Sign up</ion-title>
+      </ion-navbar>
+    
+    </ion-header>
+    <ion-list class="signupFields">
+        
+        <ion-item>
+          <ion-label fixed>Name</ion-label>
+          <ion-input type="name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Email</ion-label>
+          <ion-input type="text" value=""></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Date of Birth</ion-label>
+          <ion-input type="dateOfBirth"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label fixed>Licence No.</ion-label>
+          <ion-input type="licence"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Address</ion-label>
+          <ion-input type="address"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Password</ion-label>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+
+        <button ion-button block color="secondary" class="signupButton" (click)="signup()">Create Account</button>
+        </ion-list>
+      </ion-content>
