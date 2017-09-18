@@ -22,7 +22,7 @@ export class HomePage {
   logout(){
     // Remove API token 
     localStorage.clear();
-    setTimeout(() => this.backToWelcome(), 10000);
+    setTimeout(() => this.backToWelcome(), 100);
 }
 
   backToWelcome(){
