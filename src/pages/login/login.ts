@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 import { TabsPage } from '../tabs/tabs';
 /**
@@ -16,7 +17,11 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  enteredDetails = {"Email": "", "Password":""};
+  userData = {"access_token": "", "Name": "","Email": "","Id": "", "token_type":""};
+  responseData : any;
+
+  constructor(public navCtrl: NavController, public authService: AuthServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -25,7 +30,20 @@ export class LoginPage {
 
   login(){
     // needs input validation
-    this.navCtrl.push(TabsPage, {}, {animate: false});
+    console.log(this.enteredDetails.Email)
+    console.log(this.enteredDetails.Password)
+    this.authService.postDataLogin('user1@gmail.com', 'password1').then((result) => {
+      this.responseData = result;
+      console.log(this.responseData);
+
+      localStorage.setItem('userData', JSON.stringify(this.responseData));
+
+      
+
+      this.navCtrl.push(TabsPage, {}, {animate: false});
+    }, (err) => {
+      // Error log
+    });
   }
 
 }

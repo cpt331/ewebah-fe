@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, App } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @Component({
   selector: 'page-home',
@@ -7,8 +8,26 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  userPostData = {"Name":"","Token":"","Email":""};
 
+  constructor(public navCtrl: NavController, public app: App) {
+
+    const data = JSON.parse(localStorage.getItem('userData'));
+  
+    this.userPostData.Name = data.Name;
+    this.userPostData.Email = data.Email;
+    this.userPostData.Token = data.access_token;
   }
+
+  logout(){
+    // Remove API token 
+    localStorage.clear();
+    setTimeout(() => this.backToWelcome(), 10000);
+}
+
+  backToWelcome(){
+  const root = this.app.getRootNav();
+  root.popToRoot();
+}
 
 }
