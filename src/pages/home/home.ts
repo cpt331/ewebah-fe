@@ -17,6 +17,8 @@ export class HomePage {
     this.userPostData.Name = data.Name;
     this.userPostData.Email = data.Email;
     this.userPostData.Token = data.access_token;
+
+
   }
 
   logout(){
