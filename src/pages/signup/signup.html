@@ -7,37 +7,69 @@
     
     </ion-header>
     <ion-list class="signupFields">
+      <form [formGroup]="signupForm">
         
         <ion-item>
-          <ion-label fixed>Name</ion-label>
-          <ion-input type="name"></ion-input>
+          <ion-label fixed>First Name</ion-label>
+          <ion-input formControlName="firstName" type="firstname"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Last Name</ion-label>
+          <ion-input formControlName="lastName" type="lastname"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label fixed>Email</ion-label>
-          <ion-input type="text" value=""></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label fixed>Date of Birth</ion-label>
-          <ion-input type="dateOfBirth"></ion-input>
-        </ion-item>
-        
-        <ion-item>
-          <ion-label fixed>Licence No.</ion-label>
-          <ion-input type="licence"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label fixed>Address</ion-label>
-          <ion-input type="address"></ion-input>
+          <ion-input formControlName="email" type="text" value=""></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label fixed>Password</ion-label>
-          <ion-input type="password"></ion-input>
+          <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Date of Birth</ion-label>
+          <ion-input formControlName="dob" type="dateOfBirth"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label fixed>Licence No.</ion-label>
+          <ion-input formControlName="licence" type="licence"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Phone Number</ion-label>
+          <ion-input formControlName="phonenumber" type="phonenumber"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Address 1</ion-label>
+          <ion-input formControlName="address1" type="address1"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Address 2</ion-label>
+          <ion-input formControlName="address2" type="address2"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Suburb</ion-label>
+          <ion-input formControlName="suburb" type="suburb"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>State</ion-label>
+          <ion-input formControlName="state" type="state"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label fixed>Postcode</ion-label>
+          <ion-input formControlName="postcode" type="postcode"></ion-input>
         </ion-item>
 
         <button ion-button block color="secondary" class="signupButton" (click)="signup()">Create Account</button>
-        </ion-list>
-      </ion-content>
+      </form>
+    </ion-list>
+</ion-content>

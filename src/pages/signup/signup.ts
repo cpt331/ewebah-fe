@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
@@ -15,7 +16,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SignupPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  signupForm: FormGroup;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
+    this.signupForm = formBuilder.group({
+      firstName: ["", Validators.compose([Validators.maxLength(90), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+      lastName: [""],
+      email: [""],
+      password: [""],
+      dob: [""],
+      licence: [""],
+      phonenumber: [""],
+      address1: [""],
+      address2: [""],
+      suburb: [""],
+      state: [""],
+      postcode: [""]
+    })
   }
 
   ionViewDidLoad() {
