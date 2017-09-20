@@ -7,7 +7,6 @@ import { SignupPage } from '../signup/signup';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
-
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -21,12 +20,14 @@ export class LoginPage {
   responseData : any;
   loader;
 
+  submitAttempt: boolean = false;
+
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, 
-    public alertCtrl: AlertController, public authService: AuthServiceProvider) {
-  }
+    public alertCtrl: AlertController, public authService: AuthServiceProvider){
+ 
+}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
   }
 
   //loader function to stop the loader being called when it already exists
@@ -52,12 +53,13 @@ export class LoginPage {
     // needs input validation
     console.log(this.enteredDetails.Email)
     console.log(this.enteredDetails.Password)
+    
 
     // loader caller here, could wrap this in the loader instead if wanted
     this.showLoading();
     
     // hard coded inputs for ease of build
-    this.authService.postDataLogin('user1@gmail.com', 'password1').then((result) => {
+    this.authService.postDataLogin(this.enteredDetails.Email, this.enteredDetails.Password).then((result) => {
       this.responseData = result;
       console.log(this.responseData);
       
@@ -78,14 +80,12 @@ export class LoginPage {
           buttons: [{
             text: 'Try again',
             handler: () => {
-              console.log('try clicked');
               this.dismissLoading();
             }
           },
           {
             text: 'Sign up',
             handler: () => {
-              console.log('sign clicked');
               this.dismissLoading();
               this.navCtrl.push(SignupPage, {}, {animate: false});
             }
@@ -96,7 +96,7 @@ export class LoginPage {
   }
 
   forgotPassword(){
-    console.log("that sucks for you then");
+    console.log("that sucks for you");
   }
     
   

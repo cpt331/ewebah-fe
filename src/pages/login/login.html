@@ -10,7 +10,7 @@
     <button ion-button clear class="forgottenPassword" (click)="forgotPassword()">Forgot Password?</button>
       <ion-item>
         <ion-label floating>Email</ion-label>
-        <ion-input type="text" value="" [(ngModel)]="enteredDetails.Email"></ion-input>>
+        <ion-input type="email" value="" [(ngModel)]="enteredDetails.Email"></ion-input>>
       </ion-item>
     
       <ion-item>
@@ -19,5 +19,4 @@
       </ion-item>
       <button ion-button block color="secondary" class="loginButton" (click)="login()">Login</button>
     </ion-list>
-
   </ion-content>
