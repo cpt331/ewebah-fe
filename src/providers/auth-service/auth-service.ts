@@ -37,4 +37,35 @@ export class AuthServiceProvider {
 
   }
 
+  postDataSignUp(firstName, lastName, email, password, dob, licence, 
+    phone, address1, address2, suburb, state, postcode) {
+    return new Promise((resolve, reject) => {
+      let headers = new Headers();
+
+      this.http.post(apiUrl + 'api/account/register',
+    "firstName=" + encodeURIComponent(firstName) +
+    "&lastName=" + encodeURIComponent(lastName) +
+    "&email=" + encodeURIComponent(email) +
+    "&password=" + encodeURIComponent(password) +
+    "&dob=" + encodeURIComponent(dob) +
+    "&licence=" + encodeURIComponent(licence) +
+    "&phone=" + encodeURIComponent(phone) +
+    "&address1=" + encodeURIComponent(address1) +
+    "&address2=" + encodeURIComponent(address2) +
+    "&suburb=" + encodeURIComponent(suburb) +
+    "&state=" + encodeURIComponent(state) +
+    "&postcode=" + encodeURIComponent(postcode), 
+    {headers: headers})
+    //{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+    
+    //, {headers: headers})
+        .subscribe(res => {
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+    });
+
+  }
+
 }
