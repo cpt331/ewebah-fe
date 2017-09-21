@@ -11,12 +11,12 @@
         
         <ion-item>
           <ion-label fixed>First Name</ion-label>
-          <ion-input formControlName="firstName" type="firstname"></ion-input>
+          <ion-input formControlName="firstName" type="firstName"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label fixed>Last Name</ion-label>
-          <ion-input formControlName="lastName" type="lastname"></ion-input>
+          <ion-input formControlName="lastName" type="lastName"></ion-input>
         </ion-item>
 
         <ion-item>
@@ -31,7 +31,7 @@
 
         <ion-item>
           <ion-label fixed>Date of Birth</ion-label>
-          <ion-input formControlName="dob" type="dateOfBirth"></ion-input>
+          <ion-input formControlName="dob" type="date"></ion-input>
         </ion-item>
         
         <ion-item>
@@ -40,8 +40,8 @@
         </ion-item>
 
         <ion-item>
-          <ion-label fixed>Phone Number</ion-label>
-          <ion-input formControlName="phonenumber" type="phonenumber"></ion-input>
+          <ion-label fixed>Phone No.</ion-label>
+          <ion-input formControlName="phone" type="phone"></ion-input>
         </ion-item>
 
         <ion-item>
@@ -61,7 +61,16 @@
 
         <ion-item>
           <ion-label fixed>State</ion-label>
-          <ion-input formControlName="state" type="state"></ion-input>
+          <ion-select formControlName="state" type="state">
+            <ion-option>ACT</ion-option>
+            <ion-option>NSW</ion-option>
+            <ion-option>NT</ion-option>
+            <ion-option>QLD</ion-option>
+            <ion-option>SA</ion-option>
+            <ion-option>TAS</ion-option>
+            <ion-option>VIC</ion-option>
+            <ion-option>WA</ion-option>
+          </ion-select>
         </ion-item>
 
         <ion-item>
