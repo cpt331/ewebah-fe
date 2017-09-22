@@ -7,15 +7,15 @@
 
 </ion-header>
 <ion-list class="loginFields">
-    
+    <button ion-button clear class="forgottenPassword" (click)="forgotPassword()">Forgot Password?</button>
       <ion-item>
-        <ion-label fixed>Username</ion-label>
-        <ion-input type="text" value=""></ion-input>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" value="" [(ngModel)]="enteredDetails.Email"></ion-input>>
       </ion-item>
     
       <ion-item>
-        <ion-label fixed>Password</ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="enteredDetails.Password"></ion-input>
       </ion-item>
       <button ion-button block color="secondary" class="loginButton" (click)="login()">Login</button>
     </ion-list>

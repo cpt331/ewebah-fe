@@ -1,15 +1,22 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Map</ion-title>
+    <ion-buttons end>
+      <button ion-button id="logoutButton" color="primary" (click)="logout()">Logout</button>
+    </ion-buttons>
   </ion-navbar>
+
 </ion-header>
 
-<ion-content padding>
-  <h2>Welcome to EweBah</h2>
+<ion-content padding id="home">
+  <h2>Welcome to EweBah </h2>
+  <h3>{{userPostData.Name}}</h3>
   <p>
     this is the map screen that will show cars available around
   </p>
   <p>
     map will be full screen with tabs at the bottom
+
+    You are currently signed in with email {{userPostData.Email}}
   </p>
 </ion-content>
