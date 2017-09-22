@@ -21,6 +21,7 @@ export class AuthServiceProvider {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
 
+
       this.http.post(apiUrl + 'Token',
     "userName=" + encodeURIComponent(credentialsEmail) +
     "&password=" + encodeURIComponent(credentialsPass) +
@@ -40,7 +41,11 @@ export class AuthServiceProvider {
   postDataSignUp(firstName, lastName, email, password, dob, licence, 
     phone, address1, address2, suburb, state, postcode) {
     return new Promise((resolve, reject) => {
-      let headers = new Headers();
+     let headers: Headers = new Headers({'accept': 'application/json', 
+     'Content-Type': 'application/json','Access-Control-Allow-Origin':'*',
+     //'Access-Control-Request-Method': 'POST',
+     //'Access-Control-Request-Headers': 'Content-Type, Authorization'
+    });
 
       this.http.post(apiUrl + 'api/account/register',
     "firstName=" + encodeURIComponent(firstName) +
