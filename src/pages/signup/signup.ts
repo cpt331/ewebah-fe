@@ -92,6 +92,7 @@ export class SignupPage {
 
       if(this.responseData.Success === false){
 
+        console.log(this.responseData.Errors);
         let alert = this.alertCtrl.create({
           title: this.responseData.Message,
           subTitle: 'unable to sign up, please check your details',
