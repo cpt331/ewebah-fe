@@ -14,7 +14,6 @@ let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/
 export class AuthServiceProvider {
 
   constructor(public http: Http) {
-    console.log('Hello AuthServiceProvider Provider');
   }
 
   postDataLogin(credentialsEmail, credentialsPass) {
@@ -52,6 +51,8 @@ export class AuthServiceProvider {
     "&lastName=" + encodeURIComponent(lastName) +
     "&email=" + encodeURIComponent(email) +
     "&password=" + encodeURIComponent(password) +
+    // this needs to be included as a new field in the form
+    "&confirmPassword=" + encodeURIComponent(password) +
     "&dob=" + encodeURIComponent(dob) +
     "&licence=" + encodeURIComponent(licence) +
     "&phone=" + encodeURIComponent(phone) +

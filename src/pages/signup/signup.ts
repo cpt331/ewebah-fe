@@ -90,15 +90,26 @@ export class SignupPage {
   
       this.dismissLoading();
 
+      if(this.responseData.Success === false){
+
+        let alert = this.alertCtrl.create({
+          title: this.responseData.Message,
+          subTitle: 'unable to sign up, please check your details',
+          buttons: [{
+            text: 'Try again',
+            handler: () => {
+            }}]
+      });
+      alert.present();
+    }
       //this.navCtrl.push(LoginPage, {}, {animate: false});
 
     }, (err) => {
 
       // Error handling
-      console.log("something fucked up");
         let alert = this.alertCtrl.create({
           title: err,
-          subTitle: 'unable to sign up, please check your details',
+          subTitle: 'unable to sign up, please check your network connection and try again',
           buttons: [{
             text: 'Try again',
             handler: () => {
