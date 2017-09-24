@@ -72,11 +72,10 @@ export class LoginPage {
     }, (err) => {
 
       // Error handling
-      console.log("something fucked up");
         let alert = this.alertCtrl.create({
           title: 'No User Found',
-          subTitle: 'The details entered don\'t match any registered users.' +
-          'Please check you details and try again or signup!',
+          subTitle: 'The details you entered don\'t match any registered users.' +
+          ' Please check you details and try again or signup!',
           buttons: [{
             text: 'Try again',
             handler: () => {

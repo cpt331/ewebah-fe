@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 
 
 let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/';
+
 /*
   Generated class for the AuthServiceProvider provider.
 
@@ -19,11 +20,6 @@ export class AuthServiceProvider {
   postDataLogin(credentialsEmail, credentialsPass) {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
-
-      console.log(apiUrl + 'Token',
-      "userName=" + encodeURIComponent(credentialsEmail) +
-      "&password=" + encodeURIComponent(credentialsPass) +
-      "&grant_type=password", {headers: headers});
 
 
       this.http.post(apiUrl + 'Token',
@@ -43,26 +39,10 @@ export class AuthServiceProvider {
   postDataSignUp(firstName, lastName, email, password, dob, licence, 
     phone, address1, address2, suburb, state, postcode) {
     return new Promise((resolve, reject) => {
-     let headers: Headers = new Headers({'accept':'application/json', 
-     'Content-Type':'application/json','Access-Control-Allow-Origin':'*',
-    });
+     let headers: Headers = new Headers();
 
-    console.log(apiUrl + 'api/account/register',
-    "firstName=" + encodeURIComponent(firstName) +
-    "&lastName=" + encodeURIComponent(lastName) +
-    "&email=" + encodeURIComponent(email) +
-    "&password=" + encodeURIComponent(password) +
-    // this needs to be included as a new field in the form
-    "&confirmPassword=" + encodeURIComponent(password) +
-    "&dob=" + encodeURIComponent(dob) +
-    "&licence=" + encodeURIComponent(licence) +
-    "&phone=" + encodeURIComponent(phone) +
-    "&address1=" + encodeURIComponent(address1) +
-    "&address2=" + encodeURIComponent(address2) +
-    "&suburb=" + encodeURIComponent(suburb) +
-    "&state=" + encodeURIComponent(state) +
-    "&postcode=" + encodeURIComponent(postcode), 
-    {headers: headers});
+    headers.append('accept','application/json');
+    headers.append('content-Type','application/json');
 
     //confirm password needs to be included as a new field in the form
       this.http.post(apiUrl + 'api/account/register',
