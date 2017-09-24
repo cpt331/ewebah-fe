@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -42,33 +42,54 @@ export class AuthServiceProvider {
      let headers: Headers = new Headers();
 
     headers.append('accept','application/json');
-    headers.append('content-Type','application/json');
+    headers.append('content-Type', 'application/json');
 
-    //confirm password needs to be included as a new field in the form
+    var registerRequest = {
+      FirstName: firstName,
+      LastName: lastName,
+      Email: email,
+      Password: password,
+      ConfirmPassword: password
+    };
+
       this.http.post(apiUrl + 'api/account/register',
-    "firstName=" + encodeURIComponent(firstName) +
-    "&lastName=" + encodeURIComponent(lastName) +
-    "&email=" + encodeURIComponent(email) +
-    "&password=" + encodeURIComponent(password) +
-    "&confirmPassword=" + encodeURIComponent(password) +
-    "&dob=" + encodeURIComponent(dob) +
-    "&licence=" + encodeURIComponent(licence) +
-    "&phone=" + encodeURIComponent(phone) +
-    "&address1=" + encodeURIComponent(address1) +
-    "&address2=" + encodeURIComponent(address2) +
-    "&suburb=" + encodeURIComponent(suburb) +
-    "&state=" + encodeURIComponent(state) +
-    "&postcode=" + encodeURIComponent(postcode), 
-    {headers: headers})
-    //{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
-    
-    //, {headers: headers})
+          registerRequest,
+          { headers: headers })
+        //{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+
+        //, {headers: headers})
         .subscribe(res => {
           resolve(res.json());
         }, (err) => {
           reject(err);
         });
     });
+
+    //confirm password needs to be included as a new field in the form
+    //  this.http.post(apiUrl + 'api/account/register',
+    //"firstName=" + encodeURIComponent(firstName) +
+    //"&lastName=" + encodeURIComponent(lastName) +
+    //"&email=" + encodeURIComponent(email) +
+    //"&password=" + encodeURIComponent(password) +
+    //"&confirmPassword=" + encodeURIComponent(password) +
+    //"&dob=" + encodeURIComponent(dob) +
+    //"&licence=" + encodeURIComponent(licence) +
+    //"&phone=" + encodeURIComponent(phone) +
+    //"&address1=" + encodeURIComponent(address1) +
+    //"&address2=" + encodeURIComponent(address2) +
+    //"&suburb=" + encodeURIComponent(suburb) +
+    //"&state=" + encodeURIComponent(state) +
+    //"&postcode=" + encodeURIComponent(postcode), 
+    //{headers: headers})
+    ////{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+    
+    ////, {headers: headers})
+    //    .subscribe(res => {
+    //      resolve(res.json());
+    //    }, (err) => {
+    //      reject(err);
+    //    });
+    //});
 
   }
 
