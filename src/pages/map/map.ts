@@ -34,6 +34,9 @@ export class MapPage {
 
   ionViewDidLoad() {
 
+    if (this.platform.is('android')){
+      console.log("android");
+    }
     // check if being loaded on a device. If loaded on a device use the native maps else use javaScript API
     if (this.platform.is('cordova')){
       this.loadMap();
