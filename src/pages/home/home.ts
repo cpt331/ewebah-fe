@@ -4,6 +4,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 import { ReturnPage } from '../return/return';
 import { SettingsPage } from '../settings/settings';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -11,9 +12,12 @@ import { SettingsPage } from '../settings/settings';
 })
 export class HomePage {
 
+  responseData : any;
+
   userPostData = {"Name":"","Token":"","Email":""};
 
-  constructor(public navCtrl: NavController, public app: App) {
+  constructor(public navCtrl: NavController, public app: App, 
+    public alertCtrl: AlertController, public authService: AuthServiceProvider) {
 
     const data = JSON.parse(localStorage.getItem('userData'));
   
@@ -47,7 +51,16 @@ export class HomePage {
   root.popToRoot();
 }
 
+getAllCars()
+{
+  this.authService.getAllCars(this.userPostData.Token).then((result) => {
+    this.responseData = result;
+    console.log(this.responseData);
+})}
 }
+
+
+
 
 // import { Component, ViewChild, ElementRef } from '@angular/core';
 // import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';

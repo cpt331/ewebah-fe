@@ -67,12 +67,14 @@ export class AuthServiceProvider {
 
   }
 
-    getAllCars() {
+    getAllCars(token) {
       return new Promise((resolve, reject) => {
         let headers = new Headers();
-  
-  
-        this.http.get(apiUrl + 'Token', {headers: headers})
+        headers.append('accept','application/json');
+        headers.append('content-Type', 'application/json');
+        headers.append('authorization','Bearer ' + token);
+        
+        this.http.get(apiUrl + "api/cars", {headers: headers})
   
           .subscribe(res => {
             resolve(res.json());
