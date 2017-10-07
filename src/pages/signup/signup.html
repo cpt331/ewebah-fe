@@ -4,13 +4,15 @@
       <ion-navbar>
         <ion-title>Sign up</ion-title>
       </ion-navbar>
-    
+      
     </ion-header>
     <ion-list class="signupFields">
       <form [formGroup]="signupForm">
         
+        <button ion-button clear class="haveAccount" (click)="haveAccount()">Already have an account? login here</button>
+        
         <ion-item>
-          <ion-label floating>First Name</ion-label>
+          <ion-label fixed>First Name</ion-label>
           <ion-input formControlName="firstName" type="firstName"></ion-input>
         </ion-item>
 
@@ -30,7 +32,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label floating>Date of Birth</ion-label>
+          <ion-label fixed>Date of Birth</ion-label>
           <ion-input formControlName="dob" type="date"></ion-input>
         </ion-item>
         

@@ -59,7 +59,8 @@ export class LoginPage {
     this.showLoading();
     
     // hard coded inputs for ease of build
-    this.authService.postDataLogin(this.enteredDetails.Email, this.enteredDetails.Password).then((result) => {
+    this.authService.postDataLogin("user1@gmail.com", "password1"//this.enteredDetails.Email, this.enteredDetails.Password
+    ).then((result) => {
       this.responseData = result;
       console.log(this.responseData);
       
@@ -72,11 +73,10 @@ export class LoginPage {
     }, (err) => {
 
       // Error handling
-      console.log("something fucked up");
         let alert = this.alertCtrl.create({
           title: 'No User Found',
-          subTitle: 'The details entered don\'t match any registered users.' +
-          'Please check you details and try again or signup!',
+          subTitle: 'The details you entered don\'t match any registered users.' +
+          ' Please check you details and try again or signup!',
           buttons: [{
             text: 'Try again',
             handler: () => {

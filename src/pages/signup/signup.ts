@@ -17,6 +17,9 @@ export class SignupPage {
   // create a storage structure for the returned values
   enteredDetails = {"firstName": "","lastName": "","email": "","password": "","dob": "", 
   "licence":"","phone": "","address1": "","address2": "","suburb": "","state": "","postcode": ""};
+  
+  // for saving the entered data. Could be useful to enter the users data into 
+  // the login field instead of making the user type it again
   userData = {"access_token": "", "Name": "","Email": "","Id": "", "token_type":""};
   responseData : any;
   loader;
@@ -61,6 +64,9 @@ export class SignupPage {
     }
   }
 
+  haveAccount(){
+    this.navCtrl.push(LoginPage, {}, {animate: false});
+  }
 
   signup(){
     this.enteredDetails.firstName = this.signupForm.value.firstName;
@@ -90,26 +96,43 @@ export class SignupPage {
   
       this.dismissLoading();
 
-      //this.navCtrl.push(LoginPage, {}, {animate: false});
+      if(this.responseData.Success === false){
 
-    }, (err) => {
-
-      // Error handling
-      console.log("something fucked up");
         let alert = this.alertCtrl.create({
-          title: err,
+          title: this.responseData.Message,
           subTitle: 'unable to sign up, please check your details',
           buttons: [{
             text: 'Try again',
             handler: () => {
-              this.dismissLoading();
-            }
-          },
-          {
-            text: 'Sign up',
+            }}]
+      });
+      alert.present();
+    }
+      if(this.responseData.Success === true){
+        
+        let alert = this.alertCtrl.create({
+          title: "User created",
+          subTitle: 'Congratulations! Your account has been created,' + 
+          ' head to the login page to startn using the service',
+          buttons: [{
+            text: 'login page',
+            handler: () => {
+              this.navCtrl.push(LoginPage, {}, {animate: false});
+            }}]
+      });
+      alert.present();
+    }
+
+    }, (err) => {
+
+      // Error handling
+        let alert = this.alertCtrl.create({
+          title: "Something went wrong :( ",
+          subTitle: 'Unable to sign up, please check your network connection and try again',
+          buttons: [{
+            text: 'Try again',
             handler: () => {
               this.dismissLoading();
-              this.navCtrl.push(SignupPage, {}, {animate: false});
             }
           }]
         });
