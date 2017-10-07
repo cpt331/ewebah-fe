@@ -65,6 +65,23 @@ export class AuthServiceProvider {
         });
     });
 
+  }
+
+    getAllCars() {
+      return new Promise((resolve, reject) => {
+        let headers = new Headers();
+  
+  
+        this.http.get(apiUrl + 'Token', {headers: headers})
+  
+          .subscribe(res => {
+            resolve(res.json());
+          }, (err) => {
+            reject(err);
+          });
+      });
+  
+    }
     //confirm password needs to be included as a new field in the form
     //  this.http.post(apiUrl + 'api/account/register',
     //"firstName=" + encodeURIComponent(firstName) +
@@ -91,6 +108,6 @@ export class AuthServiceProvider {
     //    });
     //});
 
-  }
+  
 
 }
