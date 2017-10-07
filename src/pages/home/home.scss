@@ -3,4 +3,25 @@ page-home {
         background: color($colors, bGround); 
     }
 
+    .navbtn {
+        width:33%;
+        margin: 0;
+    }
+
+    #webpage {
+        background: color($colors, bGround); 
+        width: 100%;
+    }
+
+    @media only screen and (max-width:480px){
+        #webpage{
+            display: none;
+        }
+    }
+
+    @media only screen and (max-width:740px){
+        .navbtn {
+            width:32%;
+        }
+    }
 }
