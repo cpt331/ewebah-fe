@@ -1,5 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 import {
   GoogleMaps,
   GoogleMap,
@@ -28,8 +29,9 @@ export class MapPage {
   map: any;
   //map: GoogleMap;
   mapElement2: HTMLElement;
+
   constructor(private googleMaps: GoogleMaps, public navCtrl: NavController, 
-    public navParams: NavParams, public platform: Platform) {
+    public navParams: NavParams, public platform: Platform, public geolocation: Geolocation) {
   }
 
   ionViewDidLoad() {
@@ -47,6 +49,8 @@ export class MapPage {
   }
 
  loadMap() {
+
+  console.log("its coming in here")
     this.mapElement2 = document.getElementById('map');
 
     let mapOptions: GoogleMapOptions = {
@@ -62,7 +66,6 @@ export class MapPage {
     };
     this.map = this.googleMaps.create(this.mapElement2, mapOptions);
 
-    console.log(this.map);
     // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
@@ -92,16 +95,35 @@ export class MapPage {
 
 
   loadMap2(){
-    
+    console.log("im mobile but it didn't load")
+
+    //let position = this.geolocation.getCurrentPosition();
+
        let latLng = new google.maps.LatLng(-34.9290, 138.6010);
+       let latLng2 = new google.maps.LatLng(-34.9290, 138.6110);
     
        let mapOptions = {
          center: latLng,
-         zoom: 25,
+         zoom: 10,
          mapTypeId: google.maps.MapTypeId.ROADMAP
        }
     
        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     
+
+       let marker = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: this.map.getCenter()
+      });
+
+      let marker2 = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: latLng2
+      });
+
+
+
      }
 }
