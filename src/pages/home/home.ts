@@ -12,6 +12,7 @@ import {GoogleMaps,
 import { ReturnPage } from '../return/return';
 import { SettingsPage } from '../settings/settings';
 import { AlertController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
 
 declare var google;
 
@@ -32,12 +33,13 @@ export class HomePage {
   mapPins = new Map();
   currentmarker : any;
   selectedCarData = {"Model":"","CarCategory":"","Make":"","Transmission":"","BillingRate":"","Id":""};
-  
+  loader;
 
 
   constructor(public navCtrl: NavController, public app: App, 
     public alertCtrl: AlertController, public authService: AuthServiceProvider, 
-    public geolocation: Geolocation, public platform: Platform) {
+    public geolocation: Geolocation, public platform: Platform,
+    public loadingCtrl: LoadingController,) {
 
     const data = JSON.parse(localStorage.getItem('userData'));
   
@@ -47,15 +49,41 @@ export class HomePage {
   
          
   }
+
+    //loader function to stop the loader being called when it already exists
+  // and dismissed when it doesn not exist
+  showLoading() {
+    if(!this.loader){
+        this.loader = this.loadingCtrl.create({
+          content: "loading map...",
+        });
+        this.loader.present();
+    }
+  }
+
+  dismissLoading(){
+    if(this.loader){
+        this.loader.dismiss();
+        this.loader = null;
+    }
+  }
     //more map stuff
   ionViewDidLoad() {
+
+
+
+
       this.loadMap();
   }
 
 
   loadMap() {
+     // loader caller here, could wrap this in the loader instead if wanted
+     this.showLoading();
+
     //get user location
     this.geolocation.getCurrentPosition().then((position) => {
+
       let latLng= new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
     //set map options
       let mapOptions = {
@@ -64,6 +92,7 @@ export class HomePage {
         mapTypeId: 'roadmap'
       }
       
+      // if the location is blocked the app crashes
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
       this.authService.getAllCars(this.userPostData.Token).then((result) => {
@@ -72,6 +101,8 @@ export class HomePage {
         // console.log(this.carsData[17].Model);
         for(let data of this.carsData)
         {
+           // loader caller here, could wrap this in the loader instead if wanted
+      this.dismissLoading();
           let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
 
           let marker= new google.maps.Marker({
@@ -141,7 +172,7 @@ markerClicked(id, marker){
 
   // update the labels on the user screen 
   document.getElementById("Model").innerHTML = "Model: " + this.carsData[id].Model;
-  document.getElementById("CarCategory").innerHTML = "CarCategory: " + this.carsData[id].CarCategory;
+  document.getElementById("Car Category").innerHTML = "CarCategory: " + this.carsData[id].CarCategory;
   document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
   document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
 // billing rate to be added
