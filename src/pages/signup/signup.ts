@@ -17,6 +17,7 @@ export class SignupPage {
   // create a storage structure for the returned values
   enteredDetails = {"firstName": "","lastName": "","email": "","password": "","dob": "", 
   "licence":"","phone": "","address1": "","address2": "","suburb": "","state": "","postcode": ""};
+  
   // for saving the entered data. Could be useful to enter the users data into 
   // the login field instead of making the user type it again
   userData = {"access_token": "", "Name": "","Email": "","Id": "", "token_type":""};
@@ -95,20 +96,19 @@ export class SignupPage {
   
       this.dismissLoading();
 
-      // an error exists with the register call fix that before changing this.
-    //   if(this.responseData.Success === false){
+      if(this.responseData.Success === false){
 
-    //     let alert = this.alertCtrl.create({
-    //       title: this.responseData.Message,
-    //       subTitle: 'unable to sign up, please check your details',
-    //       buttons: [{
-    //         text: 'Try again',
-    //         handler: () => {
-    //         }}]
-    //   });
-    //   alert.present();
-    // }
-      // if(this.responseData.Success === false){
+        let alert = this.alertCtrl.create({
+          title: this.responseData.Message,
+          subTitle: 'unable to sign up, please check your details',
+          buttons: [{
+            text: 'Try again',
+            handler: () => {
+            }}]
+      });
+      alert.present();
+    }
+      if(this.responseData.Success === true){
         
         let alert = this.alertCtrl.create({
           title: "User created",
@@ -121,7 +121,7 @@ export class SignupPage {
             }}]
       });
       alert.present();
-    // }
+    }
 
     }, (err) => {
 

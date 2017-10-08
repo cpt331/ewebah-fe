@@ -48,7 +48,6 @@ export class LoginPage {
     }
   }
 
-
   login(){
     // needs input validation
     console.log(this.enteredDetails.Email)
