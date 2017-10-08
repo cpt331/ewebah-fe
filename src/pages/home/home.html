@@ -9,9 +9,14 @@
 </ion-header>
 
 <ion-content padding id="home">
-  <h2>Welcome to EweBah </h2>
-  <h3>{{userPostData.Name}}</h3>
+  <h3>Welcome to EweBa {{userPostData.Name}} </h3>
+    <div id="testPanel">
+    <div #map id="map"></div>
+  </div>
+
+
   <div id="webpage">
+
     <div class="button-bar">
       <button ion-button color="navBGround" class="navbtn" (click)="book()">Book</button>
       <button ion-button color="navBGround" class="navbtn" (click)="return()">Return</button>
@@ -25,6 +30,7 @@
     <p>
       From this site you can book cars, return any currently borrowed cars, and view your booking history.
     </p>
+
   </div>
   
   <p>
