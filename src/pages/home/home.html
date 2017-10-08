@@ -9,7 +9,7 @@
 </ion-header>
 <!-- map style panel-->
 <ion-content padding id="home">
-  <h3>Welcome to EweBa {{userPostData.Name}} </h3>
+  <h4>Welcome to EweBa {{userPostData.Name}} </h4>
     <div id="testPanel">
     <div #map id="map"></div>
   </div>
@@ -33,22 +33,19 @@
 
   </div>
   
-  <!-- shown on all platforms -->
+  <!-- shown on all platforms 
   <p>
     You are currently signed in with {{userPostData.Email}}
-  </p>
-  <p>Seleceted car details are:<br>
+  </p>-->
+  <p>Selected car details are:</p>
+      
+      <p id= "Model">Model:  </p>
+    <p id= "Make">Make: </p>  
 
-      Model:  {{selectedCarData.Model}}<br>
+      <p id= "Transmission">Transmission:  </p>
 
-      Make:  {{selectedCarData.Make}}<br>
+      <p id= "CarCategory">CarCategory:</p>
 
-      Transmission:  {{selectedCarData.Transmission}}<br>
-
-      CarCategory:  {{selectedCarData.CarCategory}}<br>
-
-      BillingRate:  {{selectedCarData.BillingRate}}
-  </p>
   
   <button ion-button color="navBGround" class="navbtn" (click)="bookThisCar()">Book this car</button>
 </ion-content>

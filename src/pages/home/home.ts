@@ -130,12 +130,22 @@ markerClicked(id, marker){
   if(this.currentmarker != null){
     this.currentmarker.setAnimation(google.maps.Animation.DROP);
   }
+
+  // save for use when pushing to book
   this.selectedCarData.Model = this.carsData[id].Model;
   this.selectedCarData.CarCategory = this.carsData[id].CarCategory;
   this.selectedCarData.Make = this.carsData[id].Make;
   this.selectedCarData.Transmission = this.carsData[id].Transmission;
   this.selectedCarData.BillingRate = this.carsData[id].BillingRate;
   this.selectedCarData.Id = this.carsData[id].Id;
+
+  // update the labels on the user screen 
+  document.getElementById("Model").innerHTML = "Model: " + this.carsData[id].Model;
+  document.getElementById("CarCategory").innerHTML = "CarCategory: " + this.carsData[id].CarCategory;
+  document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
+  document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
+// billing rate to be added
+
 
   marker.setAnimation(google.maps.Animation.BOUNCE);
   this.currentmarker = marker;
