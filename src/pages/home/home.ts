@@ -24,12 +24,14 @@ export class HomePage {
   responseData : any;
 
   userPostData = {"Name":"","Token":"","Email":""};
+  
   //Map stuff
   @ViewChild('map') mapElement: ElementRef;
   map: any;
   carsData : any;
   mapPins = new Map();
   currentmarker : any;
+  selectedCarData = {"Model":"","CarCategory":"","Make":"","Transmission":"","BillingRate":"","Id":""};
   
 
 
@@ -63,7 +65,6 @@ export class HomePage {
       }
       
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
-      });
 
       this.authService.getAllCars(this.userPostData.Token).then((result) => {
         this.carsData = result;
@@ -81,17 +82,17 @@ export class HomePage {
           });
 
           this.mapPins.set(data.Id, marker);
-          
-                    console.log(data);
 
           google.maps.event.addListener(marker, 'click', () => {
             this.markerClicked(data.Id, marker);
             
           })
 
-          
         };
       });
+
+      });
+   
 
   }
 
@@ -123,21 +124,18 @@ getAllCars()
 {
   this.authService.getAllCars(this.userPostData.Token).then((result) => {
     this.responseData = result;
-    console.log(this.responseData);
 })}
 
 markerClicked(id, marker){
   if(this.currentmarker != null){
     this.currentmarker.setAnimation(google.maps.Animation.DROP);
   }
-  console.log(this.carsData[id]);
-  console.log(this.carsData[id].Model);
-  console.log(this.carsData[id].CarCategory);
-  console.log(this.carsData[id].Make);
-  console.log(this.carsData[id].Transmission);
-  console.log(this.carsData[id].BillingRate);
-  console.log(this.carsData[id].Id);
-
+  this.selectedCarData.Model = this.carsData[id].Model;
+  this.selectedCarData.CarCategory = this.carsData[id].CarCategory;
+  this.selectedCarData.Make = this.carsData[id].Make;
+  this.selectedCarData.Transmission = this.carsData[id].Transmission;
+  this.selectedCarData.BillingRate = this.carsData[id].BillingRate;
+  this.selectedCarData.Id = this.carsData[id].Id;
 
   marker.setAnimation(google.maps.Animation.BOUNCE);
   this.currentmarker = marker;
