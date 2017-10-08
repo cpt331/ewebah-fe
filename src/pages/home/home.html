@@ -7,15 +7,21 @@
   </ion-navbar>
 
 </ion-header>
-
+<!-- map style panel-->
 <ion-content padding id="home">
-  <h2>Welcome to EweBah </h2>
-  <h3>{{userPostData.Name}}</h3>
+  <h4>Welcome to EweBa {{userPostData.Name}} </h4>
+    <div id="testPanel">
+    <div #map id="map"></div>
+  </div>
+
+<!-- will be shown on web only -->
   <div id="webpage">
+
     <div class="button-bar">
       <button ion-button color="navBGround" class="navbtn" (click)="book()">Book</button>
       <button ion-button color="navBGround" class="navbtn" (click)="return()">Return</button>
       <button ion-button color="navBGround" class="navbtn" (click)="settings()">Settings</button>
+      <button ion-button color="navBGround" (click)="getAllCars()">get cars</button>
     </div>
     <h4>What is EweBah?</h4>
     <p>
@@ -24,14 +30,22 @@
     <p>
       From this site you can book cars, return any currently borrowed cars, and view your booking history.
     </p>
+
   </div>
   
+  <!-- shown on all platforms 
   <p>
-    this is the map screen that will show cars available around
-  </p>
-  <p>
-    map will be full screen with tabs at the bottom
+    You are currently signed in with {{userPostData.Email}}
+  </p>-->
+  <p>Selected car details are:</p>
+      
+      <p id= "Model">Model:  </p>
+    <p id= "Make">Make: </p>  
 
-    You are currently signed in with email {{userPostData.Email}}
-  </p>
+      <p id= "Transmission">Transmission:  </p>
+
+      <p id= "CarCategory">CarCategory:</p>
+
+  
+  <button ion-button color="navBGround" class="navbtn" (click)="bookThisCar()">Book this car</button>
 </ion-content>

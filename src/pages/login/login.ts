@@ -58,6 +58,7 @@ export class LoginPage {
     this.showLoading();
     
     // hard coded inputs for ease of build
+    // 'user1@gmail.com', 'password1'
     this.authService.postDataLogin(this.enteredDetails.Email, this.enteredDetails.Password).then((result) => {
       this.responseData = result;
       console.log(this.responseData);
