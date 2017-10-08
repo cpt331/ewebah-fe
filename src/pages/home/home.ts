@@ -1,8 +1,12 @@
 import { Component,ViewChild,ElementRef } from '@angular/core';
-import { NavController, App} from 'ionic-angular';
+import { NavController, App, IonicPage, NavParams, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import {Geolocation} from '@ionic-native/geolocation';
-import {MarkerOptions,Marker} from '@ionic-native/google-maps';
+import {GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,MarkerOptions,Marker} from '@ionic-native/google-maps';
 
 
 import { ReturnPage } from '../return/return';
@@ -23,11 +27,15 @@ export class HomePage {
   //Map stuff
   @ViewChild('map') mapElement: ElementRef;
   map: any;
+  carsData : any;
+  mapPins = new Map();
+  currentmarker : any;
   
 
 
   constructor(public navCtrl: NavController, public app: App, 
-    public alertCtrl: AlertController, public authService: AuthServiceProvider, public geolocation: Geolocation) {
+    public alertCtrl: AlertController, public authService: AuthServiceProvider, 
+    public geolocation: Geolocation, public platform: Platform) {
 
     const data = JSON.parse(localStorage.getItem('userData'));
   
@@ -50,12 +58,41 @@ export class HomePage {
     //set map options
       let mapOptions = {
         center: latLng,
-        zoom: 10,
+        zoom: 12,
         mapTypeId: 'roadmap'
       }
       
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
       });
+
+      this.authService.getAllCars(this.userPostData.Token).then((result) => {
+        this.carsData = result;
+        // console.log(this.carsData[0]);
+        // console.log(this.carsData[17].Model);
+        for(let data of this.carsData)
+        {
+          let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
+
+          let marker= new google.maps.Marker({
+            map: this.map,
+            animation: google.maps.Animation.DROP,
+            position: carPosition,
+            title : "selected"
+          });
+
+          this.mapPins.set(data.Id, marker);
+          
+                    console.log(data);
+
+          google.maps.event.addListener(marker, 'click', () => {
+            this.markerClicked(data.Id, marker);
+            
+          })
+
+          
+        };
+      });
+
   }
 
   book()
@@ -88,137 +125,25 @@ getAllCars()
     this.responseData = result;
     console.log(this.responseData);
 })}
+
+markerClicked(id, marker){
+  if(this.currentmarker != null){
+    this.currentmarker.setAnimation(google.maps.Animation.DROP);
+  }
+  console.log(this.carsData[id]);
+  console.log(this.carsData[id].Model);
+  console.log(this.carsData[id].CarCategory);
+  console.log(this.carsData[id].Make);
+  console.log(this.carsData[id].Transmission);
+  console.log(this.carsData[id].BillingRate);
+  console.log(this.carsData[id].Id);
+
+
+  marker.setAnimation(google.maps.Animation.BOUNCE);
+  this.currentmarker = marker;
+
+
 }
 
 
-
-
-// import { Component, ViewChild, ElementRef } from '@angular/core';
-// import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
-// import { Geolocation } from '@ionic-native/geolocation';
-// import {
-//   GoogleMaps,
-//   GoogleMap,
-//   GoogleMapsEvent,
-//   GoogleMapOptions,
-//   CameraPosition,
-//   MarkerOptions,
-//   Marker
-//  } from '@ionic-native/google-maps';
-
-// /**
-//  * Generated class for the MapPage page.
-//  *
-//  * See https://ionicframework.com/docs/components/#navigation for more info on
-//  * Ionic pages and navigation.
-//  */
-// declare var google;
-
-// @IonicPage()
-// @Component({
-//   selector: 'page-map',
-//   templateUrl: 'map.html',
-// })
-// export class MapPage {
-//   @ViewChild('map') mapElement: ElementRef;
-//   map: any;
-//   //map: GoogleMap;
-//   mapElement2: HTMLElement;
-
-//   constructor(private googleMaps: GoogleMaps, public navCtrl: NavController, 
-//     public navParams: NavParams, public platform: Platform, public geolocation: Geolocation) {
-//   }
-
-//   ionViewDidLoad() {
-
-//     if (this.platform.is('android')){
-//       console.log("android");
-//     }
-//     // check if being loaded on a device. If loaded on a device use the native maps else use javaScript API
-//     if (this.platform.is('cordova')){
-//       this.loadMap();
-//     }
-//     else{
-//       this.loadMap2();
-//     }
-//   }
-
-//  loadMap() {
-
-//   console.log("its coming in here")
-//     this.mapElement2 = document.getElementById('map');
-
-//     let mapOptions: GoogleMapOptions = {
-      
-//       camera: {
-//         target: {
-//           lat: 43.0741904,
-//           lng: -89.3809802
-//         },
-//         zoom: 18,
-//         tilt: 30
-//       }
-//     };
-//     this.map = this.googleMaps.create(this.mapElement2, mapOptions);
-
-//     // Wait the MAP_READY before using any methods.
-//     this.map.one(GoogleMapsEvent.MAP_READY)
-//       .then(() => {
-//         console.log('Map is ready!');
-
-//         // Now you can use all methods safely.
-//         this.map.addMarker({
-//             title: 'Ionic',
-//             icon: 'blue',
-//             animation: 'DROP',
-//             position: {
-//               lat: -34.9290,
-//               lng: 138.6010,
-//               zoom: 25
-//             }
-//           })
-//           .then(marker => {
-//             marker.on(GoogleMapsEvent.MARKER_CLICK)
-//               .subscribe(() => {
-//                 alert('clicked');
-//               });
-//           });
-
-//       });
-//   }
-
-
-
-//   loadMap2(){
-//     console.log("im mobile but it didn't load")
-
-//     //let position = this.geolocation.getCurrentPosition();
-
-//        let latLng = new google.maps.LatLng(-34.9290, 138.6010);
-//        let latLng2 = new google.maps.LatLng(-34.9290, 138.6110);
-    
-//        let mapOptions = {
-//          center: latLng,
-//          zoom: 10,
-//          mapTypeId: google.maps.MapTypeId.ROADMAP
-//        }
-    
-//        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    
-
-//        let marker = new google.maps.Marker({
-//         map: this.map,
-//         animation: google.maps.Animation.DROP,
-//         position: this.map.getCenter()
-//       });
-
-//       let marker2 = new google.maps.Marker({
-//         map: this.map,
-//         animation: google.maps.Animation.DROP,
-//         position: latLng2
-//       });
-
-
-
-//      }
-// }
+}
