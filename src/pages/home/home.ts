@@ -49,6 +49,10 @@ export class HomePage {
   }
     //more map stuff
   ionViewDidLoad() {
+
+
+
+
       this.loadMap();
   }
 
@@ -56,6 +60,7 @@ export class HomePage {
   loadMap() {
     //get user location
     this.geolocation.getCurrentPosition().then((position) => {
+
       let latLng= new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
     //set map options
       let mapOptions = {
@@ -64,6 +69,7 @@ export class HomePage {
         mapTypeId: 'roadmap'
       }
       
+      // if the location is blocked the app crashes
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
       this.authService.getAllCars(this.userPostData.Token).then((result) => {
@@ -141,7 +147,7 @@ markerClicked(id, marker){
 
   // update the labels on the user screen 
   document.getElementById("Model").innerHTML = "Model: " + this.carsData[id].Model;
-  document.getElementById("CarCategory").innerHTML = "CarCategory: " + this.carsData[id].CarCategory;
+  document.getElementById("Car Category").innerHTML = "CarCategory: " + this.carsData[id].CarCategory;
   document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
   document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
 // billing rate to be added
