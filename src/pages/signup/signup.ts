@@ -15,7 +15,7 @@ import { AlertController } from 'ionic-angular';
 export class SignupPage {
 
   // create a storage structure for the returned values
-  enteredDetails = {"firstName": "","lastName": "","email": "","password": "","dob": "", 
+  enteredDetails = {"firstName": "","lastName": "","email": "","password": "","passwordConfirm": "","dob": "", 
   "licence":"","phone": "","address1": "","address2": "","suburb": "","state": "","postcode": ""};
   
   // for saving the entered data. Could be useful to enter the users data into 
@@ -32,6 +32,7 @@ export class SignupPage {
       lastName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       email: ["", Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$"), Validators.required])],
       password: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
+      passwordConfirm: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
       dob: ["", Validators.compose([Validators.required])],
       licence: ["", Validators.compose([Validators.minLength(5), Validators.maxLength(20), Validators.required])],
       phone: ["", Validators.compose([Validators.minLength(8), Validators.maxLength(15), Validators.pattern('[+0-9 ]*'), Validators.required])],
@@ -79,7 +80,8 @@ export class SignupPage {
     this.authService.postDataSignUp(this.signupForm.value.firstName, 
     this.signupForm.value.lastName,
     this.signupForm.value.email, 
-    this.signupForm.value.password, 
+    this.signupForm.value.password,
+    this.signupForm.value.passwordConfirm, 
     this.signupForm.value.dob, 
     this.signupForm.value.licence, 
     this.signupForm.value.phone, 

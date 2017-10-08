@@ -12,6 +12,7 @@ import {GoogleMaps,
 import { ReturnPage } from '../return/return';
 import { SettingsPage } from '../settings/settings';
 import { AlertController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
 
 declare var google;
 
@@ -32,12 +33,13 @@ export class HomePage {
   mapPins = new Map();
   currentmarker : any;
   selectedCarData = {"Model":"","CarCategory":"","Make":"","Transmission":"","BillingRate":"","Id":""};
-  
+  loader;
 
 
   constructor(public navCtrl: NavController, public app: App, 
     public alertCtrl: AlertController, public authService: AuthServiceProvider, 
-    public geolocation: Geolocation, public platform: Platform) {
+    public geolocation: Geolocation, public platform: Platform,
+    public loadingCtrl: LoadingController,) {
 
     const data = JSON.parse(localStorage.getItem('userData'));
   
@@ -46,6 +48,24 @@ export class HomePage {
     this.userPostData.Token = data.access_token;
   
          
+  }
+
+    //loader function to stop the loader being called when it already exists
+  // and dismissed when it doesn not exist
+  showLoading() {
+    if(!this.loader){
+        this.loader = this.loadingCtrl.create({
+          content: "loading map...",
+        });
+        this.loader.present();
+    }
+  }
+
+  dismissLoading(){
+    if(this.loader){
+        this.loader.dismiss();
+        this.loader = null;
+    }
   }
     //more map stuff
   ionViewDidLoad() {
@@ -58,6 +78,9 @@ export class HomePage {
 
 
   loadMap() {
+     // loader caller here, could wrap this in the loader instead if wanted
+     this.showLoading();
+
     //get user location
     this.geolocation.getCurrentPosition().then((position) => {
 
@@ -78,6 +101,8 @@ export class HomePage {
         // console.log(this.carsData[17].Model);
         for(let data of this.carsData)
         {
+           // loader caller here, could wrap this in the loader instead if wanted
+      this.dismissLoading();
           let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
 
           let marker= new google.maps.Marker({

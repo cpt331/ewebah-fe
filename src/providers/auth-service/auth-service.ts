@@ -36,7 +36,7 @@ export class AuthServiceProvider {
 
   }
 
-  postDataSignUp(firstName, lastName, email, password, dob, licence, 
+  postDataSignUp(firstName, lastName, email, password, passwordConfirm, dob, licence, 
     phone, address1, address2, suburb, state, postcode) {
     return new Promise((resolve, reject) => {
      let headers: Headers = new Headers();
@@ -49,9 +49,12 @@ export class AuthServiceProvider {
       LastName: lastName,
       Email: email,
       Password: password,
-      ConfirmPassword: password
+      ConfirmPassword: password,
+      DateOfBirth: dob,
+      LicenceNumber: licence
     };
 
+    console.log(dob);
       this.http.post(apiUrl + 'api/account/register',
           registerRequest,
           { headers: headers })
