@@ -34,6 +34,8 @@ export class HomePage {
   currentmarker : any;
   selectedCarData = {"Model":"","CarCategory":"","Make":"","Transmission":"","BillingRate":"","Id":""};
   loader;
+  userPosLat;
+  userPosLong;
 
 
   constructor(public navCtrl: NavController, public app: App, 
@@ -70,12 +72,24 @@ export class HomePage {
     //more map stuff
   ionViewDidLoad() {
 
-
-
-
-      this.loadMap();
+      // this.getLocation()
+      
   }
 
+  // getLocation(){
+  //   if (navigator.geolocation) {
+  //     console.log(navigator.geolocation);
+  //     navigator.geolocation.getCurrentPosition(this.loadUserPosition);
+      
+  // } else { 
+  //     console.log("Geolocation is not supported by this browser.");
+  // }
+  // }
+
+  // loadUserPosition(position){
+  //   this.userPosLat =  position.coords.longitude;
+  //   this.userPosLong = position.coords.latitude;
+  // }
 
   loadMap() {
      // loader caller here, could wrap this in the loader instead if wanted
@@ -102,7 +116,7 @@ export class HomePage {
         for(let data of this.carsData)
         {
            // loader caller here, could wrap this in the loader instead if wanted
-      this.dismissLoading();
+      //this.dismissLoading();
           let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
 
           let marker= new google.maps.Marker({
@@ -180,9 +194,8 @@ markerClicked(id, marker){
 
   marker.setAnimation(google.maps.Animation.BOUNCE);
   this.currentmarker = marker;
-
-
 }
+
 
 
 }
