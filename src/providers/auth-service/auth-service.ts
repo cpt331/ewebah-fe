@@ -33,7 +33,6 @@ export class AuthServiceProvider {
           reject(err);
         });
     });
-
   }
 
   postDataSignUp(firstName, lastName, email, password, passwordConfirm, dob, licence, 
@@ -77,6 +76,7 @@ export class AuthServiceProvider {
         headers.append('content-Type', 'application/json');
         headers.append('authorization','Bearer ' + token);
         
+        
         this.http.get(apiUrl + "api/cars", {headers: headers})
   
           .subscribe(res => {
@@ -86,6 +86,22 @@ export class AuthServiceProvider {
           });
       });
   
+    }
+
+    locationAPIPost() {
+      return new Promise((resolve, reject) => {
+  console.log("ready to call");
+  let headers = new Headers();
+  headers.delete('allow-origin: *');
+        this.http.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCzqL1r32p55zTkgjJXd8gO5A85ubmDvqs", {headers: headers})
+  
+          .subscribe(res => {
+            resolve(res.json());
+          }, (err) => {
+            //reject(err);
+            console.log(err);
+          });
+      });
     }
 
 }

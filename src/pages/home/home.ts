@@ -47,7 +47,6 @@ export class HomePage {
     this.userPostData.name = data.Name;
     this.userPostData.email = data.Email;
     this.userPostData.token = data.access_token;
-  
          
   }
 
@@ -110,17 +109,19 @@ export class HomePage {
       // handle location error
 
       if(err.message.indexOf("Only secure origins are allowed") == 0) {
-        console.log("fuckin ay");
         this.dismissLoading();
+        this.defaultMelbourneLocation();
       }
       else if(err.TIMEOUT){
-        alert("Browser geolocation error !\n\nTimeout.");
+        alert("Browser geolocation error !\n\nTimeout. \n\nMelbourne default location");
+        this.dismissLoading();
+        this.defaultMelbourneLocation();
       }
       else if(err.POSITION_UNAVAILABLE){
-        alert("Browser geolocation error !\n\nPosition unavailable.");
+        alert("Browser geolocation error !\n\nPosition unavailable. \n\nMelbourne default location");
+        this.dismissLoading();
+        this.defaultMelbourneLocation();
       }
-      
-    
     });
   }
 
@@ -159,7 +160,8 @@ export class HomePage {
 
   defaultMelbourneLocation(){
 
-    let latLng= new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+    let latLng = new google.maps.LatLng(-37.8136, 144.9631);
+
     //set map options
     let mapOptions = 
     {

@@ -50,8 +50,6 @@ export class LoginPage {
 
   login(){
     // needs input validation
-    console.log(this.enteredDetails.Email)
-    console.log(this.enteredDetails.Password)
     
 
     // loader caller here, could wrap this in the loader instead if wanted
@@ -61,7 +59,6 @@ export class LoginPage {
     // 'user1@gmail.com', 'password1'   this.enteredDetails.Email, this.enteredDetails.Password
     this.authService.postDataLogin('user1@gmail.com', 'password1').then((result) => {
       this.responseData = result;
-      console.log(this.responseData);
       
       //save collected info for later use
       localStorage.setItem('userData', JSON.stringify(this.responseData));
