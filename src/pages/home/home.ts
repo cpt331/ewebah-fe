@@ -171,10 +171,11 @@ markerClicked(id, marker){
   this.selectedCarData.Id = this.carsData[id].Id;
 
   // update the labels on the user screen 
-  document.getElementById("Model").innerHTML = "Model: " + this.carsData[id].Model;
-  document.getElementById("Car Category").innerHTML = "CarCategory: " + this.carsData[id].CarCategory;
-  document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
-  document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
+  
+  document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
+  document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
+  //document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
+  //document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
 // billing rate to be added
 
 
