@@ -5,12 +5,19 @@
       <button ion-button id="logoutButton" color="primary" (click)="logout()">Logout</button>
     </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 <!-- map style panel-->
 <ion-content padding id="home">
+  
   <h4>Welcome to EweBah {{userPostData.Name}} </h4>
-    <div id="testPanel">
+  
+  <!-- map search bar -->
+  <ion-input id="locationField" (click)="showAddressModal()" [(ngModel)]="address.place"type="text" placeholder="Search for Address"></ion-input>
+
+  <!-- map reset location to current location -->
+  <button ion-button color="navBGround" id="useCurrentLocation" (click)="useCurrentLocation()">Use Current Location</button>
+  
+  <div id="testPanel">
     <div #map id="map"></div>
   </div>
 

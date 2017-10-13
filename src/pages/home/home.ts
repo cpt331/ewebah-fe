@@ -1,10 +1,11 @@
 import { Component,ViewChild,ElementRef } from '@angular/core';
-import { NavController, App, IonicPage, NavParams, Platform } from 'ionic-angular';
+import { NavController, App, IonicPage, NavParams, Platform, ModalController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import {Geolocation} from '@ionic-native/geolocation';
 import {GoogleMaps, GoogleMap, GoogleMapsEvent,
   GoogleMapOptions, CameraPosition, MarkerOptions, Marker} from '@ionic-native/google-maps';
 
+import {AutocompletePage} from '../home/autocompletepage';
 
 import { ReturnPage } from '../return/return';
 import { SettingsPage } from '../settings/settings';
@@ -14,6 +15,7 @@ import { LoadingController } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
 
 declare var google;
+
 
 @Component({
   selector: 'page-home',
@@ -35,36 +37,105 @@ export class HomePage {
   loader;
   userPosLat;
   userPosLong;
+  address;
+  geo: any
+
+  latitude: number = 0;
+  longitude: number = 0;
 
 
   constructor(public navCtrl: NavController, public app: App, 
     public alertCtrl: AlertController, public authService: AuthServiceProvider, 
     public geolocation: Geolocation, public platform: Platform,
-    public loadingCtrl: LoadingController,public http: Http) {
+    public loadingCtrl: LoadingController,public http: Http, 
+    private ModalCtrl:ModalController) {
 
     const data = JSON.parse(localStorage.getItem('userData'));
   
     this.userPostData.name = data.Name;
     this.userPostData.email = data.Email;
     this.userPostData.token = data.access_token;
-         
+    
+    this.address = {
+      place: ''   
+    };  
   }
 
     // when the view is first shown
   ionViewDidLoad() {
 
-      this.loadMap(); 
+      this.loadMap();
+  }
+    
+  useCurrentLocation(){
+      this.geolocation.getCurrentPosition().then((currentpos) => {
+        let latLng= new google.maps.LatLng(currentpos.coords.latitude, currentpos.coords.longitude);
+        alert(latLng)
+        this.updateMapLocation(latLng)
+      }, err => {
+    
+          // handle location error
+    
+          if(err.message.indexOf("Only secure origins are allowed") == 0) {
+            this.dismissLoading();
+            this.defaultMelbourneLocation();
+          }
+          else if(err.TIMEOUT){
+            alert("Browser geolocation error !\n\nTimeout. \n\nMelbourne default location");
+            this.dismissLoading();
+            this.defaultMelbourneLocation();
+          }
+          else if(err.POSITION_UNAVAILABLE){
+            alert("Browser geolocation error !\n\nPosition unavailable. \n\nMelbourne default location");
+            this.dismissLoading();
+            this.defaultMelbourneLocation();
+          }
+        });
+    }
+
+  showAddressModal () {
+    let modal = this.ModalCtrl.create(AutocompletePage);
+    let me = this;
+    modal.onDidDismiss(data => {
+      if(!!data){
+        this.address.place = data;
+        this.geo = data;
+        this.geoCode(this.geo);//convert Address to lat and long
+      }
+    });
+    modal.present();
+  }
+
+  //convert Address string to lat and long
+  geoCode(address:any) {
+    let geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'address': address }, (results, status) => {
+    this.latitude = results[0].geometry.location.lat();
+    this.longitude = results[0].geometry.location.lng();
+
+    let latLng= new google.maps.LatLng(this.latitude,this.longitude);
+    alert(latLng)
+    this.updateMapLocation(latLng);
+   });
+  }
+  
+  updateMapLocation(latLng)
+  {
+    // if the location is blocked the app crashes
+    this.map = new google.maps.Map(this.map.panTo(latLng))
   }
 
   loadMap() 
   {
     // loader caller here, could wrap this in the loader instead if wanted
     this.showLoading();
-
+    
     //get user location
-    this.geolocation.getCurrentPosition().then((position) => {
+    this.geolocation.getCurrentPosition().then((position) => 
+    {
 
       let latLng= new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+            
       //set map options
       let mapOptions = 
       {
@@ -72,7 +143,7 @@ export class HomePage {
         zoom: 12,
         mapTypeId: 'roadmap'
       }
-      
+
       // if the location is blocked the app crashes
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
@@ -245,4 +316,5 @@ export class HomePage {
   root.popToRoot();
   }
 
+ 
 }
