@@ -1,6 +1,8 @@
 import { Component,ViewChild,ElementRef } from '@angular/core';
 import { NavController, App, IonicPage, NavParams, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { CarServiceProvider } from '../../providers/car-service/car-service';
+import { BookingServiceProvider } from '../../providers/booking-service/booking-service';
 import {Geolocation} from '@ionic-native/geolocation';
 import {GoogleMaps, GoogleMap, GoogleMapsEvent,
   GoogleMapOptions, CameraPosition, MarkerOptions, Marker} from '@ionic-native/google-maps';
@@ -38,7 +40,8 @@ export class HomePage {
 
 
   constructor(public navCtrl: NavController, public app: App, 
-    public alertCtrl: AlertController, public authService: AuthServiceProvider, 
+    public alertCtrl: AlertController, public authService: AuthServiceProvider,
+    public carService: CarServiceProvider,public bookingService: BookingServiceProvider,
     public geolocation: Geolocation, public platform: Platform,
     public loadingCtrl: LoadingController,public http: Http) {
 
@@ -127,7 +130,7 @@ export class HomePage {
 
   getAllCars()
   {
-    this.authService.getAllCars(this.userPostData.token).then((result) => {
+    this.carService.getAllCars(this.userPostData.token).then((result) => {
     this.responseData = result;
     })
   }
@@ -173,7 +176,7 @@ export class HomePage {
     // if the location is blocked the app crashes
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
-    this.authService.getAllCars(this.userPostData.token).then((result) => {
+    this.carService.getAllCars(this.userPostData.token).then((result) => {
       this.carsData = result;
 
       this.dismissLoading();

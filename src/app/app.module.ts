@@ -16,6 +16,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { CarServiceProvider } from '../providers/car-service/car-service';
+import { BookingServiceProvider } from '../providers/booking-service/booking-service';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
     Geolocation,
-    {provide:ErrorHandler,useClass:IonicErrorHandler}
+    {provide:ErrorHandler,useClass:IonicErrorHandler},
+    CarServiceProvider,
+    BookingServiceProvider
   ]
 })
 export class AppModule {}

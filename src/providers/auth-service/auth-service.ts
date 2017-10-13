@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/';
 
+
 /*
   Generated class for the AuthServiceProvider provider.
 
