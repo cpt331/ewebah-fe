@@ -12,44 +12,31 @@ export class BookingServiceProvider {
  
 
   constructor(public http: Http) {
-    console.log('Hello BookingServiceProvider Provider');
   }
 
 
-  postDataSignUp(firstName, lastName, email, password, passwordConfirm, dob, licence, 
-    phone, address1, address2, suburb, state, postcode) {
+  bookCar(token, carId) {
     return new Promise((resolve, reject) => {
+
      let headers: Headers = new Headers();
 
     headers.append('accept','application/json');
     headers.append('content-Type', 'application/json');
+    headers.append('authorization','Bearer ' + token);
 
-    var registerRequest = {
-      FirstName: firstName,
-      LastName: lastName,
-      Email: email,
-      Password: password,
-      ConfirmPassword: password,
-      DateOfBirth: dob,
-      LicenceNumber: licence
-    };
-
-    console.log(dob);
-      this.http.post(apiUrl + 'api/account/register',
-          registerRequest,
+      this.http.get(apiUrl + 'api/bookings/open/' + carId,
           { headers: headers })
-        //{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
 
-        //, {headers: headers})
         .subscribe(res => {
           resolve(res.json());
         }, (err) => {
           reject(err);
+          return false;
         });
     });
 
   }
 
 
-  
+
 }

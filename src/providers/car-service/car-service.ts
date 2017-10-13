@@ -9,7 +9,6 @@ let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/
 export class CarServiceProvider {
 
   constructor(public http: Http) {
-    console.log('Hello CarServiceProvider Provider');
   }
 
 
@@ -25,6 +24,7 @@ export class CarServiceProvider {
 
         .subscribe(res => {
           resolve(res.json());
+          console.log(res)
         }, (err) => {
           reject(err);
         });

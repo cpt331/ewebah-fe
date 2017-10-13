@@ -9,11 +9,8 @@ import {GoogleMaps, GoogleMap, GoogleMapsEvent,
 
 
 import { ReturnPage } from '../return/return';
-import { SettingsPage } from '../settings/settings';
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
-
-import { Http, Headers } from '@angular/http';
 
 declare var google;
 
@@ -27,7 +24,8 @@ export class HomePage {
 
   responseData : any;
   userPostData = {"name":"","token":"","email":"","permission":"","carStatus":""};
-  @ViewChild('map') mapElement: ElementRef;
+  @ViewChild('map') 
+  mapElement: ElementRef;
   map: any;
   carsData : any;
   mapPins = new Map();
@@ -43,7 +41,7 @@ export class HomePage {
     public alertCtrl: AlertController, public authService: AuthServiceProvider,
     public carService: CarServiceProvider,public bookingService: BookingServiceProvider,
     public geolocation: Geolocation, public platform: Platform,
-    public loadingCtrl: LoadingController,public http: Http) {
+    public loadingCtrl: LoadingController) {
 
     const data = JSON.parse(localStorage.getItem('userData'));
   
@@ -79,7 +77,7 @@ export class HomePage {
       // if the location is blocked the app crashes
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
-      this.authService.getAllCars(this.userPostData.token).then((result) => {
+      this.carService.getAllCars(this.userPostData.token).then((result) => {
         this.carsData = result;
 
         this.dismissLoading();
@@ -128,15 +126,17 @@ export class HomePage {
     });
   }
 
-  getAllCars()
-  {
-    this.carService.getAllCars(this.userPostData.token).then((result) => {
-    this.responseData = result;
-    })
-  }
+  // getAllCars()
+  // {
+  //   this.carService.getAllCars(this.userPostData.token).then((result) => {
+  //   this.responseData = result;
+  //   })
+  // }
 
-  markerClicked(id, marker){
-    if(this.currentmarker != null){
+  markerClicked(id, marker)
+  {
+    if(this.currentmarker != null)
+    {
       this.currentmarker.setAnimation(google.maps.Animation.DROP);
     }
 
@@ -154,7 +154,6 @@ export class HomePage {
     document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
     document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
     // billing rate to be added
-
 
     marker.setAnimation(google.maps.Animation.BOUNCE);
     this.currentmarker = marker;
@@ -179,7 +178,7 @@ export class HomePage {
     this.carService.getAllCars(this.userPostData.token).then((result) => {
       this.carsData = result;
 
-      this.dismissLoading();
+      
 
 
       for(let data of this.carsData)
@@ -203,15 +202,25 @@ export class HomePage {
           
         })
       };
+      this.dismissLoading();
     })
 
   }
-  //loader function to stop the loader being called when it already exists
-  // and dismissed when it doesn not exist
+
+  //loading/spinner functions
   showLoading() {
     if(!this.loader){
         this.loader = this.loadingCtrl.create({
           content: "loading map...",
+        });
+        this.loader.present();
+    }
+  }
+
+  showBooking() {
+    if(!this.loader){
+        this.loader = this.loadingCtrl.create({
+          content: "Booking your ride ...please wait",
         });
         this.loader.present();
     }
@@ -223,6 +232,7 @@ export class HomePage {
         this.loader = null;
     }
   }
+
 
   book()
   {
@@ -246,6 +256,77 @@ export class HomePage {
   backToWelcome(){
   const root = this.app.getRootNav();
   root.popToRoot();
+  }
+
+  // book the currently selected car
+  bookThisCar(){
+
+    if(this.selectedCarData.Make != null && this.selectedCarData.Make != ""){
+
+      var transString;
+      if(this.selectedCarData.Transmission == "AT"){
+        transString = 'automatic';
+      }
+      else{
+        transString = 'manual';
+      }
+    let alert = this.alertCtrl.create({
+      title: 'Confirm booking request',
+      subTitle: 'you are about to book a ' + this.selectedCarData.Make +' -' +
+      this.selectedCarData.Model +' - ' +
+      transString + ', at a rate of $' +
+      this.selectedCarData.BillingRate +' per hour.',
+      buttons: [{
+        text: 'Book',
+        handler: () => {
+          this.showBooking();
+          // show loading spinner
+
+          this.bookingService.bookCar(this.userPostData.token, this.selectedCarData.Id).then((result) => {
+          // check if successful
+          this.dismissLoading();
+          if(result){
+
+            let alert = this.alertCtrl.create({
+              title: 'Confirm booking request',
+              subTitle: 'you car is booked, head to the location to pick it up.', buttons: [{
+                text: 'Okay', handler: () => { //there is no need to manually call this = alert.dismiss(); it is done automatically
+                }}]});
+                alert.present();
+                return;
+          }
+          else
+          {
+            let alert = this.alertCtrl.create({
+              title: 'Unable to book this car',
+              subTitle: 'Oh no, this car cannot be booked right now. Please choose another', buttons: [{
+                text: 'Okay', handler: () => { 
+                }}]});
+                alert.present();
+                return;
+          }
+        });
+  
+        }
+      },
+      {
+        text: 'Cancel',
+        handler: () => {
+
+        }
+      }]
+    });
+    alert.present();
+  }
+  else{
+    let alert = this.alertCtrl.create({
+      title: 'You must select a car before booking',
+      subTitle: 'Tap one of the car icons to choose a car', buttons: [{
+        text: 'Got it', handler: () => { 
+        }}]});
+        alert.present();
+        return;
+  }
   }
 
 }

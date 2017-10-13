@@ -18,6 +18,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { CarServiceProvider } from '../providers/car-service/car-service';
 import { BookingServiceProvider } from '../providers/booking-service/booking-service';
+import { ReturnServiceProvider } from '../providers/return-service/return-service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { BookingServiceProvider } from '../providers/booking-service/booking-ser
     Geolocation,
     {provide:ErrorHandler,useClass:IonicErrorHandler},
     CarServiceProvider,
-    BookingServiceProvider
+    BookingServiceProvider,
+    ReturnServiceProvider
   ]
 })
 export class AppModule {}
