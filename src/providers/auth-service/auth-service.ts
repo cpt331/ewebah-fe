@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 
 let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/';
 
+
 /*
   Generated class for the AuthServiceProvider provider.
 
@@ -33,7 +34,6 @@ export class AuthServiceProvider {
           reject(err);
         });
     });
-
   }
 
   postDataSignUp(firstName, lastName, email, password, passwordConfirm, dob, licence, 
@@ -70,49 +70,21 @@ export class AuthServiceProvider {
 
   }
 
-    getAllCars(token) {
+  // this is not being returned in a usable fashion
+    locationAPIPost() {
       return new Promise((resolve, reject) => {
-        let headers = new Headers();
-        headers.append('accept','application/json');
-        headers.append('content-Type', 'application/json');
-        headers.append('authorization','Bearer ' + token);
-        
-        this.http.get(apiUrl + "api/cars", {headers: headers})
+  console.log("ready to call");
+  let headers = new Headers();
+  headers.delete('allow-origin: *');
+        this.http.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCzqL1r32p55zTkgjJXd8gO5A85ubmDvqs", {headers: headers})
   
           .subscribe(res => {
             resolve(res.json());
           }, (err) => {
-            reject(err);
+            //reject(err);
+            console.log(err);
           });
       });
-  
     }
-    //confirm password needs to be included as a new field in the form
-    //  this.http.post(apiUrl + 'api/account/register',
-    //"firstName=" + encodeURIComponent(firstName) +
-    //"&lastName=" + encodeURIComponent(lastName) +
-    //"&email=" + encodeURIComponent(email) +
-    //"&password=" + encodeURIComponent(password) +
-    //"&confirmPassword=" + encodeURIComponent(password) +
-    //"&dob=" + encodeURIComponent(dob) +
-    //"&licence=" + encodeURIComponent(licence) +
-    //"&phone=" + encodeURIComponent(phone) +
-    //"&address1=" + encodeURIComponent(address1) +
-    //"&address2=" + encodeURIComponent(address2) +
-    //"&suburb=" + encodeURIComponent(suburb) +
-    //"&state=" + encodeURIComponent(state) +
-    //"&postcode=" + encodeURIComponent(postcode), 
-    //{headers: headers})
-    ////{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
-    
-    ////, {headers: headers})
-    //    .subscribe(res => {
-    //      resolve(res.json());
-    //    }, (err) => {
-    //      reject(err);
-    //    });
-    //});
-
-  
 
 }
