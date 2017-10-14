@@ -36,16 +36,26 @@
   <p>
     You are currently signed in with {{userPostData.Email}}
   </p>-->
-  <p>Selected car details are:</p>
-      
-      <p id= "Model">Model:  </p>
+  <ion-card>
+  <img src="assets/TeslaPic.PNG" id="CardPic"/>
+  <div class="CardRow">
+    <div class="floatingCarDetailLeft"><p id= "Model"></p></div>
+    <div class="floatingCarDetailRight"><p id= "Car Category"></p></div>
+  </div>
+  <div class="upper"><p id= "Model"></p></div>
+  <div class="upper_right"><p id= "Car Category"></p></div>
+
+  </ion-card>
+  
+  <!--<p id= "Transmission">Transmission:  </p>  
+  <p id= "Make">Make:</p>  <p id= "Model">Model:  </p>
 
     <p id= "Make">Make: </p>  
 
       <p id= "Transmission">Transmission:  </p>
-
-      <p id= "Car Category">Car Category:</p>
+  -->
+      
 
   
-  <button ion-button color="navBGround" class="navbtn" (click)="bookThisCar()">Book this car</button>
+  <button ion-button color="navBGround" class="navbtn" (click)="bookThisCar()" style="width:100%;padding:0 20% 0 20%">Book this car</button>
 </ion-content>

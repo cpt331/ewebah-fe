@@ -261,7 +261,24 @@ export class HomePage {
   // book the currently selected car
   bookThisCar(){
 
+
+  // update the labels on the user screen 
+  
+  document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
+  document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
+  //document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
+  //document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
+// billing rate to be added
+
+
+  marker.setAnimation(google.maps.Animation.BOUNCE);
+  this.currentmarker = marker;
+
+
+//}
+
     if(this.selectedCarData.Make != null && this.selectedCarData.Make != ""){
+
 
       var transString;
       if(this.selectedCarData.Transmission == "AT"){
