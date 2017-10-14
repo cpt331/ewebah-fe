@@ -42,14 +42,15 @@ export class ReturnPage {
 
   ionViewDidLoad() {
 
-    console.log("what?");
     this.showLoading()
     // get the users current location
     this.geolocation.getCurrentPosition().then((position) => {
       
             this.userLat = position.coords.latitude;
             this.userLong = position.coords.longitude;
-    }), err => {
+    }), 
+    // deal with no location
+    err => {
       
               let alert = this.alertCtrl.create({
                 title: this.responseData.Message,
@@ -57,13 +58,14 @@ export class ReturnPage {
                 buttons: [{
                   text: 'Ok',
                   handler: () => {
+                    this.dismissLoading();
                   }}]
             });
             alert.present();
                 
               }
 
-    // deal with no location
+    
 
     if(this.currentUser.HasOpenBooking){
       this.returnServiceProvider.checkCurrentBooking(this.currentUser.Token,this.currentUser.OpenBookingId,

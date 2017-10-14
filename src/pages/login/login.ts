@@ -15,8 +15,10 @@ import { AlertController } from 'ionic-angular';
 export class LoginPage {
 
   // create a storage structure for the returned values
-  enteredDetails = {"Email": "", "Password":""};
-  userData = {"access_token": "", "Name": "","Email": "","Id": "", "token_type":""};
+  // enteredDetails = {"Email": "", "Password":""};
+  // userData = {access_token: "", Name: "",Email: "",Id: "", 
+  // token_type:"",HasOpenBooking: false, OpenBookingId:-1};
+
   responseData : any;
   loader;
 
