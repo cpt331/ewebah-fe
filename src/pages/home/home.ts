@@ -1,4 +1,4 @@
-import { Component,ViewChild,ElementRef } from '@angular/core';
+﻿import { Component,ViewChild,ElementRef } from '@angular/core';
 import { NavController, App, IonicPage, NavParams, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import {Geolocation} from '@ionic-native/geolocation';
