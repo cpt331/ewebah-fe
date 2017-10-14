@@ -7,6 +7,8 @@ import { HttpModule } from '@angular/http';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { ReturnPage } from '../pages/return/return';
+import { AutocompletePage } from '../pages/home/autocompletepage';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
@@ -32,8 +34,9 @@ import { ReturnServiceProvider } from '../providers/return-service/return-servic
     WelcomePage,
     LoginPage,
     SettingsPage,
+    SignupPage,
     ReturnPage,
-    SignupPage
+    AutocompletePage
   ],
   imports: [
     BrowserModule, HttpModule,
@@ -50,7 +53,9 @@ import { ReturnServiceProvider } from '../providers/return-service/return-servic
     LoginPage,
     SettingsPage,
     ReturnPage,
-    SignupPage
+    SignupPage,
+    AutocompletePage
+
   ],
   providers: [
     StatusBar,
