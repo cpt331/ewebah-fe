@@ -1,26 +1,105 @@
 page-welcome {
 
     #welcome{
-        background: color($colors, bGround);
-        h1{
-            font-size: 52px;
-            margin-top: 5px;
-            margin-bottom: 10px;
+        background-image: url('/assets/images/Chicago.jpg');
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        @media only screen and (min-width : 320px) and (max-width : 480px) 
+        {
+            background: url(/assets/images/TintedCitySmall.png)no-repeat, center, center, fixed;
+            background-color: lightblue;
+
+        }
+        h1
+        {
+            @media only screen and (min-width: 1024px) 
+            {  
+                font-size: 200px;
+                color: whitesmoke;
+                font-family: 'Cooper Black';
+            }
+           
+            @media only screen and (max-width: 640px) 
+            {
+                font-size: 60px;
+                color: whitesmoke;
+                font-family: 'Cooper Black';
+                
+            }
+                    
+            
         }
         h3{
-            margin-top: 5px;
+            margin-top: 2px;
             margin-bottom: 5px;
+            color: rgb(252, 236, 19);
         }
-
-        .signupButton{
-            margin-top: 35px;
-            margin-bottom: 20px;
+               
+        .signupButton
+        {
+            @media only screen and (max-width: 640px) 
+            {
+                margin-top: 80%;
+                
+            }
+            @media only screen and (min-width: 1024px) 
+            {
+                margin-top: -10%;
+                width: 400px;
+                margin-left: 55%; 
+            }
+            margin-top: 30%;
+            margin-bottom: 10px;
             //max-width: 1400px;
-            margin-inline-start: 0px;
+            //margin-inline-start: 0px;
+            font-size: 22px;
+            font-family: 'Rockwell';
+            
+            
+        }
+        .loginButton
+        {
+            @media only screen and (max-width: 640px) 
+            {
+                //margin-top: 80%;
+                
+            }
+            @media only screen and (min-width: 1024px) 
+            {
+                width: 400px;
+                margin-top: -2.5%;
+                margin-left: auto;
+            }
+
+            background-color: #ffc82c;
+            font-size: 22px;
+            margin-top: 10px;
+            color: black;
+            font-family: 'Rockwell';
         }
 
+        
 
-        .splashImage{
+        .splashImage
+        {
+            @media only screen and (min-width: 1024px) 
+            {  
+                font-size: 200px;
+                width: 80%;
+                max-width: 500px;
+                max-height: 50%;
+                margin-top: -10px;
+                margin-bottom: 0px;
+                margin-left: 30%;
+                margin-right: 30%;  
+            }
+            @media only screen and (max-width: 640px) 
+            {
+                font-size: 60px;
+                
+            }
             width: 80%;
             max-width: 600px;
             max-height: 60%;
@@ -29,6 +108,24 @@ page-welcome {
             margin-left: 30px;
             margin-right: 15px;
 
+        }
+        .fullscreenInfo{
+            @media only screen and (max-width: 640px) 
+            {
+                display:none;
+                
+            }
+            width:100%;
+            height: 30%;
+            background-color: blue;
+            margin-top: 7%;
+            display:inline-block;
+            
+        }
+        .contentBox{
+            width:30%;
+            height:100%;
+            float: left;
         }
     }
 
