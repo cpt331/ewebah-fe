@@ -3,8 +3,8 @@ import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 
-let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/';
-
+//let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/'; //production
+let apiUrl = 'http://carshareapi-dev.us-east-1.elasticbeanstalk.com/'; //test
 /*
   Generated class for the AuthServiceProvider provider.
 
@@ -21,6 +21,8 @@ export class AuthServiceProvider {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
 
+      //credentialsEmail = 'user1@gmail.com';
+      //credentialsPass = 'password1';
 
       this.http.post(apiUrl + 'Token',
     "userName=" + encodeURIComponent(credentialsEmail) +

@@ -9,19 +9,21 @@ import { CloseBookingRequest } from './close-booking-request';
 import { CloseBookingResponse } from './close-booking-response';
 import { OpenBookingResponse } from './open-booking-response';
 
-let apiUrl = 'http://carshareapi-dev.us-east-1.elasticbeanstalk.com';
-let openBookingEndpoint = 'api/bookings/open';
-let closeBookingCheckEndpoint = 'api/bookings/check';
-let closeBookingEndpoint = 'api/bookings/close/';
+
 
 @Injectable()
 export class BookingServiceProvider {
+
+    private apiUrl = 'http://carshareapi-dev.us-east-1.elasticbeanstalk.com';
+    private openBookingEndpoint = 'api/bookings/open';
+    private closeBookingCheckEndpoint = 'api/bookings/check';
+    private closeBookingEndpoint = 'api/bookings/close/';
 
   constructor(public http: Http) {
 
   }
 
-  OpenBooking(vehicleId:number, token: string) : Observable<OpenBookingResponse> {
+  public OpenBooking(vehicleId:number, token: string) : Observable<OpenBookingResponse> {
     
     console.log('BookingServiceProvider: OpenBooking(${vehicleId})');
 
@@ -29,14 +31,14 @@ export class BookingServiceProvider {
     headers.append('authorization','Bearer ' + token);
 
     return this.http.get(
-        '${apiUrl}/${openBookingEndpoint}/${vehicleId}', 
+        this.apiUrl+'/'+this.openBookingEndpoint+'/'+vehicleId, 
         {headers:headers})
         .map(response=> response.json());
             
   };
 
   
-  CloseBookingCheckRequest(request: CloseBookingCheckRequest, token: string) {
+  public CloseBookingCheckRequest(request: CloseBookingCheckRequest, token: string) : Observable<CloseBookingCheckResponse> {
     
         console.log('BookingServiceProvider: CloseBookingCheckRequest(${request})');
 
@@ -46,14 +48,14 @@ export class BookingServiceProvider {
         headers.append('authorization','Bearer ' + token);
 
         return this.http.post(
-            '${apiUrl}/${closeBookingCheckEndpoint}', 
+            this.apiUrl +'/'+this.closeBookingCheckEndpoint, 
             request, 
             {headers:headers})
         .map(response=> response.json());
 
   }
 
-  CloseBookingRequest(request: CloseBookingRequest, token: string){
+  public CloseBookingRequest(request: CloseBookingRequest, token: string) : Observable<CloseBookingResponse> {
 
         console.log('BookingServiceProvider: CloseBookingRequest(${request})');
 
@@ -63,7 +65,7 @@ export class BookingServiceProvider {
         headers.append('authorization','Bearer ' + token);
 
         return this.http.post(
-            '${apiUrl}/${closeBookingEndpoint}', 
+            this.apiUrl + '/' + this.closeBookingEndpoint, 
             request, 
             {headers:headers})
         .map(response=> response.json());

@@ -10,8 +10,16 @@
   <ion-list>
     <ion-list-header>Follow us in the toaster</ion-list-header>
     <h1>
-      French Toast Consortium
+      {{currentUser.Name}}
     </h1>
+    <p>Has Booking? {{currentUser.HasOpenBooking}}</p>
+    <p>BookingId? {{currentUser.OpenBookingId}}</p>
+    <hr />
+    
+    <p>{{closeBookingCheckResponse.Success}}</p>
+    <p>{{closeBookingCheckResponse.Message}}</p>
+    <button ion-button block color="secondary" class="" (click)="closeBookingCheck()">Close Booking Check</button>
+    
     <img src="../assets/frenchToastConsortium.png" class="splashImage">
   </ion-list>
 </ion-content>
