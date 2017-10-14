@@ -1,19 +1,72 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 
-/*
-  Generated class for the ReturnServiceProvider provider.
+let apiUrl = 'http://carshareapi-dev.us-east-1.elasticbeanstalk.com/';
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+
+
 @Injectable()
 export class ReturnServiceProvider {
 
   constructor(public http: Http) {
-    
+
+  }
+
+  checkCurrentBooking(token, bookingId, lat, long) {
+    return new Promise((resolve, reject) => {
+
+     let headers: Headers = new Headers();
+
+     var checkCurrentBookingRequest = {
+      BookingId: bookingId,
+      Latitude: lat,
+      Longitude: long
+    };
+
+    headers.append('accept','application/json');
+    headers.append('content-Type', 'application/json');
+    headers.append('authorization','Bearer ' + token);
+
+      this.http.post(apiUrl + 'api/bookings/check/', checkCurrentBookingRequest,
+          { headers: headers })
+
+
+        .subscribe(res => {
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+    });
+
+  }
+
+  closeCurrentBooking(token, bookingId, lat, long) {
+    return new Promise((resolve, reject) => {
+
+     let headers: Headers = new Headers();
+
+     var checkCurrentBookingRequest = {
+      BookingId: bookingId,
+      Latitude: lat,
+      Longitude: long
+    };
+
+    headers.append('accept','application/json');
+    headers.append('content-Type', 'application/json');
+    headers.append('authorization','Bearer ' + token);
+
+      this.http.post(apiUrl + 'api/bookings/close/', checkCurrentBookingRequest,
+          { headers: headers })
+
+        .subscribe(res => {
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+    });
+
   }
 
 }

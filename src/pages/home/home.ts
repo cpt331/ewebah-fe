@@ -7,7 +7,7 @@ import {Geolocation} from '@ionic-native/geolocation';
 import {GoogleMaps, GoogleMap, GoogleMapsEvent,
   GoogleMapOptions, CameraPosition, MarkerOptions, Marker} from '@ionic-native/google-maps';
 
-
+import { SettingsPage } from '../settings/settings';
 import { ReturnPage } from '../return/return';
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
@@ -149,10 +149,14 @@ export class HomePage {
     this.selectedCarData.Id = this.carsData[id].Id;
 
     // update the labels on the user screen 
-    document.getElementById("Model").innerHTML = "Model: " + this.carsData[id].Model;
-    document.getElementById("Car Category").innerHTML = "CarCategory: " + this.carsData[id].CarCategory;
-    document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
-    document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
+    // document.getElementById("Model").innerHTML = "Model: " + this.carsData[id].Model;
+    // document.getElementById("Car Category").innerHTML = "CarCategory: " + this.carsData[id].CarCategory;
+    // document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
+    // document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
+
+    document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
+    document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
+
     // billing rate to be added
 
     marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -264,15 +268,15 @@ export class HomePage {
 
   // update the labels on the user screen 
   
-  document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
-  document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
+  // document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
+  // document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
   //document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
   //document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
 // billing rate to be added
 
 
-  marker.setAnimation(google.maps.Animation.BOUNCE);
-  this.currentmarker = marker;
+  // marker.setAnimation(google.maps.Animation.BOUNCE);
+  // this.currentmarker = marker;
 
 
 //}
