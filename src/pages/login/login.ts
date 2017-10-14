@@ -57,7 +57,7 @@ export class LoginPage {
     
     // hard coded inputs for ease of build
     // 'user1@gmail.com', 'password1'   this.enteredDetails.Email, this.enteredDetails.Password
-    this.authService.postDataLogin(this.enteredDetails.Email, this.enteredDetails.Password).then((result) => {
+    this.authService.postDataLogin('user1@gmail.com', 'password1' ).then((result) => {
       this.responseData = result;
       
       //save collected info for later use
@@ -91,8 +91,10 @@ export class LoginPage {
     });
   }
 
-  forgotPassword(){
+  forgotPassword()
+  {
     console.log("that sucks for you");
+    // enter email and let backend know to send a reset password link
   }
     
   
