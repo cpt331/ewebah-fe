@@ -11,11 +11,13 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { ReturnPage } from '../pages/return/return';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { BookingServiceProvider } from '../providers/booking-service/booking-service';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     HomePage,
     TabsPage,
     WelcomePage,
+    ReturnPage,
     LoginPage,
     SignupPage
   ],
@@ -39,6 +42,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     ContactPage,
     HomePage,
     TabsPage,
+    ReturnPage,
     WelcomePage,
     LoginPage,
     SignupPage
@@ -48,6 +52,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
+    BookingServiceProvider,
     Geolocation,
     {provide:ErrorHandler,useClass:IonicErrorHandler}
   ]
