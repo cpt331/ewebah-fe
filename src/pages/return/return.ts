@@ -3,7 +3,6 @@ import { NavController, App, IonicPage, NavParams, Platform } from 'ionic-angula
 import { ReturnServiceProvider } from '../../providers/return-service/return-service';
 import {Geolocation} from '@ionic-native/geolocation';
 
-import { SettingsPage } from '../settings/settings';
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 
@@ -80,19 +79,20 @@ export class ReturnPage {
 
 
           this.dismissLoading();
-        }), err => {
+        }, err => {
           
                   let alert = this.alertCtrl.create({
-                    title: this.responseData.Message,
+                    title: "Something went wrong :/",
                     subTitle: 'unable to get booking details, please try again later',
                     buttons: [{
                       text: 'Ok',
                       handler: () => {
+                        this.dismissLoading();
                       }}]
                 });
                 alert.present();
                     
-                   }}
+        })}
 
     else
     {
@@ -150,11 +150,12 @@ export class ReturnPage {
         ), err => {
 
         let alert = this.alertCtrl.create({
-          title: this.responseData.Message,
-          subTitle: 'unable to return car',
+          title: "Something went wrong",
+          subTitle: 'Unable to return car, please try again',
           buttons: [{
             text: 'Ok',
             handler: () => {
+              this.dismissLoading();
             }}]
       });
       alert.present();
