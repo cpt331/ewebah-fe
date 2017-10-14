@@ -11,6 +11,8 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { SettingsPage } from '../pages/settings/settings';
+import { ReturnPage } from '../pages/return/return';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -29,6 +31,8 @@ import { ReturnServiceProvider } from '../providers/return-service/return-servic
     TabsPage,
     WelcomePage,
     LoginPage,
+    SettingsPage,
+    ReturnPage,
     SignupPage
   ],
   imports: [
@@ -44,6 +48,8 @@ import { ReturnServiceProvider } from '../providers/return-service/return-servic
     TabsPage,
     WelcomePage,
     LoginPage,
+    SettingsPage,
+    ReturnPage,
     SignupPage
   ],
   providers: [

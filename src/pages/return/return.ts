@@ -28,6 +28,7 @@ export class ReturnPage {
   constructor(public navCtrl: NavController, public platform: Platform,
     public loadingCtrl: LoadingController,
     public geolocation: Geolocation, 
+    public alertCtrl: AlertController,
     public returnServiceProvider: ReturnServiceProvider) {
 
            
@@ -42,13 +43,26 @@ export class ReturnPage {
 
   ionViewDidLoad() {
 
+    console.log("what?");
     this.showLoading()
     // get the users current location
     this.geolocation.getCurrentPosition().then((position) => {
       
             this.userLat = position.coords.latitude;
             this.userLong = position.coords.longitude;
-    });
+    }), err => {
+      
+              let alert = this.alertCtrl.create({
+                title: this.responseData.Message,
+                subTitle: 'Cannot get current location. Please check your location settings',
+                buttons: [{
+                  text: 'Ok',
+                  handler: () => {
+                  }}]
+            });
+            alert.present();
+                
+              }
 
     // deal with no location
 
@@ -57,10 +71,28 @@ export class ReturnPage {
         this.userLat, this.userLong).then((returnDetails) =>{
 
           // display details
+          document.getElementById("bookingHeader").innerHTML = "Current booking details:";
+          document.getElementById("Message").innerHTML = this.responseData.Message;
+          document.getElementById("City").innerHTML = this.responseData.City;
+          document.getElementById("TotalHours").innerHTML = this.responseData.TotalHours;
+          document.getElementById("HourlyRate").innerHTML = this.responseData.HourlyRate;
+          document.getElementById("TotalAmount").innerHTML = this.responseData.TotalAmount;
 
 
           this.dismissLoading();
-        })}
+        }), err => {
+          
+                  let alert = this.alertCtrl.create({
+                    title: this.responseData.Message,
+                    subTitle: 'unable to get booking details, please try again later',
+                    buttons: [{
+                      text: 'Ok',
+                      handler: () => {
+                      }}]
+                });
+                alert.present();
+                    
+                   }}
 
     else
     {
@@ -85,7 +117,15 @@ export class ReturnPage {
     if(this.currentUser.HasOpenBooking){
 
       //show alert confirm
-
+      // let alert = this.alertCtrl.create({
+      //   title: this.responseData.Message,
+      //   subTitle: 'Confirm car return',
+      //   buttons: [{
+      //     text: 'Ok',
+      //     handler: () => {
+      //     }}]
+      //   });
+      //   alert.present();
 
       // attempt return
       this.showLoading()
@@ -94,11 +134,14 @@ export class ReturnPage {
 
           // return successful ...
           this.responseData = returnDetails;
-          this.responseData.Message
-          this.responseData.City
-          this.responseData.TotalHours
-          this.responseData.HourlyRate
-          this.responseData.TotalAmount
+
+          document.getElementById("bookingHeader").innerHTML = "Booking Completed";
+          document.getElementById("Message").innerHTML = this.responseData.Message;
+          document.getElementById("City").innerHTML = this.responseData.City;
+          document.getElementById("TotalHours").innerHTML = this.responseData.TotalHours;
+          document.getElementById("HourlyRate").innerHTML = this.responseData.HourlyRate;
+          document.getElementById("TotalAmount").innerHTML = this.responseData.TotalAmount;
+
           this.dismissLoading();
 
 
@@ -106,9 +149,19 @@ export class ReturnPage {
 
         ), err => {
 
-
+        let alert = this.alertCtrl.create({
+          title: this.responseData.Message,
+          subTitle: 'unable to return car',
+          buttons: [{
+            text: 'Ok',
+            handler: () => {
+            }}]
+      });
+      alert.present();
           
         }};
+
+        
       }
 
     //loading/spinner functions
