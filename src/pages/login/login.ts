@@ -16,7 +16,9 @@ export class LoginPage {
 
   // create a storage structure for the returned values
   enteredDetails = {"Email": "", "Password":""};
-  userData = {"access_token": "", "Name": "","Email": "","Id": "", "token_type":""};
+  userData = {access_token: "", Name: "",Email: "",Id: "", 
+  token_type:"",HasOpenBooking: false, OpenBookingId:-1};
+
   responseData : any;
   loader;
 
@@ -57,11 +59,12 @@ export class LoginPage {
     
     // hard coded inputs for ease of build
     // 'user1@gmail.com', 'password1'   this.enteredDetails.Email, this.enteredDetails.Password
-    this.authService.postDataLogin(this.enteredDetails.Email, this.enteredDetails.Password).then((result) => {
+    this.authService.postDataLogin('user1@gmail.com', 'password1' ).then((result) => {
       this.responseData = result;
       
       //save collected info for later use
       localStorage.setItem('userData', JSON.stringify(this.responseData));
+      
   
       this.dismissLoading();
       this.navCtrl.push(TabsPage, {}, {animate: false});
@@ -91,8 +94,10 @@ export class LoginPage {
     });
   }
 
-  forgotPassword(){
+  forgotPassword()
+  {
     console.log("that sucks for you");
+    // enter email and let backend know to send a reset password link
   }
     
   

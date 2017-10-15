@@ -1,19 +1,22 @@
 import { Component,ViewChild,ElementRef } from '@angular/core';
-import { NavController, App, IonicPage, NavParams, Platform } from 'ionic-angular';
+import { NavController, App, IonicPage, NavParams, Platform, ModalController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { CarServiceProvider } from '../../providers/car-service/car-service';
+import { BookingServiceProvider } from '../../providers/booking-service/booking-service';
 import {Geolocation} from '@ionic-native/geolocation';
 import {GoogleMaps, GoogleMap, GoogleMapsEvent,
   GoogleMapOptions, CameraPosition, MarkerOptions, Marker} from '@ionic-native/google-maps';
 
 
-import { ReturnPage } from '../return/return';
 import { SettingsPage } from '../settings/settings';
+import {AutocompletePage} from '../home/autocompletepage';
+
+import { ReturnPage } from '../return/return';
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 
-import { Http, Headers } from '@angular/http';
-
 declare var google;
+
 
 @Component({
   selector: 'page-home',
@@ -24,8 +27,11 @@ export class HomePage {
   // declared variables
 
   responseData : any;
-  userPostData = {"name":"","token":"","email":"","permission":"","carStatus":""};
-  @ViewChild('map') mapElement: ElementRef;
+  // userPostData = {"name":"","token":"","email":"","permission":"","carStatus":""};
+  private currentUser = {access_token: "", Name: "",Email: "",Id: "", 
+  token_type:"",HasOpenBooking: false, OpenBookingId:-1};
+  @ViewChild('map') 
+  mapElement: ElementRef;
   map: any;
   carsData : any;
   mapPins = new Map();
@@ -35,36 +41,111 @@ export class HomePage {
   loader;
   userPosLat;
   userPosLong;
+  address;
+  geo: any
+
+  latitude: number = 0;
+  longitude: number = 0;
 
 
   constructor(public navCtrl: NavController, public app: App, 
-    public alertCtrl: AlertController, public authService: AuthServiceProvider, 
+    public alertCtrl: AlertController, public authService: AuthServiceProvider,
+    public carService: CarServiceProvider,public bookingService: BookingServiceProvider,
     public geolocation: Geolocation, public platform: Platform,
-    public loadingCtrl: LoadingController,public http: Http) {
+private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
-    const data = JSON.parse(localStorage.getItem('userData'));
-  
-    this.userPostData.name = data.Name;
-    this.userPostData.email = data.Email;
-    this.userPostData.token = data.access_token;
-         
+
+  const data = JSON.parse(localStorage.getItem('userData'));
+  console.log(data);
+  this.currentUser.Name = data.Name;
+  this.currentUser.Email = data.Email;
+  this.currentUser.access_token = data.access_token;
+  this.currentUser.token_type = data.token_type
+  this.currentUser.Id = data.Id
+  this.currentUser.HasOpenBooking = data.HasOpenBooking;
+  this.currentUser.OpenBookingId = data.OpenBookingId;
+    
+    this.address = {
+      place: ''   
+    };  
   }
 
     // when the view is first shown
   ionViewDidLoad() {
+    console.log(this.currentUser.OpenBookingId);
 
-      this.loadMap(); 
+      this.loadMap();
+  }
+    
+  useCurrentLocation(){
+      this.geolocation.getCurrentPosition().then((currentpos) => {
+        let latLng= new google.maps.LatLng(currentpos.coords.latitude, currentpos.coords.longitude);
+        alert(latLng)
+        this.updateMapLocation(latLng)
+      }, err => {
+    
+          // handle location error
+    
+          if(err.message.indexOf("Only secure origins are allowed") == 0) {
+            this.dismissLoading();
+            this.defaultMelbourneLocation();
+          }
+          else if(err.TIMEOUT){
+            alert("Browser geolocation error !\n\nTimeout. \n\nMelbourne default location");
+            this.dismissLoading();
+            this.defaultMelbourneLocation();
+          }
+          else if(err.POSITION_UNAVAILABLE){
+            alert("Browser geolocation error !\n\nPosition unavailable. \n\nMelbourne default location");
+            this.dismissLoading();
+            this.defaultMelbourneLocation();
+          }
+        });
+    }
+
+  showAddressModal () {
+    let modal = this.ModalCtrl.create(AutocompletePage);
+    let me = this;
+    modal.onDidDismiss(data => {
+      if(!!data){
+        this.address.place = data;
+        this.geo = data;
+        this.geoCode(this.geo);//convert Address to lat and long
+      }
+    });
+    modal.present();
+  }
+
+  //convert Address string to lat and long
+  geoCode(address:any) {
+    let geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'address': address }, (results, status) => {
+    this.latitude = results[0].geometry.location.lat();
+    this.longitude = results[0].geometry.location.lng();
+
+    let latLng= new google.maps.LatLng(this.latitude,this.longitude);
+    alert(latLng)
+    this.updateMapLocation(latLng);
+   });
+  }
+  
+  updateMapLocation(latLng)
+  {
+    // if the location is blocked the app crashes
+    this.map = new google.maps.Map(this.map.panTo(latLng))
   }
 
   loadMap() 
   {
     // loader caller here, could wrap this in the loader instead if wanted
     this.showLoading();
-
+    
     //get user location
-    this.geolocation.getCurrentPosition().then((position) => {
+    this.geolocation.getCurrentPosition().then((position) => 
+    {
 
       let latLng= new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+            
       //set map options
       let mapOptions = 
       {
@@ -72,11 +153,11 @@ export class HomePage {
         zoom: 12,
         mapTypeId: 'roadmap'
       }
-      
+
       // if the location is blocked the app crashes
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
-      this.authService.getAllCars(this.userPostData.token).then((result) => {
+      this.carService.getAllCars(this.currentUser.access_token).then((result) => {
         this.carsData = result;
 
         this.dismissLoading();
@@ -125,15 +206,17 @@ export class HomePage {
     });
   }
 
-  getAllCars()
-  {
-    this.authService.getAllCars(this.userPostData.token).then((result) => {
-    this.responseData = result;
-    })
-  }
+  // getAllCars()
+  // {
+  //   this.carService.getAllCars(this.userPostData.token).then((result) => {
+  //   this.responseData = result;
+  //   })
+  // }
 
-  markerClicked(id, marker){
-    if(this.currentmarker != null){
+  markerClicked(id, marker)
+  {
+    if(this.currentmarker != null)
+    {
       this.currentmarker.setAnimation(google.maps.Animation.DROP);
     }
 
@@ -146,12 +229,15 @@ export class HomePage {
     this.selectedCarData.Id = this.carsData[id].Id;
 
     // update the labels on the user screen 
-    document.getElementById("Model").innerHTML = "Model: " + this.carsData[id].Model;
-    document.getElementById("Car Category").innerHTML = "CarCategory: " + this.carsData[id].CarCategory;
-    document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
-    document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
-    // billing rate to be added
+    // document.getElementById("Model").innerHTML = "Model: " + this.carsData[id].Model;
+    // document.getElementById("Car Category").innerHTML = "CarCategory: " + this.carsData[id].CarCategory;
+    // document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
+    // document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
 
+    document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
+    document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
+
+    // billing rate to be added
 
     marker.setAnimation(google.maps.Animation.BOUNCE);
     this.currentmarker = marker;
@@ -173,10 +259,10 @@ export class HomePage {
     // if the location is blocked the app crashes
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
-    this.authService.getAllCars(this.userPostData.token).then((result) => {
+    this.carService.getAllCars(this.currentUser.access_token).then((result) => {
       this.carsData = result;
 
-      this.dismissLoading();
+      
 
 
       for(let data of this.carsData)
@@ -200,15 +286,25 @@ export class HomePage {
           
         })
       };
+      this.dismissLoading();
     })
 
   }
-  //loader function to stop the loader being called when it already exists
-  // and dismissed when it doesn not exist
+
+  //loading/spinner functions
   showLoading() {
     if(!this.loader){
         this.loader = this.loadingCtrl.create({
           content: "loading map...",
+        });
+        this.loader.present();
+    }
+  }
+
+  showBooking() {
+    if(!this.loader){
+        this.loader = this.loadingCtrl.create({
+          content: "Booking your ride ...please wait",
         });
         this.loader.present();
     }
@@ -220,6 +316,7 @@ export class HomePage {
         this.loader = null;
     }
   }
+
 
   book()
   {
@@ -245,4 +342,114 @@ export class HomePage {
   root.popToRoot();
   }
 
+
+  // book the currently selected car
+  bookThisCar(){
+
+
+  // update the labels on the user screen 
+  
+  // document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
+  // document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
+  //document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
+  //document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
+// billing rate to be added
+
+
+  // marker.setAnimation(google.maps.Animation.BOUNCE);
+  // this.currentmarker = marker;
+
+
+//}
+
+if(!this.currentUser.HasOpenBooking)
+{
+
+    if(this.selectedCarData.Make != null && this.selectedCarData.Make != ""){
+
+
+      var transString;
+      if(this.selectedCarData.Transmission == "AT"){
+        transString = 'automatic';
+      }
+      else{
+        transString = 'manual';
+      }
+    let alert = this.alertCtrl.create({
+      title: 'Confirm booking request',
+      subTitle: 'you are about to book a ' + this.selectedCarData.Make +' -' +
+      this.selectedCarData.Model +' - ' +
+      transString + ', at a rate of $' +
+      this.selectedCarData.BillingRate +' per hour.',
+      buttons: [{
+        text: 'Book',
+        handler: () => {
+          this.showBooking();
+          // show loading spinner
+
+          this.bookingService.bookCar(this.currentUser.access_token, this.selectedCarData.Id).then((result) => {
+          // check if successful
+          this.dismissLoading();
+          if(result){
+
+            this.currentUser.HasOpenBooking = true;
+            this.currentUser.OpenBookingId =  parseInt(this.selectedCarData.Id);
+            localStorage.setItem('userData', JSON.stringify(this.currentUser));
+
+
+            let alert = this.alertCtrl.create({
+              title: 'Confirm booking request',
+              subTitle: 'your car is booked, head to the location to pick it up.', buttons: [{
+                text: 'Okay', handler: () => { //there is no need to manually call this = alert.dismiss(); it is done automatically
+                }}]});
+                alert.present();
+                return;
+          }
+          else
+          {
+            let alert = this.alertCtrl.create({
+              title: 'Unable to book this car',
+              subTitle: 'Oh no, this car cannot be booked right now. Please choose another', buttons: [{
+                text: 'Okay', handler: () => { 
+                }}]});
+                alert.present();
+                return;
+          }
+        });
+  
+        }
+      },
+      {
+        text: 'Cancel',
+        handler: () => {
+
+        }
+      }]
+    });
+    alert.present();
+    }
+    else
+    {
+      let alert = this.alertCtrl.create({
+      title: 'You must select a car before booking',
+      subTitle: 'Tap one of the car icons to choose a car', buttons: [{
+        text: 'Got it', handler: () => { 
+        }}]});
+        alert.present();
+        return;
+    }
+}
+else
+{
+  let alert = this.alertCtrl.create({
+    title: 'You already have a car booked',
+    subTitle: 'Please return your current booking before making another', buttons: [{
+      text: 'Got it', handler: () => { 
+        // send to return page??
+      }}]});
+      alert.present();
+      return;
+}
+
+}
 }

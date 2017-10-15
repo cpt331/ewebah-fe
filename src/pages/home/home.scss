@@ -1,17 +1,30 @@
 page-home {
+    #autocomplete {
+      width: 100%;
+    }
+
+    #useCurrentLocation {
+        width:100%;
+        margin: 15px 0 15px 0;
+    }
+
     #home{
         background: color($colors, bGround); 
+    }
+
+    .button-bar {
+        margin-top: 15px;
     }
 
     .navbtn {
         width:33%;
         margin: 0;
     }
-
-    #testPanel{
-      width:100%;
-      height:55%;
-      background-color:aliceblue;
+    
+    #locationField {
+        width:100%;
+        margin-top: 30px;
+        background-color:rgb(255, 255, 255);
     }
 
     #map{
@@ -20,14 +33,75 @@ page-home {
       background-color: green;
     }
 
+
+    #testPanel{
+      width:100%;
+      height:55%;
+      background-color:aliceblue;
+    }
+
+   .CardRow{
+       width:100%;
+       //background-color:green;
+   }
+   
+   .floatingCarDetailLeft{
+       width:50%;
+       float: left;
+       //background-color: wheat;
+   }
+   .floatingCarDetailRight{
+    width:50%;
+    float: left;
+    text-align: right;
+    //background-color: wheat;
+}
+ #upper{
+    float: left;
+    width:50%;
+    background-color: blue;
+	top: 0;
+	left: 0;
+}
+#upper_right {
+    width:50%;
+    background-color:green;
+	top: 0;
+	right: 0%;
+}
+#lower_left {
+	position: absolute;
+	bottom: 0%;
+	left: 0;
+}
+#lower_right {
+	bottom: 0%;
+	right: 0%;
+	position: absolute;
+}
+
+
+   .card-header-md {
+    font-size: 1.6rem;
+    color: #222;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 5px;
+}
+
     #webpage {
         background: color($colors, bGround); 
         width: 100%;
+        margin:0;
     }
 
     @media only screen and (max-width:480px){
         #webpage{
             display: none;
+        }
+        
+        #locationField {
+            width: 100%;
         }
     }
 
