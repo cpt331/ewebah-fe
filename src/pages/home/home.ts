@@ -78,9 +78,10 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
       this.responseData = result;
             this.currentUser.HasOpenBooking = this.responseData.HasOpenBooking;
-            this.currentUser.OpenBookingId =  parseInt(this.responseData.BookingId);
+            this.currentUser.OpenBookingId =  this.responseData.OpenBookingId;
             localStorage.setItem('userData', JSON.stringify(this.currentUser));
             console.log(this.responseData);
+            console.log(this.currentUser);
 
     });
     console.log(this.currentUser.OpenBookingId);

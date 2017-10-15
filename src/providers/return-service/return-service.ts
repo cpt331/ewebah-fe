@@ -25,7 +25,7 @@ export class ReturnServiceProvider {
       Latitude: lat,
       Longitude: long
     };
-
+console.log(bookingId);
     headers.append('accept','application/json');
     headers.append('content-Type', 'application/json');
     headers.append('authorization','Bearer ' + token);

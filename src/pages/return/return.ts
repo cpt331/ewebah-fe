@@ -50,7 +50,15 @@ export class ReturnPage {
       document.getElementById("returnButton").style.display = "block";
     }
 
-    if(this.currentUser.HasOpenBooking){
+    if(!this.currentUser.HasOpenBooking){
+
+      console.log("no booking");
+        this.dismissLoading();
+        document.getElementById("returnButton").hidden = true;
+        document.getElementById("Message").innerHTML = "no current booking";
+
+    }
+    else{
     this.showLoading()
     // get the users current location
     this.geolocation.getCurrentPosition().then((position) => {
@@ -124,14 +132,6 @@ export class ReturnPage {
                 alert.present();
                     
         })}
-
-    else
-    {
-      this.dismissLoading();
-      document.getElementById("returnButton").hidden = true;
-      document.getElementById("Model").innerHTML = "no current booking";
-
-    }
 
   }
 
