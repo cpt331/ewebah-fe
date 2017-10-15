@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 let apiUrl = 'http://carshareapi-dev.us-east-1.elasticbeanstalk.com/';
 
 
+
 @Injectable()
 export class BookingServiceProvider {
 

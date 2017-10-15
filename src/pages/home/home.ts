@@ -27,7 +27,8 @@ export class HomePage {
   // declared variables
 
   responseData : any;
-  userPostData = {"name":"","token":"","email":"","permission":"","carStatus":""};
+  // userPostData = {"name":"","token":"","email":"","permission":"","carStatus":""};
+  private currentUser = {Name:'',Token:'',Email:'',HasOpenBooking:false,OpenBookingId:-1};
   @ViewChild('map') 
   mapElement: ElementRef;
   map: any;
@@ -50,16 +51,16 @@ export class HomePage {
     public alertCtrl: AlertController, public authService: AuthServiceProvider,
     public carService: CarServiceProvider,public bookingService: BookingServiceProvider,
     public geolocation: Geolocation, public platform: Platform,
-
-    public loadingCtrl: LoadingController,public http: Http, 
-    private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
+private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
 
-    const data = JSON.parse(localStorage.getItem('userData'));
-  
-    this.userPostData.name = data.Name;
-    this.userPostData.email = data.Email;
-    this.userPostData.token = data.access_token;
+  const data = JSON.parse(localStorage.getItem('userData'));
+  console.log(data);
+    this.currentUser.Name = data.Name;
+    this.currentUser.Email = data.Email;
+    this.currentUser.Token = data.access_token;
+    this.currentUser.HasOpenBooking = data.HasOpenBooking;
+    this.currentUser.OpenBookingId = data.OpenBookingId;
     
     this.address = {
       place: ''   
@@ -68,6 +69,7 @@ export class HomePage {
 
     // when the view is first shown
   ionViewDidLoad() {
+    console.log(this.currentUser.OpenBookingId);
 
       this.loadMap();
   }
@@ -152,7 +154,7 @@ export class HomePage {
       // if the location is blocked the app crashes
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
-      this.carService.getAllCars(this.userPostData.token).then((result) => {
+      this.carService.getAllCars(this.currentUser.Token).then((result) => {
         this.carsData = result;
 
         this.dismissLoading();
@@ -254,7 +256,7 @@ export class HomePage {
     // if the location is blocked the app crashes
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
-    this.carService.getAllCars(this.userPostData.token).then((result) => {
+    this.carService.getAllCars(this.currentUser.Token).then((result) => {
       this.carsData = result;
 
       
@@ -357,6 +359,9 @@ export class HomePage {
 
 //}
 
+if(!this.currentUser.HasOpenBooking)
+{
+
     if(this.selectedCarData.Make != null && this.selectedCarData.Make != ""){
 
 
@@ -379,7 +384,7 @@ export class HomePage {
           this.showBooking();
           // show loading spinner
 
-          this.bookingService.bookCar(this.userPostData.token, this.selectedCarData.Id).then((result) => {
+          this.bookingService.bookCar(this.currentUser.Token, this.selectedCarData.Id).then((result) => {
           // check if successful
           this.dismissLoading();
           if(result){
@@ -414,16 +419,29 @@ export class HomePage {
       }]
     });
     alert.present();
-  }
-  else{
-    let alert = this.alertCtrl.create({
+    }
+    else
+    {
+      let alert = this.alertCtrl.create({
       title: 'You must select a car before booking',
       subTitle: 'Tap one of the car icons to choose a car', buttons: [{
         text: 'Got it', handler: () => { 
         }}]});
         alert.present();
         return;
-  }
-  }
+    }
+}
+else
+{
+  let alert = this.alertCtrl.create({
+    title: 'You already have a car booked',
+    subTitle: 'Please return your current booking before making another', buttons: [{
+      text: 'Got it', handler: () => { 
+        // send to return page??
+      }}]});
+      alert.present();
+      return;
+}
 
+}
 }
