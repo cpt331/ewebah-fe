@@ -25,7 +25,6 @@ export class CarServiceProvider {
 
         .subscribe(res => {
           resolve(res.json());
-          console.log(res)
         }, (err) => {
           reject(err);
         });

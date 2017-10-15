@@ -19,6 +19,7 @@ export class ReturnPage {
       "BillingRate":"","Id":""};
     bookingData = {Message: "", City: "",TotalHours: "", HourlyRate:"",TotalAmount: "", Success: ""};
     loader;
+
     userLat = -37.8136;
     userLong = 144.9631;
 
@@ -26,39 +27,40 @@ export class ReturnPage {
     token_type:"",HasOpenBooking: false, OpenBookingId:-1};
     private checkInProgress = false;
 
+
+
+
+
   constructor(public navCtrl: NavController, public platform: Platform,
     public loadingCtrl: LoadingController,
     public geolocation: Geolocation, 
     public alertCtrl: AlertController,
     public returnServiceProvider: ReturnServiceProvider) {
 
-           
-      const data = JSON.parse(localStorage.getItem('userData'));
-        this.currentUser.Name = data.Name;
-        this.currentUser.Email = data.Email;
-        this.currentUser.access_token = data.access_token;
-        this.currentUser.token_type = data.token_type
-        this.currentUser.Id = data.Id
-        this.currentUser.HasOpenBooking = data.HasOpenBooking;
-        this.currentUser.OpenBookingId = data.OpenBookingId;
-        
+    this.loadUserData();
   }
 
   
-  ionViewDidEnter() {
-    if (document.getElementById("returnButton").style.display === "none") {
-      document.getElementById("returnButton").style.display = "block";
-    }
 
-    if(!this.currentUser.HasOpenBooking){
+  ionViewDidEnter() 
+  {
 
-      console.log("no booking");
+    this.loadUserData();
+
+    document.getElementById("returnButton").hidden = false;
+    document.getElementById("returnButton").style.display = "block";
+
+
+    if(!this.currentUser.HasOpenBooking)
+    {
+
         this.dismissLoading();
         document.getElementById("returnButton").hidden = true;
         document.getElementById("Message").innerHTML = "no current booking";
 
     }
-    else{
+    else
+    {
     this.showLoading()
     // get the users current location
     this.geolocation.getCurrentPosition().then((position) => {
@@ -94,7 +96,6 @@ export class ReturnPage {
 
           // return successful ...
           this.responseData = returnDetails;
-          console.log(this.responseData);
 
           if(this.responseData.Success)
           {
@@ -105,7 +106,6 @@ export class ReturnPage {
             document.getElementById("TotalAmount").innerHTML = this.responseData.TotalAmount;
           }
           else{
-            console.log(this.responseData.Message)
             document.getElementById("bookingHeader").innerHTML = "No booking found:";
             document.getElementById("City").innerHTML = "";
             document.getElementById("TotalHours").innerHTML = "";
@@ -115,7 +115,6 @@ export class ReturnPage {
             document.getElementById("Message").innerHTML = this.responseData.Message;
 
           }
-
 
           this.dismissLoading();
         }, err => {
@@ -147,17 +146,6 @@ export class ReturnPage {
 
     if(this.currentUser.HasOpenBooking){
 
-      //show alert confirm
-      // let alert = this.alertCtrl.create({
-      //   title: this.responseData.Message,
-      //   subTitle: 'Confirm car return',
-      //   buttons: [{
-      //     text: 'Ok',
-      //     handler: () => {
-      //     }}]
-      //   });
-      //   alert.present();
-
       // attempt return
       this.showLoading()
       this.returnServiceProvider.closeCurrentBooking(this.currentUser.access_token,this.currentUser.OpenBookingId,
@@ -179,6 +167,9 @@ export class ReturnPage {
            document.getElementById("TotalHours").innerHTML = this.responseData.TotalHours;
            document.getElementById("HourlyRate").innerHTML = this.responseData.HourlyRate;
            document.getElementById("TotalAmount").innerHTML = this.responseData.TotalAmount;
+
+           // hide the button
+           document.getElementById("returnButton").hidden = true;
          }
          else{
            console.log(this.responseData.Message)
@@ -190,9 +181,11 @@ export class ReturnPage {
            document.getElementById("returnButton").style.display = "none";
            document.getElementById("Message").innerHTML = this.responseData.Message;
 
+           // hide the button
+           document.getElementById("returnButton").hidden = true;
+
          }
           this.dismissLoading();
-
 
         }
 
@@ -205,6 +198,7 @@ export class ReturnPage {
             text: 'Ok',
             handler: () => {
               this.dismissLoading();
+
             }}]
       });
       alert.present();
@@ -218,9 +212,10 @@ export class ReturnPage {
           document.getElementById("TotalAmount").innerHTML = "";
           document.getElementById("returnButton").style.display = "none";
 
-        }
+          // hide the button
+          document.getElementById("returnButton").hidden = true;
 
-        
+        }
       }
 
     //loading/spinner functions
@@ -239,6 +234,19 @@ export class ReturnPage {
           this.loader.dismiss();
           this.loader = null;
       }
+    }
+
+    loadUserData(){
+
+      const data = JSON.parse(localStorage.getItem('userData'));
+      this.currentUser.Name = data.Name;
+      this.currentUser.Email = data.Email;
+      this.currentUser.access_token = data.access_token;
+      this.currentUser.token_type = data.token_type
+      this.currentUser.Id = data.Id
+      this.currentUser.HasOpenBooking = data.HasOpenBooking;
+      this.currentUser.OpenBookingId = data.OpenBookingId;
+
     }
 
 }

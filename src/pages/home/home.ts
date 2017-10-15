@@ -28,7 +28,6 @@ export class HomePage {
 
   responseData : any;
   bookingResponseData : any;
-  // userPostData = {"name":"","token":"","email":"","permission":"","carStatus":""};
   private currentUser = {access_token: "", Name: "",Email: "",Id: "", 
   token_type:"",HasOpenBooking: false, OpenBookingId:-1};
   @ViewChild('map') 
@@ -57,7 +56,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
 
   const data = JSON.parse(localStorage.getItem('userData'));
-  console.log(data);
   this.currentUser.Name = data.Name;
   this.currentUser.Email = data.Email;
   this.currentUser.access_token = data.access_token;
@@ -71,49 +69,52 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     };  
   }
 
-    // when the view is first shown
+    ionViewDidEnter() 
+    {
+  
+      this.loadUserData();
+    }
+
   ionViewDidLoad() {
 
-    this.authService.ckeckAccountLogin(this.currentUser.access_token).then((result) => {
+    // this.authService.ckeckAccountLogin(this.currentUser.access_token).then((result) => {
 
-      this.responseData = result;
-            this.currentUser.HasOpenBooking = this.responseData.HasOpenBooking;
-            this.currentUser.OpenBookingId =  this.responseData.OpenBookingId;
-            localStorage.setItem('userData', JSON.stringify(this.currentUser));
-            console.log(this.responseData);
-            console.log(this.currentUser);
+    //   this.responseData = result;
+    //         this.currentUser.HasOpenBooking = this.responseData.HasOpenBooking;
+    //         this.currentUser.OpenBookingId =  this.responseData.OpenBookingId;
+    //         localStorage.setItem('userData', JSON.stringify(this.currentUser));
 
-    });
+    // });
     console.log(this.currentUser.OpenBookingId);
 
       this.loadMap();
   }
     
-  useCurrentLocation(){
-      this.geolocation.getCurrentPosition().then((currentpos) => {
-        let latLng= new google.maps.LatLng(currentpos.coords.latitude, currentpos.coords.longitude);
-        alert(latLng)
-        this.updateMapLocation(latLng)
-      }, err => {
+  // useCurrentLocation(){
+  //     this.geolocation.getCurrentPosition().then((currentpos) => {
+  //       let latLng= new google.maps.LatLng(currentpos.coords.latitude, currentpos.coords.longitude);
+  //       alert(latLng)
+  //       this.updateMapLocation(latLng)
+  //     }, err => {
     
-          // handle location error
+  //         // handle location error
     
-          if(err.message.indexOf("Only secure origins are allowed") == 0) {
-            this.dismissLoading();
-            this.defaultMelbourneLocation();
-          }
-          else if(err.TIMEOUT){
-            alert("Browser geolocation error !\n\nTimeout. \n\nMelbourne default location");
-            this.dismissLoading();
-            this.defaultMelbourneLocation();
-          }
-          else if(err.POSITION_UNAVAILABLE){
-            alert("Browser geolocation error !\n\nPosition unavailable. \n\nMelbourne default location");
-            this.dismissLoading();
-            this.defaultMelbourneLocation();
-          }
-        });
-    }
+  //         if(err.message.indexOf("Only secure origins are allowed") == 0) {
+  //           this.dismissLoading();
+  //           this.defaultMelbourneLocation();
+  //         }
+  //         else if(err.TIMEOUT){
+  //           alert("Browser geolocation error !\n\nTimeout. \n\nMelbourne default location");
+  //           this.dismissLoading();
+  //           this.defaultMelbourneLocation();
+  //         }
+  //         else if(err.POSITION_UNAVAILABLE){
+  //           alert("Browser geolocation error !\n\nPosition unavailable. \n\nMelbourne default location");
+  //           this.dismissLoading();
+  //           this.defaultMelbourneLocation();
+  //         }
+  //       });
+  //   }
 
   showAddressModal () {
     let modal = this.ModalCtrl.create(AutocompletePage);
@@ -136,7 +137,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     this.longitude = results[0].geometry.location.lng();
 
     let latLng= new google.maps.LatLng(this.latitude,this.longitude);
-    alert(latLng)
     this.updateMapLocation(latLng);
    });
   }
@@ -200,7 +200,7 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     }, err => {
 
       // handle location error
-
+      
       if(err.message.indexOf("Only secure origins are allowed") == 0) {
         this.dismissLoading();
         this.defaultMelbourneLocation();
@@ -218,12 +218,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     });
   }
 
-  // getAllCars()
-  // {
-  //   this.carService.getAllCars(this.userPostData.token).then((result) => {
-  //   this.responseData = result;
-  //   })
-  // }
 
   markerClicked(id, marker)
   {
@@ -239,12 +233,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     this.selectedCarData.Transmission = this.carsData[id].Transmission;
     this.selectedCarData.BillingRate = this.carsData[id].BillingRate;
     this.selectedCarData.Id = this.carsData[id].Id;
-
-    // update the labels on the user screen 
-    // document.getElementById("Model").innerHTML = "Model: " + this.carsData[id].Model;
-    // document.getElementById("Car Category").innerHTML = "CarCategory: " + this.carsData[id].CarCategory;
-    // document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
-    // document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
 
     document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
     document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
@@ -358,22 +346,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
   // book the currently selected car
   bookThisCar(){
 
-
-  // update the labels on the user screen 
-  
-  // document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
-  // document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
-  //document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
-  //document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
-// billing rate to be added
-
-
-  // marker.setAnimation(google.maps.Animation.BOUNCE);
-  // this.currentmarker = marker;
-
-
-//}
-
 if(!this.currentUser.HasOpenBooking)
 {
 
@@ -387,6 +359,7 @@ if(!this.currentUser.HasOpenBooking)
       else{
         transString = 'manual';
       }
+
     let alert = this.alertCtrl.create({
       title: 'Confirm booking request',
       subTitle: 'you are about to book a ' + this.selectedCarData.Make +' -' +
@@ -396,6 +369,7 @@ if(!this.currentUser.HasOpenBooking)
       buttons: [{
         text: 'Book',
         handler: () => {
+
           this.showBooking();
           // show loading spinner
 
@@ -407,18 +381,33 @@ if(!this.currentUser.HasOpenBooking)
             this.bookingResponseData = result;
             console.log(this.bookingResponseData);
 
-            this.currentUser.HasOpenBooking = true;
-            this.currentUser.OpenBookingId =  parseInt(this.bookingResponseData.BookingId);
-            localStorage.setItem('userData', JSON.stringify(this.currentUser));
+            if(this.bookingResponseData.Success == false){
 
+              let alert = this.alertCtrl.create({
+                title: 'Unable to book',
+                subTitle: this.bookingResponseData.Message, buttons: [{
+                  text: 'Okay', handler: () => { //there is no need to manually call this = alert.dismiss(); it is done automatically
+                  }}]});
+                  alert.present();
+                  return;
 
-            let alert = this.alertCtrl.create({
-              title: 'Confirm booking request',
-              subTitle: 'your car is booked, head to the location to pick it up.', buttons: [{
-                text: 'Okay', handler: () => { //there is no need to manually call this = alert.dismiss(); it is done automatically
-                }}]});
-                alert.present();
-                return;
+            }
+            else{
+              this.currentUser.HasOpenBooking = true;
+              this.currentUser.OpenBookingId =  parseInt(this.bookingResponseData.BookingId);
+              localStorage.setItem('userData', JSON.stringify(this.currentUser));
+  
+  
+              let alert = this.alertCtrl.create({
+                title: 'Confirm booking request',
+                subTitle: 'your car is booked, head to the location to pick it up.', buttons: [{
+                  text: 'Okay', handler: () => { //there is no need to manually call this = alert.dismiss(); it is done automatically
+                  }}]});
+                  alert.present();
+                  return;
+
+            }
+            
           }
           else
           {
@@ -431,6 +420,8 @@ if(!this.currentUser.HasOpenBooking)
                 return;
           }
         });
+
+        
   
         }
       },
@@ -467,4 +458,18 @@ else
 }
 
 }
+
+loadUserData(){
+  
+        const data = JSON.parse(localStorage.getItem('userData'));
+        this.currentUser.Name = data.Name;
+        this.currentUser.Email = data.Email;
+        this.currentUser.access_token = data.access_token;
+        this.currentUser.token_type = data.token_type
+        this.currentUser.Id = data.Id
+        this.currentUser.HasOpenBooking = data.HasOpenBooking;
+        this.currentUser.OpenBookingId = data.OpenBookingId;
+  
+      }
+
 }

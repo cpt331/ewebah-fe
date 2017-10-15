@@ -39,6 +39,7 @@ export class AuthServiceProvider {
     headers.append('accept','application/json');
     headers.append('content-Type', 'application/json');
 
+    // NEED TO ADD THE REST OF THE FIELDS
     var registerRequest = {
       FirstName: firstName,
       LastName: lastName,
@@ -49,13 +50,10 @@ export class AuthServiceProvider {
       LicenceNumber: licence
     };
 
-    console.log(dob);
       this.http.post(apiUrl + 'api/account/register',
           registerRequest,
           { headers: headers })
-        //{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
 
-        //, {headers: headers})
         .subscribe(res => {
           resolve(res.json());
         }, (err) => {
@@ -77,7 +75,6 @@ export class AuthServiceProvider {
             resolve(res.json());
           }, (err) => {
             //reject(err);
-            console.log(err);
           });
       });
     }
@@ -90,8 +87,10 @@ export class AuthServiceProvider {
         headers.append('content-Type', 'application/json');
         headers.append('authorization','Bearer ' + token);
   
+        console.log("checking current user")
         this.http.get(apiUrl + '/api/account/current', {headers: headers})
   
+        
           .subscribe(res => {
             resolve(res.json());
           }, (err) => {
