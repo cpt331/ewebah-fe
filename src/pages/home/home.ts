@@ -69,6 +69,7 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
     // when the view is first shown
   ionViewDidLoad() {
+    console.log(this.currentUser.OpenBookingId);
 
       this.loadMap();
   }

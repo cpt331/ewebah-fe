@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-
+// let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/';
 let apiUrl = 'http://carshareapi-dev.us-east-1.elasticbeanstalk.com/';
 
 
@@ -18,6 +18,7 @@ export class ReturnServiceProvider {
     return new Promise((resolve, reject) => {
 
      let headers: Headers = new Headers();
+     console.log(bookingId);
 
      var checkCurrentBookingRequest = {
       BookingId: bookingId,
@@ -47,7 +48,8 @@ export class ReturnServiceProvider {
 
      let headers: Headers = new Headers();
 
-     var checkCurrentBookingRequest = {
+
+     var closeCurrentBookingRequest = {
       BookingId: bookingId,
       Latitude: lat,
       Longitude: long
@@ -57,7 +59,7 @@ export class ReturnServiceProvider {
     headers.append('content-Type', 'application/json');
     headers.append('authorization','Bearer ' + token);
 
-      this.http.post(apiUrl + 'api/bookings/close/', checkCurrentBookingRequest,
+      this.http.post(apiUrl + 'api/bookings/close/', closeCurrentBookingRequest,
           { headers: headers })
 
         .subscribe(res => {

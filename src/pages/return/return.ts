@@ -42,7 +42,7 @@ export class ReturnPage {
   }
 
   
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     if (document.getElementById("returnButton").style.display === "none") {
       document.getElementById("returnButton").style.display = "block";
     }
@@ -156,16 +156,25 @@ export class ReturnPage {
       this.returnServiceProvider.closeCurrentBooking(this.currentUser.Token,this.currentUser.OpenBookingId,
         this.userLat, this.userLong).then((returnDetails) =>{
 
-          // return successful ...
-          this.responseData = JSON.stringify(returnDetails);
+         // return successful ...
+         this.responseData = returnDetails;
+         console.log(this.responseData);
 
-          document.getElementById("bookingHeader").innerHTML = "Booking Completed";
-          document.getElementById("Message").innerHTML = this.responseData.Message;
-          document.getElementById("City").innerHTML = this.responseData.City;
-          document.getElementById("TotalHours").innerHTML = this.responseData.TotalHours;
-          document.getElementById("HourlyRate").innerHTML = this.responseData.HourlyRate;
-          document.getElementById("TotalAmount").innerHTML = this.responseData.TotalAmount;
+         if(this.responseData.Success)
+         {
+           document.getElementById("Message").innerHTML = this.responseData.Message;
+           document.getElementById("City").innerHTML = this.responseData.City;
+           document.getElementById("TotalHours").innerHTML = this.responseData.TotalHours;
+           document.getElementById("HourlyRate").innerHTML = this.responseData.HourlyRate;
+           document.getElementById("TotalAmount").innerHTML = this.responseData.TotalAmount;
+         }
+         else{
+           console.log(this.responseData.Message)
+           document.getElementById("bookingHeader").innerHTML = "No booking found:";
+           document.getElementById("returnButton").style.display = "none";
+           document.getElementById("Message").innerHTML = this.responseData.Message;
 
+         }
           this.dismissLoading();
 
 

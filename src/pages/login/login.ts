@@ -64,6 +64,7 @@ export class LoginPage {
       
       //save collected info for later use
       localStorage.setItem('userData', JSON.stringify(this.responseData));
+      
   
       this.dismissLoading();
       this.navCtrl.push(TabsPage, {}, {animate: false});
