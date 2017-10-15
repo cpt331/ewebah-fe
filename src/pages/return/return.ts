@@ -22,7 +22,8 @@ export class ReturnPage {
     userLat = -37.8136;
     userLong = 144.9631;
 
-    private currentUser = {Name:'',Token:'',Email:'',HasOpenBooking:false,OpenBookingId:-1};
+    private currentUser = {access_token: "", Name: "",Email: "",Id: "", 
+    token_type:"",HasOpenBooking: false, OpenBookingId:-1};
     private checkInProgress = false;
 
   constructor(public navCtrl: NavController, public platform: Platform,
@@ -35,7 +36,9 @@ export class ReturnPage {
       const data = JSON.parse(localStorage.getItem('userData'));
         this.currentUser.Name = data.Name;
         this.currentUser.Email = data.Email;
-        this.currentUser.Token = data.access_token;
+        this.currentUser.access_token = data.access_token;
+        this.currentUser.token_type = data.token_type
+        this.currentUser.Id = data.Id
         this.currentUser.HasOpenBooking = data.HasOpenBooking;
         this.currentUser.OpenBookingId = data.OpenBookingId;
         
@@ -74,7 +77,7 @@ export class ReturnPage {
     // continue on with the default location for now
 
     
-      this.returnServiceProvider.checkCurrentBooking(this.currentUser.Token,this.currentUser.OpenBookingId,
+      this.returnServiceProvider.checkCurrentBooking(this.currentUser.access_token,this.currentUser.OpenBookingId,
         this.userLat, this.userLong).then((returnDetails) =>{
 
           // display details
@@ -96,6 +99,10 @@ export class ReturnPage {
           else{
             console.log(this.responseData.Message)
             document.getElementById("bookingHeader").innerHTML = "No booking found:";
+            document.getElementById("City").innerHTML = "";
+            document.getElementById("TotalHours").innerHTML = "";
+            document.getElementById("HourlyRate").innerHTML = "";
+            document.getElementById("TotalAmount").innerHTML = "";
             document.getElementById("returnButton").style.display = "none";
             document.getElementById("Message").innerHTML = this.responseData.Message;
 
@@ -153,7 +160,7 @@ export class ReturnPage {
 
       // attempt return
       this.showLoading()
-      this.returnServiceProvider.closeCurrentBooking(this.currentUser.Token,this.currentUser.OpenBookingId,
+      this.returnServiceProvider.closeCurrentBooking(this.currentUser.access_token,this.currentUser.OpenBookingId,
         this.userLat, this.userLong).then((returnDetails) =>{
 
          // return successful ...
@@ -162,6 +169,11 @@ export class ReturnPage {
 
          if(this.responseData.Success)
          {
+          this.currentUser.HasOpenBooking = false;
+          this.currentUser.OpenBookingId =  -1;
+          localStorage.setItem('userData', JSON.stringify(this.currentUser));
+
+
            document.getElementById("Message").innerHTML = this.responseData.Message;
            document.getElementById("City").innerHTML = this.responseData.City;
            document.getElementById("TotalHours").innerHTML = this.responseData.TotalHours;
@@ -171,6 +183,10 @@ export class ReturnPage {
          else{
            console.log(this.responseData.Message)
            document.getElementById("bookingHeader").innerHTML = "No booking found:";
+           document.getElementById("City").innerHTML = "";
+           document.getElementById("TotalHours").innerHTML = "";
+           document.getElementById("HourlyRate").innerHTML = "";
+           document.getElementById("TotalAmount").innerHTML = "";
            document.getElementById("returnButton").style.display = "none";
            document.getElementById("Message").innerHTML = this.responseData.Message;
 

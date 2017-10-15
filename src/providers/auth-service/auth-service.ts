@@ -7,12 +7,6 @@ import 'rxjs/add/operator/map';
 let apiUrl = 'http://carshareapi-dev.us-east-1.elasticbeanstalk.com/';
 
 
-/*
-  Generated class for the AuthServiceProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AuthServiceProvider {
 

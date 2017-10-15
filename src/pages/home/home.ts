@@ -28,7 +28,8 @@ export class HomePage {
 
   responseData : any;
   // userPostData = {"name":"","token":"","email":"","permission":"","carStatus":""};
-  private currentUser = {Name:'',Token:'',Email:'',HasOpenBooking:false,OpenBookingId:-1};
+  private currentUser = {access_token: "", Name: "",Email: "",Id: "", 
+  token_type:"",HasOpenBooking: false, OpenBookingId:-1};
   @ViewChild('map') 
   mapElement: ElementRef;
   map: any;
@@ -56,11 +57,13 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
   const data = JSON.parse(localStorage.getItem('userData'));
   console.log(data);
-    this.currentUser.Name = data.Name;
-    this.currentUser.Email = data.Email;
-    this.currentUser.Token = data.access_token;
-    this.currentUser.HasOpenBooking = data.HasOpenBooking;
-    this.currentUser.OpenBookingId = data.OpenBookingId;
+  this.currentUser.Name = data.Name;
+  this.currentUser.Email = data.Email;
+  this.currentUser.access_token = data.access_token;
+  this.currentUser.token_type = data.token_type
+  this.currentUser.Id = data.Id
+  this.currentUser.HasOpenBooking = data.HasOpenBooking;
+  this.currentUser.OpenBookingId = data.OpenBookingId;
     
     this.address = {
       place: ''   
@@ -154,7 +157,7 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
       // if the location is blocked the app crashes
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
-      this.carService.getAllCars(this.currentUser.Token).then((result) => {
+      this.carService.getAllCars(this.currentUser.access_token).then((result) => {
         this.carsData = result;
 
         this.dismissLoading();
@@ -256,7 +259,7 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     // if the location is blocked the app crashes
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
-    this.carService.getAllCars(this.currentUser.Token).then((result) => {
+    this.carService.getAllCars(this.currentUser.access_token).then((result) => {
       this.carsData = result;
 
       
@@ -384,14 +387,19 @@ if(!this.currentUser.HasOpenBooking)
           this.showBooking();
           // show loading spinner
 
-          this.bookingService.bookCar(this.currentUser.Token, this.selectedCarData.Id).then((result) => {
+          this.bookingService.bookCar(this.currentUser.access_token, this.selectedCarData.Id).then((result) => {
           // check if successful
           this.dismissLoading();
           if(result){
 
+            this.currentUser.HasOpenBooking = true;
+            this.currentUser.OpenBookingId =  parseInt(this.selectedCarData.Id);
+            localStorage.setItem('userData', JSON.stringify(this.currentUser));
+
+
             let alert = this.alertCtrl.create({
               title: 'Confirm booking request',
-              subTitle: 'you car is booked, head to the location to pick it up.', buttons: [{
+              subTitle: 'your car is booked, head to the location to pick it up.', buttons: [{
                 text: 'Okay', handler: () => { //there is no need to manually call this = alert.dismiss(); it is done automatically
                 }}]});
                 alert.present();
