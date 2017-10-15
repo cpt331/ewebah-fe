@@ -27,6 +27,7 @@ export class HomePage {
   // declared variables
 
   responseData : any;
+  bookingResponseData : any;
   // userPostData = {"name":"","token":"","email":"","permission":"","carStatus":""};
   private currentUser = {access_token: "", Name: "",Email: "",Id: "", 
   token_type:"",HasOpenBooking: false, OpenBookingId:-1};
@@ -72,6 +73,16 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
     // when the view is first shown
   ionViewDidLoad() {
+
+    this.authService.ckeckAccountLogin(this.currentUser.access_token).then((result) => {
+
+      this.responseData = result;
+            this.currentUser.HasOpenBooking = this.responseData.HasOpenBooking;
+            this.currentUser.OpenBookingId =  parseInt(this.responseData.BookingId);
+            localStorage.setItem('userData', JSON.stringify(this.currentUser));
+            console.log(this.responseData);
+
+    });
     console.log(this.currentUser.OpenBookingId);
 
       this.loadMap();
@@ -392,8 +403,11 @@ if(!this.currentUser.HasOpenBooking)
           this.dismissLoading();
           if(result){
 
+            this.bookingResponseData = result;
+            console.log(this.bookingResponseData);
+
             this.currentUser.HasOpenBooking = true;
-            this.currentUser.OpenBookingId =  parseInt(this.selectedCarData.Id);
+            this.currentUser.OpenBookingId =  parseInt(this.bookingResponseData.BookingId);
             localStorage.setItem('userData', JSON.stringify(this.currentUser));
 
 

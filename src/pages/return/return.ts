@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, App, IonicPage, NavParams, Platform } from 'ionic-angular';
+import { NavController, App, IonicPage, Platform } from 'ionic-angular';
 import { ReturnServiceProvider } from '../../providers/return-service/return-service';
 import {Geolocation} from '@ionic-native/geolocation';
 
@@ -209,7 +209,16 @@ export class ReturnPage {
       });
       alert.present();
           
-        })};
+        })}
+        else{
+          document.getElementById("bookingHeader").innerHTML = "No booking found:";
+          document.getElementById("City").innerHTML = "";
+          document.getElementById("TotalHours").innerHTML = "";
+          document.getElementById("HourlyRate").innerHTML = "";
+          document.getElementById("TotalAmount").innerHTML = "";
+          document.getElementById("returnButton").style.display = "none";
+
+        }
 
         
       }

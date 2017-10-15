@@ -82,4 +82,22 @@ export class AuthServiceProvider {
       });
     }
 
+    ckeckAccountLogin(token) {
+      return new Promise((resolve, reject) => {
+        let headers = new Headers();
+  
+        headers.append('accept','application/json');
+        headers.append('content-Type', 'application/json');
+        headers.append('authorization','Bearer ' + token);
+  
+        this.http.get(apiUrl + '/api/account/current', {headers: headers})
+  
+          .subscribe(res => {
+            resolve(res.json());
+          }, (err) => {
+            reject(err);
+          });
+      });
+    }
+
 }
