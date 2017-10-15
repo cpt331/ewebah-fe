@@ -17,9 +17,10 @@ export class ReturnPage {
     responseData : any;
     selectedCarData = {"Model":"","CarCategory":"","Make":"","Transmission":"",
       "BillingRate":"","Id":""};
+    bookingData = {Message: "", City: "",TotalHours: "", HourlyRate:"",TotalAmount: "", Success: ""};
     loader;
-    userLat;
-    userLong;
+    userLat = -37.8136;
+    userLong = 144.9631;
 
     private currentUser = {Name:'',Token:'',Email:'',HasOpenBooking:false,OpenBookingId:-1};
     private checkInProgress = false;
@@ -32,28 +33,33 @@ export class ReturnPage {
 
            
       const data = JSON.parse(localStorage.getItem('userData'));
-      console.log(data);
         this.currentUser.Name = data.Name;
         this.currentUser.Email = data.Email;
         this.currentUser.Token = data.access_token;
         this.currentUser.HasOpenBooking = data.HasOpenBooking;
         this.currentUser.OpenBookingId = data.OpenBookingId;
+        
   }
 
+  
   ionViewDidLoad() {
+    if (document.getElementById("returnButton").style.display === "none") {
+      document.getElementById("returnButton").style.display = "block";
+    }
 
+    if(this.currentUser.HasOpenBooking){
     this.showLoading()
     // get the users current location
     this.geolocation.getCurrentPosition().then((position) => {
       
             this.userLat = position.coords.latitude;
             this.userLong = position.coords.longitude;
-    }), 
+    }, 
     // deal with no location
     err => {
       
               let alert = this.alertCtrl.create({
-                title: this.responseData.Message,
+                title: "Location Error",//this.responseData.Message,
                 subTitle: 'Cannot get current location. Please check your location settings',
                 buttons: [{
                   text: 'Ok',
@@ -63,21 +69,37 @@ export class ReturnPage {
             });
             alert.present();
                 
-              }
+              })
+
+    // continue on with the default location for now
 
     
-
-    if(this.currentUser.HasOpenBooking){
       this.returnServiceProvider.checkCurrentBooking(this.currentUser.Token,this.currentUser.OpenBookingId,
         this.userLat, this.userLong).then((returnDetails) =>{
 
           // display details
           document.getElementById("bookingHeader").innerHTML = "Current booking details:";
-          document.getElementById("Message").innerHTML = this.responseData.Message;
-          document.getElementById("City").innerHTML = this.responseData.City;
-          document.getElementById("TotalHours").innerHTML = this.responseData.TotalHours;
-          document.getElementById("HourlyRate").innerHTML = this.responseData.HourlyRate;
-          document.getElementById("TotalAmount").innerHTML = this.responseData.TotalAmount;
+
+
+          // return successful ...
+          this.responseData = returnDetails;
+          console.log(this.responseData);
+
+          if(this.responseData.Success)
+          {
+            document.getElementById("Message").innerHTML = this.responseData.Message;
+            document.getElementById("City").innerHTML = this.responseData.City;
+            document.getElementById("TotalHours").innerHTML = this.responseData.TotalHours;
+            document.getElementById("HourlyRate").innerHTML = this.responseData.HourlyRate;
+            document.getElementById("TotalAmount").innerHTML = this.responseData.TotalAmount;
+          }
+          else{
+            console.log(this.responseData.Message)
+            document.getElementById("bookingHeader").innerHTML = "No booking found:";
+            document.getElementById("returnButton").style.display = "none";
+            document.getElementById("Message").innerHTML = this.responseData.Message;
+
+          }
 
 
           this.dismissLoading();
@@ -135,7 +157,7 @@ export class ReturnPage {
         this.userLat, this.userLong).then((returnDetails) =>{
 
           // return successful ...
-          this.responseData = returnDetails;
+          this.responseData = JSON.stringify(returnDetails);
 
           document.getElementById("bookingHeader").innerHTML = "Booking Completed";
           document.getElementById("Message").innerHTML = this.responseData.Message;
@@ -149,7 +171,7 @@ export class ReturnPage {
 
         }
 
-        ), err => {
+        , err => {
 
         let alert = this.alertCtrl.create({
           title: "Something went wrong",
@@ -162,7 +184,7 @@ export class ReturnPage {
       });
       alert.present();
           
-        }};
+        })};
 
         
       }
