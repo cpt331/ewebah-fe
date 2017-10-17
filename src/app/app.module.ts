@@ -7,10 +7,13 @@ import { HttpModule } from '@angular/http';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { ReturnPage } from '../pages/return/return';
+import { AutocompletePage } from '../pages/home/autocompletepage';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { SettingsPage } from '../pages/settings/settings';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -29,7 +32,10 @@ import { ReturnServiceProvider } from '../providers/return-service/return-servic
     TabsPage,
     WelcomePage,
     LoginPage,
-    SignupPage
+    SettingsPage,
+    SignupPage,
+    ReturnPage,
+    AutocompletePage
   ],
   imports: [
     BrowserModule, HttpModule,
@@ -44,7 +50,11 @@ import { ReturnServiceProvider } from '../providers/return-service/return-servic
     TabsPage,
     WelcomePage,
     LoginPage,
-    SignupPage
+    SettingsPage,
+    ReturnPage,
+    SignupPage,
+    AutocompletePage
+
   ],
   providers: [
     StatusBar,

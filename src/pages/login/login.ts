@@ -16,7 +16,9 @@ export class LoginPage {
 
   // create a storage structure for the returned values
   enteredDetails = {"Email": "", "Password":""};
-  userData = {"access_token": "", "Name": "","Email": "","Id": "", "token_type":""};
+  userData = {access_token: "", Name: "",Email: "",Id: "", 
+  token_type:"",HasOpenBooking: false, OpenBookingId:-1};
+
   responseData : any;
   loader;
 
@@ -62,6 +64,7 @@ export class LoginPage {
       
       //save collected info for later use
       localStorage.setItem('userData', JSON.stringify(this.responseData));
+      
   
       this.dismissLoading();
       this.navCtrl.push(TabsPage, {}, {animate: false});

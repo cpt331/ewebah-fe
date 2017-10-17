@@ -3,15 +3,10 @@ import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 
-let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/';
+// let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/';
+let apiUrl = 'http://carshareapi-dev.us-east-1.elasticbeanstalk.com/';
 
 
-/*
-  Generated class for the AuthServiceProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AuthServiceProvider {
 
