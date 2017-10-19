@@ -7,8 +7,16 @@
   </ion-navbar>
 </ion-header>
 <ion-content id="settings">
-  <ion-list>
-    <ion-list-header>Follow us in the toaster</ion-list-header>
+
     
-  </ion-list>
+      <button ion-item (click)="accountSettings()">
+        Account Information
+      </button> 
+      <button ion-item (click)="paymentSettings()">
+       Billing Information
+      </button> 
+      <button ion-item (click)="transactioinHistory()">
+        Transaction History
+      </button> 
+
 </ion-content>
