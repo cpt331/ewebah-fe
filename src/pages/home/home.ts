@@ -55,14 +55,15 @@ export class HomePage {
 private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
 
-  const data = JSON.parse(localStorage.getItem('userData'));
-  this.currentUser.Name = data.Name;
-  this.currentUser.Email = data.Email;
-  this.currentUser.access_token = data.access_token;
-  this.currentUser.token_type = data.token_type
-  this.currentUser.Id = data.Id
-  this.currentUser.HasOpenBooking = data.HasOpenBooking;
-  this.currentUser.OpenBookingId = data.OpenBookingId;
+  this.loadUserData()
+  // const data = JSON.parse(localStorage.getItem('userData'));
+  // this.currentUser.Name = data.Name;
+  // this.currentUser.Email = data.Email;
+  // this.currentUser.access_token = data.access_token;
+  // this.currentUser.token_type = data.token_type
+  // this.currentUser.Id = data.Id
+  // this.currentUser.HasOpenBooking = data.HasOpenBooking;
+  // this.currentUser.OpenBookingId = data.OpenBookingId;
     
     this.address = {
       place: ''   
