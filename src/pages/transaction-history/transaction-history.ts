@@ -15,8 +15,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TransactionHistoryPage {
   page = 0;
+  transactionHistory: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+    this.transactionHistory = [
+      'Bread',
+      'Milk',
+      'Cheese',
+      'Snacks',
+      'Apples',
+      'Bananas',
+      'Peanut Butter',
+      'Chocolate',
+      'Avocada',
+      'Vegemite',
+      'Muffins',
+      'Paper towels'
+  ];
   }
 
   ionViewDidLoad() {
@@ -27,15 +43,7 @@ export class TransactionHistoryPage {
 
   loadTransactionHistoryWithPage(pageNo){
 
- // make one of these for each item returned by the transaction 
-    // <ion-item>
-    //   <ion-avatar item-start>
-    //     <img src="img/avatar-finn.png">
-    //   </ion-avatar>
-    //   <h2>Finn</h2>
-    //   <h3>Don't Know What To Do!</h3>
-    //   <p>I've had a pretty messed up day. If we just...</p>
-    // </ion-item>
+
 
 
   }

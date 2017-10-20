@@ -17,15 +17,18 @@ export class AuthServiceProvider {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
 
-
+      console.log(apiUrl);
       this.http.post(apiUrl + 'Token',
     "userName=" + encodeURIComponent(credentialsEmail) +
     "&password=" + encodeURIComponent(credentialsPass) +
     "&grant_type=password", {headers: headers})
 
+    
+
         .subscribe(res => {
           resolve(res.json());
         }, (err) => {
+          console.log(err);
           reject(err);
         });
     });

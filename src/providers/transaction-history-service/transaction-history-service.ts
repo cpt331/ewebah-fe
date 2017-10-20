@@ -21,7 +21,7 @@ export class TransactionHistoryServiceProvider {
       headers.append('authorization','Bearer ' + token);
       
       
-      this.http.get(apiUrl + "api/cars", {headers: headers})
+      this.http.get(apiUrl + "api/transactions", {headers: headers})
 
         .subscribe(res => {
           resolve(res.json());

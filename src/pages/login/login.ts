@@ -59,7 +59,7 @@ export class LoginPage {
     
     // hard coded inputs for ease of build
     // 'user1@gmail.com', 'password1'   this.enteredDetails.Email, this.enteredDetails.Password 'hsimpson@gmail.com', 'password1'
-    this.authService.postDataLogin('hsimpson@gmail.com', 'password1').then((result) => {
+    this.authService.postDataLogin(this.enteredDetails.Email, this.enteredDetails.Password ).then((result) => {
       this.responseData = result;
       
       //save collected info for later use
