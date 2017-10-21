@@ -1,10 +1,10 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import * as Constants from '../providerConstants';
 import 'rxjs/add/operator/map';
 
-
 // let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/';
-let apiUrl = 'http://carshareapi-dev.us-east-1.elasticbeanstalk.com/';
+let apiUrl = Constants.API_ENDPOINT
 
 
 @Injectable()
@@ -17,15 +17,18 @@ export class AuthServiceProvider {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
 
-
+      console.log(apiUrl);
       this.http.post(apiUrl + 'Token',
     "userName=" + encodeURIComponent(credentialsEmail) +
     "&password=" + encodeURIComponent(credentialsPass) +
     "&grant_type=password", {headers: headers})
 
+    
+
         .subscribe(res => {
           resolve(res.json());
         }, (err) => {
+          console.log(err);
           reject(err);
         });
     });
@@ -39,6 +42,7 @@ export class AuthServiceProvider {
     headers.append('accept','application/json');
     headers.append('content-Type', 'application/json');
 
+    // NEED TO ADD THE REST OF THE FIELDS
     var registerRequest = {
       FirstName: firstName,
       LastName: lastName,
@@ -49,13 +53,10 @@ export class AuthServiceProvider {
       LicenceNumber: licence
     };
 
-    console.log(dob);
       this.http.post(apiUrl + 'api/account/register',
           registerRequest,
           { headers: headers })
-        //{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
 
-        //, {headers: headers})
         .subscribe(res => {
           resolve(res.json());
         }, (err) => {
@@ -77,7 +78,26 @@ export class AuthServiceProvider {
             resolve(res.json());
           }, (err) => {
             //reject(err);
-            console.log(err);
+          });
+      });
+    }
+
+    ckeckAccountLogin(token) {
+      return new Promise((resolve, reject) => {
+        let headers = new Headers();
+  
+        headers.append('accept','application/json');
+        headers.append('content-Type', 'application/json');
+        headers.append('authorization','Bearer ' + token);
+  
+        console.log("checking current user")
+        this.http.get(apiUrl + '/api/account/current', {headers: headers})
+  
+        
+          .subscribe(res => {
+            resolve(res.json());
+          }, (err) => {
+            reject(err);
           });
       });
     }

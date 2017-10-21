@@ -71,7 +71,6 @@ export class SignupPage {
 
   signup(){
     this.enteredDetails.firstName = this.signupForm.value.firstName;
-    console.log(this.enteredDetails.firstName);
 
     // loader caller here, could wrap this in the loader instead if wanted
     this.showLoading();
@@ -91,7 +90,6 @@ export class SignupPage {
     this.signupForm.value.state, 
     this.signupForm.value.postcode).then((result) => {
       this.responseData = result;
-      console.log(this.responseData);
       
       //save collected info for later use
       //localStorage.setItem('userData', JSON.stringify(this.responseData));
@@ -120,6 +118,7 @@ export class SignupPage {
             text: 'login page',
             handler: () => {
               this.navCtrl.push(LoginPage, {}, {animate: false});
+              console.log(this.responseData);
             }}]
       });
       alert.present();
@@ -127,6 +126,7 @@ export class SignupPage {
 
     }, (err) => {
 
+      this.dismissLoading();
       // Error handling
         let alert = this.alertCtrl.create({
           title: "Something went wrong :( ",
@@ -134,7 +134,6 @@ export class SignupPage {
           buttons: [{
             text: 'Try again',
             handler: () => {
-              this.dismissLoading();
             }
           }]
         });
