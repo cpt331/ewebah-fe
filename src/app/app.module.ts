@@ -14,7 +14,13 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
-import { TransactionHistoryPage} from '../pages/transaction-history/transaction-history'
+import { TransactionHistoryPage} from '../pages/transaction-history/transaction-history';
+
+import { AdminHomePage} from '../pages/admin-home/admin-home';
+import { AdminCarsPage } from '../pages/admin-cars/admin-cars';
+import { AdminCarPage} from '../pages/admin-car/admin-car';
+import { AdminEmailTemplatePage} from '../pages/admin-email-template/admin-email-template';
+
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -24,6 +30,8 @@ import { CarServiceProvider } from '../providers/car-service/car-service';
 import { BookingServiceProvider } from '../providers/booking-service/booking-service';
 import { ReturnServiceProvider } from '../providers/return-service/return-service';
 import { TransactionHistoryServiceProvider } from '../providers/transaction-history-service/transaction-history-service';
+
+
 
 @NgModule({
   declarations: [
@@ -38,7 +46,11 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     SignupPage,
     ReturnPage,
     TransactionHistoryPage,
-    AutocompletePage
+    AutocompletePage,
+    AdminHomePage,
+    AdminCarPage,
+    AdminCarsPage,
+    AdminEmailTemplatePage
   ],
   imports: [
     BrowserModule, HttpModule,
@@ -57,8 +69,11 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     ReturnPage,
     SignupPage,
     TransactionHistoryPage,
-    AutocompletePage
-
+    AutocompletePage,
+    AdminHomePage,
+    AdminCarPage,
+    AdminCarsPage,
+    AdminEmailTemplatePage
   ],
   providers: [
     StatusBar,

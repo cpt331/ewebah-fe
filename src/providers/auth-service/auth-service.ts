@@ -14,6 +14,10 @@ export class AuthServiceProvider {
   }
 
   postDataLogin(credentialsEmail, credentialsPass) {
+
+    credentialsEmail = 'user1@gmail.com';
+    credentialsPass = 'password1';
+
     return new Promise((resolve, reject) => {
       let headers = new Headers();
 
