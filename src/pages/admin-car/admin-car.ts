@@ -23,6 +23,13 @@ export class AdminCarPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder ) {
     
     this.car = this.navParams.get('car');
+
+    if(!this.car){
+      this.car = {
+          Make: '',
+          Model: ''
+      };
+    }
     
     this.carForm = this.formBuilder.group({
       Make: [this.car.Make, Validators.required],
