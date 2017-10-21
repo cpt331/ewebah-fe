@@ -50,6 +50,10 @@ export class LoginPage {
     }
   }
 
+  
+  signup(){
+    this.navCtrl.push(SignupPage);
+  }
   login(){
     // needs input validation
     

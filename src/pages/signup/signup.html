@@ -6,7 +6,8 @@
       </ion-navbar>
       
     </ion-header>
-    <ion-list class="signupFields">
+    
+   <ion-list class="signupFields">
       <form [formGroup]="signupForm">
         
         <button ion-button clear class="haveAccount" (click)="haveAccount()">Already have an account? login here</button>
@@ -38,7 +39,7 @@
 
         <ion-item>
           <ion-label fixed>Date of Birth</ion-label>
-          <ion-input formControlName="dob" type="date"></ion-input>
+          <ion-datetime formControlName="dob" pickerFormat="MMMM DD YYYY" displayFormat="DD/MM/YYYY" min="1920" max="1999-09-30"></ion-datetime>
         </ion-item>
         
         <ion-item>
