@@ -1,15 +1,8 @@
 page-login {
-    .scroll-content
-    {
-    //overflow-x: hidden;
-    //overflow-y:
-    }
     
-    ion-list
-     {
-        overflow-y:visible;
-        max-height: 72vh;
-    }
+    
+    
+    
     #login
     {
         @media only screen and (min-width : 320px) and (max-width : 480px) 
@@ -18,6 +11,7 @@ page-login {
             background: color($colors, bGround);
             
         }
+       
     }
     #login_body
     {
@@ -76,7 +70,7 @@ page-login {
                 font-size: 60px;
                 
             }
-            width: 80%;
+            width: 70%;
             max-width: 600px;
             margin-left: 30px;
             margin-right: 15px;
@@ -98,12 +92,14 @@ page-login {
                 font-family: 'Cooper Black';
                 
             }
+            margin-top: 0px;
         }
         
         h3
         {
             
             color: black;
+            margin-top: -10px;
         }
         
         .CompanyIcon
@@ -118,7 +114,7 @@ page-login {
         .loginButton{
             margin-top: 10px;
         }
-
+        
 
     }
 }

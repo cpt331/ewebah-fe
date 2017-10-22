@@ -87,6 +87,7 @@ export class LoginPage {
           title: 'No User Found',
           subTitle: 'The details you entered don\'t match any registered users.' +
           ' Please check you details and try again or signup!',
+          cssClass: 'NoUser',
           buttons: [{
             text: 'Try again',
             handler: () => {
