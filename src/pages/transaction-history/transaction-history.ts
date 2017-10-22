@@ -23,20 +23,6 @@ export class TransactionHistoryPage {
 
     this.loadUserData()
 
-    this.transactionHistoryTest = [
-      'Bread',
-      'Milk',
-      'Cheese',
-      'Snacks',
-      'Apples',
-      'Bananas',
-      'Peanut Butter',
-      'Chocolate',
-      'Avocada',
-      'Vegemite',
-      'Muffins',
-      'Paper towels'
-  ];
   }
 
   ionViewDidLoad() {
@@ -53,22 +39,10 @@ export class TransactionHistoryPage {
 
     console.log(this.transactionHistory);
 
-    });
+    }, (err) => {
 
-    this.transactionHistoryTest =  [
-      'Bread',
-      'Milk',
-      'Cheese',
-      'Snacks',
-      'Apples',
-      'Bananas',
-      'Peanut Butter',
-      'Chocolate',
-      'Avocada',
-      'Vegemite',
-      'Muffins',
-      'Paper towels'
-  ];
+      
+    });
 
 
   }
