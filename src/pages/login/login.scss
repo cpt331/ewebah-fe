@@ -1,19 +1,124 @@
 page-login {
-
-    #login{
-        background: color($colors, bGround);
-
-        .loginButton{
-            margin-top: 60px;
-        }
-
-        .loginFields{
-            margin-top: 95px;
-            margin-bottom:  15px;
-            margin-left: 10%;
-            width: 80%;
-
+    .scroll-content
+    {
+    //overflow-x: hidden;
+    //overflow-y:
+    }
+    
+    ion-list
+     {
+        overflow-y:visible;
+        max-height: 72vh;
+    }
+    #login
+    {
+        @media only screen and (min-width : 320px) and (max-width : 480px) 
+        {
+            
+            background: color($colors, bGround);
+            
         }
     }
+    #login_body
+    {
+        .card-md
+        {
+            @media only screen and (min-width: 800px)
+            {
+                margin-top:2%;
+                max-width:500px; 
+            }
+            
+        } 
+        .mainImage
+        {
+            @media only screen and (max-width: 640px) 
+            {
+            display:none;
+            }
+            float: right;
+            width: 80%;
+            height: 67%;
+            margin-top: -10%;
+            /* background-color: blue; */
+        }
+        .loginButton
+        {
+            @media only screen and (min-width: 800px)
+            {
+                margin-top:2%;
+                max-width:500px; 
+            }
 
+        }
+        .LoginCard
+        {
+            background-color: blue;
+        }
+
+        background: color($colors, bGround);
+        .splashImageSmall
+        {
+            @media only screen and (min-width: 800px) 
+            {  
+                display:none;
+                font-size: 200px;
+                width: 80%;
+                max-width: 500px;
+                //max-height: 50%;
+                margin-top: -10px;
+                margin-bottom: 0px;
+                margin-left: 30%;
+                margin-right: 30%;  
+            }
+            @media only screen and (max-width: 640px) 
+            {
+                font-size: 60px;
+                
+            }
+            width: 80%;
+            max-width: 600px;
+            margin-left: 30px;
+            margin-right: 15px;
+        }
+        
+        h1
+        {
+            @media only screen and (min-width: 1024px) 
+            {  
+                font-size: 200px;
+                color: black;
+                font-family: 'Cooper Black';
+            }
+           
+            @media only screen and (max-width: 640px) 
+            {
+                font-size: 50px;
+                color: black;
+                font-family: 'Cooper Black';
+                
+            }
+        }
+        
+        h3
+        {
+            
+            color: black;
+        }
+        
+        .CompanyIcon
+        {
+            @media only screen and (min-width: 800px) 
+            {
+            float: left;
+            }
+            float: right;
+        } 
+        
+        .loginButton{
+            margin-top: 10px;
+        }
+
+
+    }
 }
