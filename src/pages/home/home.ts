@@ -79,7 +79,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     //         localStorage.setItem('userData', JSON.stringify(this.currentUser));
 
     // });
-    console.log(this.currentUser.OpenBookingId);
 
       this.loadMap();
   }
