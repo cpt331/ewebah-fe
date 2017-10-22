@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
-import {DatePicker} from '@ionic-native/date-picker';
+//import {DatePicker} from '@ionic-native/date-picker';
 
 import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
@@ -78,7 +78,7 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
   ],
   providers: [
     StatusBar,
-    DatePicker,
+    //DatePicker,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
