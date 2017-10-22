@@ -85,7 +85,6 @@ getMaxDate()
 
   signup(){
     this.enteredDetails.firstName = this.signupForm.value.firstName;
-    console.log(this.enteredDetails.firstName);
 
     // loader caller here, could wrap this in the loader instead if wanted
     this.showLoading();
@@ -106,7 +105,6 @@ getMaxDate()
     this.signupForm.value.state, 
     this.signupForm.value.postcode).then((result) => {
       this.responseData = result;
-      console.log(this.responseData);
       
       //save collected info for later use
       //localStorage.setItem('userData', JSON.stringify(this.responseData));
@@ -135,6 +133,7 @@ getMaxDate()
             text: 'login page',
             handler: () => {
               this.navCtrl.push(LoginPage, {}, {animate: false});
+              console.log(this.responseData);
             }}]
       });
       alert.present();
@@ -143,6 +142,7 @@ getMaxDate()
     }
     , (err) => {
 
+      this.dismissLoading();
       // Error handling
         let alert = this.alertCtrl.create({
           title: "Something went wrong :( ",
@@ -150,7 +150,6 @@ getMaxDate()
           buttons: [{
             text: 'Try again',
             handler: () => {
-              this.dismissLoading();
             }
           }]
         });
