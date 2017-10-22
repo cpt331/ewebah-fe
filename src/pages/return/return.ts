@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, App, IonicPage, Platform } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { ReturnServiceProvider } from '../../providers/return-service/return-service';
 import {Geolocation} from '@ionic-native/geolocation';
 
@@ -25,9 +25,6 @@ export class ReturnPage {
 
     private currentUser = {access_token: "", Name: "",Email: "",Id: "", 
     token_type:"",HasOpenBooking: false, OpenBookingId:-1};
-    private checkInProgress = false;
-
-
 
 
 
