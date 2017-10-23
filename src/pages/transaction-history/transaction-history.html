@@ -1,0 +1,23 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>transactionHistory</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-list>
+        <ion-item *ngFor="let transaction of transactionHistory"> 
+          <h1>Booking ID: {{transaction.BookingId}}</h1>
+          <h2>Total of {{transaction.TotalAmount}} for {{transaction.TotalHours}} hours</h2>
+        <h3>{{transaction.CarModel}}</h3>
+        <p>{{transaction.CarMake}} </p>
+        <p>Hire from {{transaction.CheckInDate}} </p>
+          <p>to {{transaction.CheckOutDate}}</p>
+        </ion-item>
+      </ion-list>
+
+</ion-content>
