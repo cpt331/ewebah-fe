@@ -1,11 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ModalController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 import { LoginPage } from '../login/login';
+import { AutocompletePage } from '../home/autocompletepage';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+
+import {Geolocation} from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({
@@ -16,7 +19,8 @@ export class SignupPage {
 
   // create a storage structure for the returned values
   enteredDetails = {"firstName": "","lastName": "","email": "","password": "","passwordConfirm": "","dob": "", 
-  "licence":"","phone": "","address1": "","address2": "","suburb": "","state": "","postcode": ""};
+  "licence":"","phone": ""//,"address1": "","address2": "","suburb": "","state": "","postcode": ""
+};
   
   // for saving the entered data. Could be useful to enter the users data into 
   // the login field instead of making the user type it again
@@ -25,8 +29,11 @@ export class SignupPage {
   loader;
   signupForm: FormGroup;
 
+  address;
+  geo: any
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, 
-    public loadingCtrl: LoadingController, public alertCtrl: AlertController, public authService: AuthServiceProvider) {
+    public loadingCtrl: LoadingController, public alertCtrl: AlertController, public authService: AuthServiceProvider, public ModalCtrl: ModalController) {
     this.signupForm = formBuilder.group({
       firstName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       lastName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
@@ -35,13 +42,16 @@ export class SignupPage {
       passwordConfirm: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
       dob: ["", Validators.compose([Validators.required])],
       licence: ["", Validators.compose([Validators.minLength(5), Validators.maxLength(20), Validators.required])],
-      phone: ["", Validators.compose([Validators.minLength(8), Validators.maxLength(15), Validators.pattern('[+0-9 ]*'), Validators.required])],
-      address1: [""],
-      address2: [""],
-      suburb: [""],
-      state: [""],
-      postcode: ["", Validators.compose([Validators.minLength(4), Validators.maxLength(4), Validators.pattern('[0-9 ]*')])]
+      phone: ["", Validators.compose([Validators.minLength(8), Validators.maxLength(15), Validators.pattern('[+0-9 ]*'), Validators.required])]//,
+      //address1: [""],
+      //address2: [""],
+      //suburb: [""],
+      //state: [""],
+      //postcode: ["", Validators.compose([Validators.minLength(4), Validators.maxLength(4), Validators.pattern('[0-9 ]*')])]
     })
+    this.address = {
+      place: ''   
+    };  
   }
 
   ionViewDidLoad() {
@@ -56,6 +66,19 @@ export class SignupPage {
         });
         this.loader.present();
     }
+  }
+
+
+  showAddressModal () {
+    let modal = this.ModalCtrl.create(AutocompletePage);
+    let me = this;
+    modal.onDidDismiss(data => {
+      if(!!data){
+        this.address.place = data;
+        this.geo = data;
+      }
+    });
+    modal.present();
   }
 
   dismissLoading(){
@@ -84,12 +107,13 @@ export class SignupPage {
     this.signupForm.value.passwordConfirm, 
     this.signupForm.value.dob, 
     this.signupForm.value.licence, 
-    this.signupForm.value.phone, 
-    this.signupForm.value.address1, 
-    this.signupForm.value.address2, 
-    this.signupForm.value.suburb, 
-    this.signupForm.value.state, 
-    this.signupForm.value.postcode).then((result) => {
+    this.signupForm.value.phone//, 
+    //this.signupForm.value.address1, 
+    //this.signupForm.value.address2, 
+    //this.signupForm.value.suburb, 
+    //this.signupForm.value.state, 
+    //this.signupForm.value.postcode
+  ).then((result) => {
       this.responseData = result;
       console.log(this.responseData);
       

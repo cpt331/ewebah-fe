@@ -17,20 +17,21 @@
 
         <ion-item>
           <ion-label floating>Credit Card Number</ion-label>
-          <ion-input formControlName="ccNum" type="number" value=""></ion-input>
+          <ion-input formControlName="ccNum" type="text" value=""></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label floating>Expiry</ion-label>
-          <ion-input formControlName="ccExpiry" type="month" value=""></ion-input>
+          <ion-input formControlName="ccMonth" type="number" min="1" max="12" value=""></ion-input>
+          <ion-input formControlName="ccYear" type="number" min="17" max="99" value=""></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label floating>CVV Number</ion-label>
-          <ion-input formControlName="ccV" type="number" value=""></ion-input>
+          <ion-input formControlName="ccV" type="text" value=""></ion-input>
         </ion-item>
 
-        <button ion-button block color="secondary" class="signupButton" (click)="signup()">Create Account</button>
+        <button ion-button block color="secondary" class="submitButton" (click)="submit()">Update Payment Info</button>
       </form>
     </ion-list>
 </ion-content>
