@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 
 
 // let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/';
-let apiUrl = 'http://carshareapi-dev.us-east-1.elasticbeanstalk.com/';
+let apiUrl = 'https://ewebahapi.azurewebsites.net/';
 
 
 @Injectable()
@@ -32,7 +32,8 @@ export class AuthServiceProvider {
   }
 
   postDataSignUp(firstName, lastName, email, password, passwordConfirm, dob, licence, 
-    phone, address1, address2, suburb, state, postcode) {
+    phone//, address1, address2, suburb, state, postcode
+  ) {
     return new Promise((resolve, reject) => {
      let headers: Headers = new Headers();
 
@@ -52,6 +53,39 @@ export class AuthServiceProvider {
     console.log(dob);
       this.http.post(apiUrl + 'api/account/register',
           registerRequest,
+          { headers: headers })
+        //{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+
+        //, {headers: headers})
+        .subscribe(res => {
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+    });
+
+  }
+
+  postDataPaymentInfo(ccName, ccType, ccNum, ccMonth, ccYear, ccV, access_token) {
+    return new Promise((resolve, reject) => {
+     let headers: Headers = new Headers();
+
+    headers.append('accept','application/json');
+    headers.append('content-Type', 'application/json');3
+    headers.append('authorization','Bearer ' + access_token);
+
+    var paymentInfoRequest = {
+      CardName: ccName,
+      CardType: ccType,
+      CardNumber: ccNum,
+      ExpiryMonth: ccMonth,
+      ExpiryYear: ccYear,
+      CardVerificationValue: ccV
+    };
+
+    console.log(ccYear);
+      this.http.post(apiUrl + 'api/account/paymentmethod',
+          paymentInfoRequest,
           { headers: headers })
         //{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
 
