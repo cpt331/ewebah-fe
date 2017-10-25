@@ -33,4 +33,16 @@ export class CarServiceProvider {
 
   }
 
+  updateCar(car, token){
+
+  };
+
+  deleteCar(vehicleId, token){
+
+  };
+
+  getCategories(token){
+
+  };
+
 }
