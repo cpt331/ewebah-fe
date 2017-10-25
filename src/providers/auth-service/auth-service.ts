@@ -3,7 +3,6 @@ import { Http, Headers } from '@angular/http';
 import * as Constants from '../providerConstants';
 import 'rxjs/add/operator/map';
 
-// let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/';
 let apiUrl = Constants.API_ENDPOINT
 
 
@@ -15,8 +14,6 @@ export class AuthServiceProvider {
 
   postDataLogin(credentialsEmail, credentialsPass) {
 
-    credentialsEmail = 'user1@gmail.com';
-    credentialsPass = 'password1';
 
     return new Promise((resolve, reject) => {
       let headers = new Headers();
@@ -27,7 +24,6 @@ export class AuthServiceProvider {
     "&password=" + encodeURIComponent(credentialsPass) +
     "&grant_type=password", {headers: headers})
 
-    
 
         .subscribe(res => {
           resolve(res.json());

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { TransactionHistoryServiceProvider } from '../../providers/transaction-history-service/transaction-history-service';
+import { TransactionHistoryServiceProvider } 
+  from '../../providers/transaction-history-service/transaction-history-service';
 
 
 @IonicPage()
@@ -9,16 +10,20 @@ import { TransactionHistoryServiceProvider } from '../../providers/transaction-h
   templateUrl: 'transaction-history.html',
 })
 export class TransactionHistoryPage {
-  page = 0;
+  page = 5;
+  pageSize = 5;
+  transactionHistoryResult: any;
   transactionHistory: any;
+  transactionHistoryTest: any;
   private currentUser = {access_token: "", Name: "",Email: "",Id: "", 
   token_type:"",HasOpenBooking: false, OpenBookingId:-1};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public transService: TransactionHistoryServiceProvider,) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+    public transService: TransactionHistoryServiceProvider,) {
 
     this.loadUserData()
 
-    this.transactionHistory = [
+    this.transactionHistoryTest = [
       'Bread',
       'Milk',
       'Cheese',
@@ -35,14 +40,22 @@ export class TransactionHistoryPage {
   }
 
   ionViewDidLoad() {
-    this.loadTransactionHistoryWithPage(this.page);
+    this.loadTransactionHistoryWithPage(this.page, this.pageSize);
   }
 
   // load the details for the page into a list
 
-  loadTransactionHistoryWithPage(pageNo){
+  loadTransactionHistoryWithPage(pageNo, pageSize){
 
-    this.transactionHistory =  [
+    this.transService.getTransactionHistory(this.currentUser.access_token, pageNo, pageSize).then((result) => {
+      this.transactionHistoryResult = result;
+      this.transactionHistory = this.transactionHistoryResult.Bookings;
+
+    console.log(this.transactionHistory);
+
+    });
+
+    this.transactionHistoryTest =  [
       'Bread',
       'Milk',
       'Cheese',
@@ -56,8 +69,6 @@ export class TransactionHistoryPage {
       'Muffins',
       'Paper towels'
   ];
-    //= this.transService.getTransactionHistory(this.currentUser.access_token, this.currentUser.Id,this.page);
-
 
 
   }
@@ -65,13 +76,13 @@ export class TransactionHistoryPage {
   // move to the next page of transaction details.
   nextPage(){
     this.page = this.page +1;
-    this.loadTransactionHistoryWithPage(this.page);
+    this.loadTransactionHistoryWithPage(this.page, this.pageSize);
 
   }
 
   previousPage(){
     this.page = this.page -1;
-    this.loadTransactionHistoryWithPage(this.page);
+    this.loadTransactionHistoryWithPage(this.page, this.pageSize);
     
       }
 

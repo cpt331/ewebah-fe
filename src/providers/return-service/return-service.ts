@@ -47,7 +47,7 @@ export class ReturnServiceProvider {
     return new Promise((resolve, reject) => {
 
      let headers: Headers = new Headers();
-
+     
 
      var closeCurrentBookingRequest = {
       BookingId: bookingId,

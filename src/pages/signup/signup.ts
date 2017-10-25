@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import moment from 'moment';
 
 import { LoginPage } from '../login/login';
 import { LoadingController } from 'ionic-angular';
@@ -14,6 +15,7 @@ import { AlertController } from 'ionic-angular';
 })
 export class SignupPage {
 
+  today:any; mDate:any;
   // create a storage structure for the returned values
   enteredDetails = {"firstName": "","lastName": "","email": "","password": "","passwordConfirm": "","dob": "", 
   "licence":"","phone": "","address1": "","address2": "","suburb": "","state": "","postcode": ""};
@@ -24,6 +26,7 @@ export class SignupPage {
   responseData : any;
   loader;
   signupForm: FormGroup;
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, 
     public loadingCtrl: LoadingController, public alertCtrl: AlertController, public authService: AuthServiceProvider) {
@@ -45,8 +48,18 @@ export class SignupPage {
   }
 
   ionViewDidLoad() {
-  }
+  this.getMaxDate();  
+    }
 
+getMaxDate()
+{
+  let year = moment().format('YYYY');
+  let month = moment().format('MM');
+  let day = moment().format("DD");
+  //console.log('today is: ', day + 'and month: ',month + 'and year: ',year);
+  
+}
+  
   //loader function to stop the loader being called when it already exists
   // and dismissed when it doesn not exist
   showLoading() {
@@ -57,6 +70,7 @@ export class SignupPage {
         this.loader.present();
     }
   }
+  
 
   dismissLoading(){
     if(this.loader){
@@ -74,6 +88,7 @@ export class SignupPage {
 
     // loader caller here, could wrap this in the loader instead if wanted
     this.showLoading();
+
     
     // hard coded inputs for ease of build
     this.authService.postDataSignUp(this.signupForm.value.firstName, 
@@ -93,7 +108,7 @@ export class SignupPage {
       
       //save collected info for later use
       //localStorage.setItem('userData', JSON.stringify(this.responseData));
-  
+      
       this.dismissLoading();
 
       if(this.responseData.Success === false){
@@ -124,7 +139,8 @@ export class SignupPage {
       alert.present();
     }
 
-    }, (err) => {
+    }
+    , (err) => {
 
       this.dismissLoading();
       // Error handling
