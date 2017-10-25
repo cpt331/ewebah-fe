@@ -8,6 +8,7 @@ import { HttpModule } from '@angular/http';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { otpPage } from '../pages/otp/otp';
 import { ReturnPage } from '../pages/return/return';
 import { AutocompletePage } from '../pages/home/autocompletepage';
 import { AboutPage } from '../pages/about/about';
@@ -45,6 +46,7 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     LoginPage,
     SettingsPage,
     SignupPage,
+	otpPage,
     ReturnPage,
     TransactionHistoryPage,
     AutocompletePage,
@@ -69,6 +71,7 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     SettingsPage,
     ReturnPage,
     SignupPage,
+	otpPage,
     TransactionHistoryPage,
     AutocompletePage,
     AdminHomePage,
