@@ -47,7 +47,7 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     SignupPage,
     ReturnPage,
     PaymentInfoPage,
-    AutocompletePage
+    AutocompletePage,
     TransactionHistoryPage,
     AutocompletePage,
     AdminHomePage,
@@ -72,7 +72,7 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     ReturnPage,
     SignupPage,
     PaymentInfoPage,
-    AutocompletePage
+    AutocompletePage,
     TransactionHistoryPage,
     AutocompletePage,
     AdminHomePage,

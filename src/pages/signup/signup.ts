@@ -32,13 +32,12 @@ export class SignupPage {
   loader;
   signupForm: FormGroup;
 
+  address;
+  geo: any
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, 
     public loadingCtrl: LoadingController, public alertCtrl: AlertController, public authService: AuthServiceProvider, public ModalCtrl: ModalController) {
 
-      address;
-      geo: any
-  
   
     this.signupForm = formBuilder.group({
       firstName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
