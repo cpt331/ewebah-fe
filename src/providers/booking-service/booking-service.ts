@@ -7,6 +7,7 @@ let apiUrl = Constants.API_ENDPOINT
 
 
 
+
 @Injectable()
 export class BookingServiceProvider {
 

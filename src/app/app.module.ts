@@ -15,8 +15,8 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
+import { PaymentInfoPage } from '../pages/paymentinfo/paymentinfo';
 import { TransactionHistoryPage} from '../pages/transaction-history/transaction-history';
-
 import { AdminHomePage} from '../pages/admin-home/admin-home';
 import { AdminCarsPage } from '../pages/admin-cars/admin-cars';
 import { AdminCarPage} from '../pages/admin-car/admin-car';
@@ -46,6 +46,8 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     SettingsPage,
     SignupPage,
     ReturnPage,
+    PaymentInfoPage,
+    AutocompletePage
     TransactionHistoryPage,
     AutocompletePage,
     AdminHomePage,
@@ -69,6 +71,8 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     SettingsPage,
     ReturnPage,
     SignupPage,
+    PaymentInfoPage,
+    AutocompletePage
     TransactionHistoryPage,
     AutocompletePage,
     AdminHomePage,

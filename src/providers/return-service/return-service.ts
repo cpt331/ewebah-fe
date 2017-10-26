@@ -3,7 +3,6 @@ import { Http, Headers } from '@angular/http';
 import * as Constants from '../providerConstants';
 import 'rxjs/add/operator/map';
 
-// let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/';
 let apiUrl = Constants.API_ENDPOINT
 
 
