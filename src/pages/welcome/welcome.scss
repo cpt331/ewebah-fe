@@ -1,30 +1,27 @@
 page-welcome {
 
     #welcome{
-        background-image: url('/assets/images/Chicago.jpg');
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+        
+        background-color: #cfd8dc;
         @media only screen and (min-width : 320px) and (max-width : 480px) 
         {
-            background: url(/assets/images/TintedCitySmall.png)no-repeat, center, center, fixed;
-            background-color: lightblue;
-
+            background-color: #cfd8dc;
+            
         }
+        
         h1
         {
             @media only screen and (min-width: 1024px) 
             {  
                 font-size: 200px;
-                color: whitesmoke;
+                color: black;
                 font-family: 'Cooper Black';
             }
            
             @media only screen and (max-width: 640px) 
             {
-                font-size: 60px;
-                color: whitesmoke;
+                font-size: 50px;
+                color: black;
                 font-family: 'Cooper Black';
                 
             }
@@ -34,26 +31,16 @@ page-welcome {
         h3{
             margin-top: 2px;
             margin-bottom: 5px;
-            color: rgb(252, 236, 19);
+            color: black;
         }
                
         .signupButton
         {
             @media only screen and (max-width: 640px) 
             {
-                margin-top: 80%;
-                
+                margin-top: 20%;
             }
-            @media only screen and (min-width: 1024px) 
-            {
-                margin-top: -10%;
-                width: 400px;
-                margin-left: 55%; 
-            }
-            margin-top: 30%;
-            margin-bottom: 10px;
-            //max-width: 1400px;
-            //margin-inline-start: 0px;
+            max-width: 350px;
             font-size: 22px;
             font-family: 'Rockwell';
             
@@ -61,31 +48,20 @@ page-welcome {
         }
         .loginButton
         {
-            @media only screen and (max-width: 640px) 
-            {
-                //margin-top: 80%;
-                
-            }
-            @media only screen and (min-width: 1024px) 
-            {
-                width: 400px;
-                margin-top: -2.5%;
-                margin-left: auto;
-            }
-
             background-color: #ffc82c;
             font-size: 22px;
-            margin-top: 10px;
+            max-width: 350px;
             color: black;
             font-family: 'Rockwell';
         }
 
         
 
-        .splashImage
+        .splashImageSmall
         {
-            @media only screen and (min-width: 1024px) 
+            @media only screen and (min-width: 800px) 
             {  
+                display:none;
                 font-size: 200px;
                 width: 80%;
                 max-width: 500px;
@@ -102,12 +78,43 @@ page-welcome {
             }
             width: 80%;
             max-width: 600px;
-            max-height: 60%;
-            margin-top: 0px;
+            margin-top: 10%;
             margin-bottom:  20px;
             margin-left: 30px;
             margin-right: 15px;
 
+        }
+
+        .splashImage
+        {
+           
+            @media only screen and (max-width: 640px) 
+            {
+                font-size: 60px;
+                display:none;
+                margin-bottom: -10%;
+            }
+            
+        }
+        .mainImage
+        {
+            @media only screen and (max-width: 640px) 
+            {
+            display:none;
+            }
+            float: right;
+            width: 80%;
+            height: 67%;
+            margin-top: -10%;
+            /* background-color: blue; */
+        }
+
+        .CompanyIcon{
+        @media only screen and (min-width: 800px) 
+        {
+        float: left;
+        }
+           float: right;
         }
         .fullscreenInfo{
             @media only screen and (max-width: 640px) 

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import * as Constants from '../providerConstants';
 import 'rxjs/add/operator/map';
 
-// let apiUrl = 'http://careshareapi-env.hdwwh7zgb3.us-east-1.elasticbeanstalk.com/';
-let apiUrl = 'https://ewebahapi.azurewebsites.net/';
+let apiUrl = Constants.API_ENDPOINT
 
 
 @Injectable()
@@ -25,7 +25,6 @@ export class CarServiceProvider {
 
         .subscribe(res => {
           resolve(res.json());
-          console.log(res)
         }, (err) => {
           reject(err);
         });
