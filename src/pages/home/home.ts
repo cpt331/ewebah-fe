@@ -1,5 +1,5 @@
 import { Component,ViewChild,ElementRef } from '@angular/core';
-import { NavController, App, IonicPage, NavParams, Platform, ModalController} from 'ionic-angular';
+import { NavController, App, Platform, ModalController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { CarServiceProvider } from '../../providers/car-service/car-service';
 import { BookingServiceProvider } from '../../providers/booking-service/booking-service';
@@ -111,7 +111,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
   showAddressModal () {
     let modal = this.ModalCtrl.create(AutocompletePage);
-    let me = this;
     modal.onDidDismiss(data => {
       if(!!data){
         this.address.place = data;
