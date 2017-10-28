@@ -7,21 +7,23 @@ let apiUrl = Constants.API_ENDPOINT
 
 
 @Injectable()
-export class CarServiceProvider {
+export class TransactionHistoryServiceProvider {
 
   constructor(public http: Http) {
   }
 
 
-  getAllCars(token) {
+  getTransactionHistory(token, pageNumber, pageSize) {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('accept','application/json');
       headers.append('content-Type', 'application/json');
       headers.append('authorization','Bearer ' + token);
       
+      let completeURL = apiUrl + "api/account/bookings?pageNumber=" + pageNumber + 
+              "&pageSize=" + pageSize ;
       
-      this.http.get(apiUrl + "api/cars", {headers: headers})
+      this.http.get(completeURL, {headers: headers})
 
         .subscribe(res => {
           resolve(res.json());
