@@ -36,9 +36,7 @@ export class HomePage {
   carsData : any;
   mapPins = new Map();
   currentmarker : any;
-  selectedCarData = {"Model":"","CarCategory":"","Make":"","Transmission":"",
-    "BillingRate":"","Id":""};
-    "BillingRate":"","Suburb":"","Id":""};
+  selectedCarData = {"Model":"","CarCategory":"","Make":"","Transmission":"","BillingRate":"","Id":"","Suburb":""};
   loader;
   userPosLat;
   userPosLong;
@@ -249,8 +247,8 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     
     
     
-       let carImage=document.getElementById("carPic") as HTMLImageElement;
-        carImage.src ="assets/images/newSmallCarImage.png";
+       //let carImage=document.getElementById("carPic") as HTMLImageElement;
+       // carImage.src ="assets/images/newSmallCarImage.png";
            
       
        console.log("this car's details are as follows" + 
