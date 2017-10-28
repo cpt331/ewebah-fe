@@ -21,6 +21,7 @@
             <h1>{{car.Make}} {{car.Model}}</h1>
             <div class="admin-view" >
                 <form [formGroup]="carForm" (ngSubmit)="submitForm()">
+                  <h2>Specifications</h2>
                     <ion-item>
                       <ion-label stacked>Make</ion-label>
                       <ion-input type="text" formControlName="Make"></ion-input>
@@ -43,17 +44,7 @@
                       </ion-select>
                     </ion-item>
                     <div class="admin-car-error" *ngIf="carForm.get('CarCategory').errors && carForm.get('CarCategory').touched"><ion-icon name="alert"></ion-icon>You must enter a Category.</div>
-                    <ion-item *ngIf="statusesLoading">
-                      <ion-label stacked>Status</ion-label>
-                      <p>Loading...</p>
-                    </ion-item>
-                    <ion-item *ngIf="!statusesLoading">
-                      <ion-label stacked>Status</ion-label>
-                      <ion-select formControlName="Status">
-                        <ion-option *ngFor="let status of statuses" [value]="status">{{status}}</ion-option>
-                      </ion-select>
-                    </ion-item>
-                    <div class="admin-car-error" *ngIf="carForm.get('Status').errors && carForm.get('Status').touched"><ion-icon name="alert"></ion-icon>You must enter a Status.</div>
+                    
                     <ion-item>
                       <ion-label stacked>Transmission</ion-label>
                       <ion-select formControlName="Transmission">
@@ -62,38 +53,61 @@
                       </ion-select>
                     </ion-item>
                     <div class="admin-car-error" *ngIf="carForm.get('Transmission').errors && carForm.get('Transmission').touched"><ion-icon name="alert"></ion-icon>You must enter a Transmission.</div>
-                    <ion-item>
-                      <ion-label stacked>Latitude</ion-label>
-                      <ion-textarea formControlName="LatPos"></ion-textarea>
-                    </ion-item>
-                    <div class="admin-car-error" *ngIf="carForm.get('LatPos').errors && carForm.get('LatPos').touched"><ion-icon name="alert"></ion-icon>You must enter a Latitude.</div>
-                    <ion-item>
-                      <ion-label stacked>Longitude</ion-label>
-                      <ion-textarea formControlName="LongPos"></ion-textarea>
-                    </ion-item>
-                    <div class="admin-car-error" *ngIf="carForm.get('LongPos').errors && carForm.get('LongPos').touched"><ion-icon name="alert"></ion-icon>You must enter a Longitude.</div>
+                    <h2>Location</h2>
+                    <ion-grid>
+                        <ion-row>
+                          <ion-col col-sm-12 col-md-6>
+                              <div #map id="map"></div> 
+                          </ion-col>
+                          <ion-col col-sm-12 col-md-6>
+                              <ion-item>
+                                  <ion-label stacked>Latitude</ion-label>
+                                  <ion-textarea formControlName="LatPos"></ion-textarea>
+                                </ion-item>
+                                <div class="admin-car-error" *ngIf="carForm.get('LatPos').errors && carForm.get('LatPos').touched"><ion-icon name="alert"></ion-icon>You must enter a Latitude.</div>
+                                <ion-item>
+                                  <ion-label stacked>Longitude</ion-label>
+                                  <ion-textarea formControlName="LongPos"></ion-textarea>
+                                </ion-item>
+                                <div class="admin-car-error" *ngIf="carForm.get('LongPos').errors && carForm.get('LongPos').touched"><ion-icon name="alert"></ion-icon>You must enter a Longitude.</div>
+                                
+                                <ion-item *ngIf="citiesLoading">
+                                  <ion-label stacked>City</ion-label>
+                                  <p>Loading...</p>
+                                </ion-item>
+                                <ion-item *ngIf="!citiesLoading">
+                                  <ion-label stacked>City</ion-label>
+                                  <ion-select formControlName="Suburb">
+                                    <ion-option *ngFor="let city of cities" [value]="city.CityName">{{city.CityName}}</ion-option>
+                                  </ion-select>
+                                </ion-item>
+                                <div class="admin-car-error" *ngIf="carForm.get('Suburb').errors && carForm.get('Suburb').touched"><ion-icon name="alert"></ion-icon>You must enter a City.</div>
+                                
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
                     
-                    <ion-item *ngIf="citiesLoading">
-                      <ion-label stacked>City</ion-label>
-                      <p>Loading...</p>
-                    </ion-item>
-                    <ion-item *ngIf="!citiesLoading">
-                      <ion-label stacked>City</ion-label>
-                      <ion-select formControlName="Suburb">
-                        <ion-option *ngFor="let city of cities" [value]="city.CityName">{{city.CityName}}</ion-option>
-                      </ion-select>
-                    </ion-item>
-                    <div class="admin-car-error" *ngIf="carForm.get('Suburb').errors && carForm.get('Suburb').touched"><ion-icon name="alert"></ion-icon>You must enter a City.</div>
                     
+                    <h2>Other</h2>
+                    <ion-item *ngIf="statusesLoading">
+                        <ion-label stacked>Status</ion-label>
+                        <p>Loading...</p>
+                      </ion-item>
+                      <ion-item *ngIf="!statusesLoading && car.Status == 'Booked'">
+                          <p>Status: Booked</p>
+                      </ion-item>
+                      <ion-item *ngIf="!statusesLoading && car.Status != 'Booked'">
+                        <ion-label stacked>Status</ion-label>
+                        <ion-select formControlName="Status">
+                          <ion-option *ngFor="let status of statuses" [value]="status">{{status}}</ion-option>
+                        </ion-select>
+                      </ion-item>
+                      <div class="admin-car-error" *ngIf="carForm.get('Status').errors && carForm.get('Status').touched"><ion-icon name="alert"></ion-icon>You must enter a Status.</div>
+
                     <br />
                     <button ion-button type="submit" [disabled]="!carForm.valid || formSubmitting">Update</button>
+                    <span *ngIf="formSubmitting"><ion-spinner></ion-spinner>&nbsp;Processing...</span>
                   </form>
-                  <p>Car</p>
-                  <div>{{car}}</div>
-                  <p>Form</p>
-                  <div>{{carForm}}</div>
-                  <p>Response</p>
-                  <div>{{updateCarResponse}}</div>
             </div>
         </div>
         <div *ngIf="!car">

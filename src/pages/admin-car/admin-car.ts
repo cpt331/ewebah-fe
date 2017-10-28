@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
+import {Geolocation} from '@ionic-native/geolocation';
+import {GoogleMaps, GoogleMap, GoogleMapsEvent,
+  GoogleMapOptions, CameraPosition, MarkerOptions, Marker} from '@ionic-native/google-maps';
 
 import { AdminCarsPage } from '../admin-cars/admin-cars';
 import { CarServiceProvider } from '../../providers/car-service/car-service'
@@ -16,6 +20,10 @@ import { City } from '../../providers/car-service/city';
  * Ionic pages and navigation.
  */
 
+declare var google;
+
+
+
 @IonicPage()
 @Component({
   selector: 'page-admin-car',
@@ -28,7 +36,6 @@ export class AdminCarPage {
   private car = null;
   private currentUser = {access_token: "", Name: "",Email: "",Id: "", token_type:"",HasOpenBooking: false, OpenBookingId:-1};
   private updateCarResponse : UpdateCarResponse = null;
-  private updateInProgress : boolean = false;
   private categoriesLoading : boolean = true;
   private categories : CarCategory[] = null;
   private statusesLoading : boolean = true;
@@ -36,9 +43,15 @@ export class AdminCarPage {
   private citiesLoading = true;
   private cities : City[] = null;
   
-  
+  @ViewChild('map') mapElement: ElementRef;
+  map: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder , public carService: CarServiceProvider) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private formBuilder: FormBuilder , 
+    public carService: CarServiceProvider,
+    public alertCtrl: AlertController,
+    public geolocation: Geolocation) {
     
     this.car = this.navParams.get('car');
 
@@ -51,8 +64,8 @@ export class AdminCarPage {
           Transmission: null,
           Suburb: '',
           Status: '',
-          LatPos: '',
-          LongPos: ''
+          LatPos: null,//-33.870380
+          LongPos: null //151.205332
       };
     }
     
@@ -72,12 +85,71 @@ export class AdminCarPage {
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminCarPage');
+    this.loadMap();
     this.loadUserData();
     this.loadCategories();
     this.loadStatuses();
     this.loadCities();
   }
 
+  //show a google map to indicate where the car is. if it is a new car then use the current
+  //geolocation to populate latitude and longitude
+  loadMap(){
+    
+      if(this.car.LatPos == null || this.car.LongPos == null){
+
+        this.geolocation.getCurrentPosition().then((position) => {
+          
+               let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+               this.carForm.controls['LatPos'].setValue(position.coords.latitude);
+               this.carForm.controls['LongPos'].setValue(position.coords.longitude);
+
+               
+          
+               let mapOptions = {
+                 center: latLng,
+                 zoom: 15,
+                 mapTypeId: google.maps.MapTypeId.ROADMAP
+               }
+          
+               this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+               let marker = new google.maps.Marker({
+                map: this.map,
+                animation: google.maps.Animation.DROP,
+                position: this.map.getCenter()
+              });
+
+          
+             }, (err) => {
+               console.log(err);
+             });
+
+      }
+      else{
+          
+        let latLng = new google.maps.LatLng(this.car.LatPos, this.car.LongPos);
+        
+           let mapOptions = {
+             center: latLng,
+             zoom: 15,
+             mapTypeId: google.maps.MapTypeId.ROADMAP
+           }
+        
+          this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+          let marker = new google.maps.Marker({
+            map: this.map,
+            animation: google.maps.Animation.DROP,
+            position: this.map.getCenter()
+          });
+
+      }
+       
+    
+  }
+  
+//load a list of cities for selection
   loadCities()  {
     let subscription = this.carService.getCities(this.currentUser.access_token)
     .subscribe(
@@ -87,6 +159,7 @@ export class AdminCarPage {
   );
   }
 
+  //load a list of categories for selection
   loadCategories()  {
     let subscription = this.carService.getCategories(this.currentUser.access_token)
     .subscribe(
@@ -96,6 +169,7 @@ export class AdminCarPage {
   );
   }
 
+  //load a list of statuses for selection
   loadStatuses()  {
     let subscription = this.carService.getStatuses(this.currentUser.access_token)
     .subscribe(
@@ -106,13 +180,8 @@ export class AdminCarPage {
   }
 
   submitForm(){
-    console.log('submit!');
-    console.log(this.carForm.value.Make);
-    console.log(this.carForm.value.Model);
 
-    console.log(this.carForm);
-
-    this.updateInProgress = true;
+    this.formSubmitting = true;
 
     let request = new UpdateCarRequest();
 
@@ -131,23 +200,35 @@ export class AdminCarPage {
 
     let subscription = this.carService.updateCar(request, this.currentUser.access_token)
           .subscribe(
-          value => function(value){
-
-            this.updateCarResponse = value;
+          value => {
             this.processResponse(value);
-
           },
-          error => function(error){
-            this.updateCarResponse = null
-          },
-          () => this.updateInProgress = false
+          error => this.updateCarResponse = null,
+          () => this.formSubmitting = false
         );
 
-    //this.navCtrl.push(AdminCarsPage, {}, {animate: true});
+    //
   
   }
   processResponse(response){
 
+    this.updateCarResponse = response;
+
+    console.log('process response: ' + response)
+    const alert = this.alertCtrl.create({
+      title: response.Message,
+      buttons: [{
+        text: 'Ok',
+        handler: () => {
+          if(response.Success){
+            this.navCtrl.push(AdminCarsPage, {}, {animate: true});
+          }
+        }
+      }]
+    });
+    alert.present();
+    
+    
   }
 
   loadUserData(){
