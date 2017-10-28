@@ -29,7 +29,7 @@ export class PaymentInfoPage {
       ccName: ["", Validators.compose([Validators.maxLength(120), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       ccNum: ["", Validators.compose([Validators.maxLength(16), Validators.pattern('[0-9]*'), Validators.required])],
       ccMonth: ["", Validators.compose([Validators.maxLength(2), Validators.required])],
-      ccYear: ["", Validators.compose([Validators.maxLength(2), Validators.required])],
+      ccYear: ["", Validators.compose([Validators.minLength(4), Validators.maxLength(4), Validators.required])],
       ccV: ["", Validators.compose([Validators.minLength(3), Validators.maxLength(4), Validators.required])]
     })
     this.loadUserData();
@@ -84,7 +84,6 @@ export class PaymentInfoPage {
       this.showLoading();
 
       this.paymentInfo.value.ccType = this.determineType(this.paymentInfo.value.ccNum);
-      this.paymentInfo.value.ccYear += 2000; 
       
       // hard coded inputs for ease of build
       this.authService.postDataPaymentInfo(this.paymentInfo.value.ccName, 
