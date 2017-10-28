@@ -31,7 +31,7 @@ export class LoginPage {
 }
 
   ionViewDidLoad() {
-    this.login();
+    
   }
 
   //loader function to stop the loader being called when it already exists
@@ -65,7 +65,7 @@ export class LoginPage {
     
     // hard coded inputs for ease of build
     // 'user1@gmail.com', 'password1', c@e.com', 'Password1!', this.enteredDetails.Email, this.enteredDetails.Password 'hsimpson@gmail.com', 'password1'
-    this.authService.postDataLogin('user1@gmail.com', 'password1' ).then((result) => {
+    this.authService.postDataLogin(this.enteredDetails.Email, this.enteredDetails.Password).then((result) => {
       this.responseData = result;
       
       //save collected info for later use
