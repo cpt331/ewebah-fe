@@ -37,7 +37,6 @@ export class HomePage {
   mapPins = new Map();
   currentmarker : any;
   selectedCarData = {"Model":"","CarCategory":"","Make":"","Transmission":"",
-    "BillingRate":"","Id":""};
     "BillingRate":"","Suburb":"","Id":""};
   loader;
   userPosLat;
@@ -74,11 +73,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
     // when the view is first shown
   ionViewDidLoad() {
-<<<<<<< HEAD
-=======
-    console.log(this.currentUser.OpenBookingId);
->>>>>>> 94d2ffc27291d9e7399646141332c6ca7a237478
-
       this.loadMap();
 
   }
