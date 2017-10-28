@@ -8,7 +8,7 @@ import { AutocompletePage } from '../home/autocompletepage';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
-import {Geolocation} from '@ionic-native/geolocation';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({

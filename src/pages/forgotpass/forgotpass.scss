@@ -1,0 +1,19 @@
+page-forgotpass {
+
+    #forgotpass{
+        background: color($colors, bGround);
+
+        .resetButton{
+            margin-top: 60px;
+        }
+
+        .resetFields{
+            margin-top: 95px;
+            margin-bottom:  15px;
+            margin-left: 10%;
+            width: 80%;
+
+        }
+    }
+
+}

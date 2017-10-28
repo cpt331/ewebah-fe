@@ -4,6 +4,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
+import { ForgotPasswordPage } from "../forgotpass/forgotpass";
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
@@ -96,8 +97,7 @@ export class LoginPage {
 
   forgotPassword()
   {
-    console.log("that sucks for you");
-    // enter email and let backend know to send a reset password link
+    this.navCtrl.push(ForgotPasswordPage, {}, {animate: false});
   }
     
   
