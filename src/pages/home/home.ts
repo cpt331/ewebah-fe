@@ -71,15 +71,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
   ionViewDidLoad() {
 
-    // this.authService.ckeckAccountLogin(this.currentUser.access_token).then((result) => {
-
-    //   this.responseData = result;
-    //         this.currentUser.HasOpenBooking = this.responseData.HasOpenBooking;
-    //         this.currentUser.OpenBookingId =  this.responseData.OpenBookingId;
-    //         localStorage.setItem('userData', JSON.stringify(this.currentUser));
-
-    // });
-
       this.loadMap();
   }
     
@@ -170,7 +161,7 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
         for(let data of this.carsData)
         {
           
-          if (data.status == "Available")
+          if (data.Status === "Available")
           {
             let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
 

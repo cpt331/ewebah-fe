@@ -20,8 +20,8 @@ export class ReturnPage {
     bookingData = {Message: "", City: "",TotalHours: "", HourlyRate:"",TotalAmount: "", Success: ""};
     loader;
 
-    userLat = -37.8136;
-    userLong = 144.9631;
+    userLat;
+    userLong;
 
     private currentUser = {access_token: "", Name: "",Email: "",Id: "", 
     token_type:"",HasOpenBooking: false, OpenBookingId:-1};
@@ -64,6 +64,7 @@ export class ReturnPage {
       
             this.userLat = position.coords.latitude;
             this.userLong = position.coords.longitude;
+
     }, 
     // deal with no location
     err => {
@@ -79,7 +80,7 @@ export class ReturnPage {
             });
             alert.present();
                 
-              })
+              }).then(() => {
 
     // continue on with the default location for now
 
@@ -94,6 +95,12 @@ export class ReturnPage {
           // return successful ...
           this.responseData = returnDetails;
 
+
+          console.log(this.responseData);
+
+
+
+
           if(this.responseData.Success)
           {
             document.getElementById("Message").innerHTML = this.responseData.Message;
@@ -101,6 +108,12 @@ export class ReturnPage {
             document.getElementById("TotalHours").innerHTML = this.responseData.TotalHours;
             document.getElementById("HourlyRate").innerHTML = this.responseData.HourlyRate;
             document.getElementById("TotalAmount").innerHTML = this.responseData.TotalAmount;
+          }
+          else if((this.responseData.Success == false) && (this.responseData.Message == "No cities are within a 10000m radius")){
+            document.getElementById("Message").innerHTML = "You are not in an eligible return area.";
+            document.getElementById("City").innerHTML = "Cars can only be returned within 10km of a capital city";
+            document.getElementById("TotalHours").innerHTML = "Please to this area to return your car.";
+            document.getElementById("returnButton").style.display = "none";
           }
           else{
             document.getElementById("bookingHeader").innerHTML = "No booking found:";
@@ -128,6 +141,7 @@ export class ReturnPage {
                 alert.present();
                     
         })}
+      )}
 
   }
 
