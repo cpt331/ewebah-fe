@@ -170,23 +170,25 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
         for(let data of this.carsData)
         {
           
+          if (data.status == "Available")
+          {
+            let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
+
+            let marker= new google.maps.Marker({
+              map: this.map,
+              animation: google.maps.Animation.DROP,
+              position: carPosition,
+              title : "selected"
+            });
+
+            this.mapPins.set(data.Id, marker);
+
+            google.maps.event.addListener(marker, 'click', () => {
+              this.markerClicked(data.Id, marker);
           
-          let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
-
-          let marker= new google.maps.Marker({
-            map: this.map,
-            animation: google.maps.Animation.DROP,
-            position: carPosition,
-            title : "selected"
-          });
-
-          this.mapPins.set(data.Id, marker);
-
-          google.maps.event.addListener(marker, 'click', () => {
-            this.markerClicked(data.Id, marker);
-
             
-          })
+            })
+          }
         };
       })
     }, err => {
@@ -248,7 +250,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
       mapTypeId: 'roadmap'
     }
     
-    // if the location is blocked the app crashes
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
     this.carService.getAllCars(this.currentUser.access_token).then((result) => {
