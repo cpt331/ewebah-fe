@@ -26,7 +26,7 @@ page-login {
         } 
         .mainImage
         {
-            @media only screen and (max-width: 640px) 
+            @media only screen and (max-width: 640px) and (max-width : 1024px)
             {
             display:none;
             }
@@ -87,7 +87,7 @@ page-login {
            
             @media only screen and (max-width: 640px) 
             {
-                font-size: 50px;
+                font-size: 48px;
                 color: black;
                 font-family: 'Cooper Black';
                 
