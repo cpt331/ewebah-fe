@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
+//import {DatePicker} from '@ionic-native/date-picker';
 
 import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
@@ -15,7 +16,16 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { PaymentInfoPage } from '../pages/paymentinfo/paymentinfo';
+<<<<<<< HEAD
 import { ForgotPasswordPage } from "../pages/forgotpass/forgotpass";
+=======
+import { TransactionHistoryPage} from '../pages/transaction-history/transaction-history';
+import { AdminHomePage} from '../pages/admin-home/admin-home';
+import { AdminCarsPage } from '../pages/admin-cars/admin-cars';
+import { AdminCarPage} from '../pages/admin-car/admin-car';
+import { AdminEmailTemplatePage} from '../pages/admin-email-template/admin-email-template';
+
+>>>>>>> origin/drew2
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -24,6 +34,9 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { CarServiceProvider } from '../providers/car-service/car-service';
 import { BookingServiceProvider } from '../providers/booking-service/booking-service';
 import { ReturnServiceProvider } from '../providers/return-service/return-service';
+import { TransactionHistoryServiceProvider } from '../providers/transaction-history-service/transaction-history-service';
+
+
 
 @NgModule({
   declarations: [
@@ -38,8 +51,18 @@ import { ReturnServiceProvider } from '../providers/return-service/return-servic
     SignupPage,
     ReturnPage,
     PaymentInfoPage,
+<<<<<<< HEAD
     AutocompletePage,
     ForgotPasswordPage
+=======
+    AutocompletePage
+    TransactionHistoryPage,
+    AutocompletePage,
+    AdminHomePage,
+    AdminCarPage,
+    AdminCarsPage,
+    AdminEmailTemplatePage
+>>>>>>> origin/drew2
   ],
   imports: [
     BrowserModule, HttpModule,
@@ -58,11 +81,22 @@ import { ReturnServiceProvider } from '../providers/return-service/return-servic
     ReturnPage,
     SignupPage,
     PaymentInfoPage,
+<<<<<<< HEAD
     AutocompletePage,
     ForgotPasswordPage
+=======
+    AutocompletePage
+    TransactionHistoryPage,
+    AutocompletePage,
+    AdminHomePage,
+    AdminCarPage,
+    AdminCarsPage,
+    AdminEmailTemplatePage
+>>>>>>> origin/drew2
   ],
   providers: [
     StatusBar,
+    //DatePicker,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
@@ -70,7 +104,8 @@ import { ReturnServiceProvider } from '../providers/return-service/return-servic
     {provide:ErrorHandler,useClass:IonicErrorHandler},
     CarServiceProvider,
     BookingServiceProvider,
-    ReturnServiceProvider
+    ReturnServiceProvider,
+    TransactionHistoryServiceProvider
   ]
 })
 export class AppModule {}
