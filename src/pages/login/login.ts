@@ -62,9 +62,9 @@ export class LoginPage {
     this.showLoading();
     
     // hard coded inputs for ease of build
-    // 'user1@gmail.com', 'password1'   this.enteredDetails.Email, this.enteredDetails.Password
-    this.authService.postDataLogin('user1@gmail.com', 'password1' ).then((result) => {
-      this.responseData = result;
+    this.authService.postDataLogin('s3353147@student.rmit.edu.au', 'password1').then((result)=>{this.responseData = result;
+    //this.authService.postDataLogin('user1@gmail.com', 'password1' ).then((result) => {
+    //  this.responseData = result;
       
       //save collected info for later use
       localStorage.setItem('userData', JSON.stringify(this.responseData));

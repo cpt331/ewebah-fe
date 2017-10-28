@@ -38,6 +38,7 @@ export class HomePage {
   currentmarker : any;
   selectedCarData = {"Model":"","CarCategory":"","Make":"","Transmission":"",
     "BillingRate":"","Id":""};
+    "BillingRate":"","Suburb":"","Id":""};
   loader;
   userPosLat;
   userPosLong;
@@ -64,6 +65,7 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
   this.currentUser.Id = data.Id
   this.currentUser.HasOpenBooking = data.HasOpenBooking;
   this.currentUser.OpenBookingId = data.OpenBookingId;
+
     
     this.address = {
       place: ''   
@@ -75,6 +77,7 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     console.log(this.currentUser.OpenBookingId);
 
       this.loadMap();
+
   }
     
   useCurrentLocation(){
@@ -206,12 +209,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     });
   }
 
-  // getAllCars()
-  // {
-  //   this.carService.getAllCars(this.userPostData.token).then((result) => {
-  //   this.responseData = result;
-  //   })
-  // }
 
   markerClicked(id, marker)
   {
@@ -227,15 +224,42 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     this.selectedCarData.Transmission = this.carsData[id].Transmission;
     this.selectedCarData.BillingRate = this.carsData[id].BillingRate;
     this.selectedCarData.Id = this.carsData[id].Id;
+    this.selectedCarData.Suburb = this.carsData[id].Suburb;
+   
+    
+    let Transmission = "Automatic";
 
-    // update the labels on the user screen 
-    // document.getElementById("Model").innerHTML = "Model: " + this.carsData[id].Model;
-    // document.getElementById("Car Category").innerHTML = "CarCategory: " + this.carsData[id].CarCategory;
-    // document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
-    // document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
-
+    if(this.selectedCarData.Transmission == "MN")
+    {
+      Transmission = "Manual";
+    }
+    
+    
+    console.log("current location of vehicle is" + this.selectedCarData.Suburb);
+   
+    // update the labels on the user screen //
+    // Car Make and Model
     document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
-    document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
+    //Car Transmission and category
+    document.getElementById("Transmission").innerHTML = Transmission + " " +
+     this.carsData[id].CarCategory +" ";
+    //Car Billing Rate
+    document.getElementById("BillingRate").innerHTML = "Rate per hour is $" + this.selectedCarData.BillingRate;
+    
+    
+    
+       let carImage=document.getElementById("carPic") as HTMLImageElement;
+        carImage.src ="assets/images/newSmallCarImage.png";
+           
+      
+       console.log("this car's details are as follows" + 
+       this.selectedCarData.Model + " "+
+       this.selectedCarData.CarCategory +" "+
+       this.selectedCarData.Make +" "+
+       this.selectedCarData.Suburb +" "+
+       this.selectedCarData.Id);
+    
+    
 
     // billing rate to be added
 
@@ -255,6 +279,8 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
       zoom: 12,
       mapTypeId: 'roadmap'
     }
+
+    
     
     // if the location is blocked the app crashes
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
@@ -283,6 +309,7 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
         google.maps.event.addListener(marker, 'click', () => {
           this.markerClicked(data.Id, marker);
 
+        
           
         })
       };
