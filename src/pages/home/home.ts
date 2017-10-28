@@ -1,5 +1,5 @@
 import { Component,ViewChild,ElementRef } from '@angular/core';
-import { NavController, App, IonicPage, NavParams, Platform, ModalController} from 'ionic-angular';
+import { NavController, App, Platform, ModalController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { CarServiceProvider } from '../../providers/car-service/car-service';
 import { BookingServiceProvider } from '../../providers/booking-service/booking-service';
@@ -108,7 +108,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
   showAddressModal () {
     let modal = this.ModalCtrl.create(AutocompletePage);
-    let me = this;
     modal.onDidDismiss(data => {
       if(!!data){
         this.address.place = data;
@@ -169,23 +168,25 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
         for(let data of this.carsData)
         {
           
+          if (data.status == "Available")
+          {
+            let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
+
+            let marker= new google.maps.Marker({
+              map: this.map,
+              animation: google.maps.Animation.DROP,
+              position: carPosition,
+              title : "selected"
+            });
+
+            this.mapPins.set(data.Id, marker);
+
+            google.maps.event.addListener(marker, 'click', () => {
+              this.markerClicked(data.Id, marker);
           
-          let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
-
-          let marker= new google.maps.Marker({
-            map: this.map,
-            animation: google.maps.Animation.DROP,
-            position: carPosition,
-            title : "selected"
-          });
-
-          this.mapPins.set(data.Id, marker);
-
-          google.maps.event.addListener(marker, 'click', () => {
-            this.markerClicked(data.Id, marker);
-
             
-          })
+            })
+          }
         };
       })
     }, err => {
@@ -282,7 +283,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
     
     
-    // if the location is blocked the app crashes
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
     this.carService.getAllCars(this.currentUser.access_token).then((result) => {
