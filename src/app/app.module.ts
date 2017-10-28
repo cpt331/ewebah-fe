@@ -15,6 +15,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { PaymentInfoPage } from '../pages/paymentinfo/paymentinfo';
+import { ForgotPasswordPage } from "../pages/forgotpass/forgotpass";
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -37,7 +38,8 @@ import { ReturnServiceProvider } from '../providers/return-service/return-servic
     SignupPage,
     ReturnPage,
     PaymentInfoPage,
-    AutocompletePage
+    AutocompletePage,
+    ForgotPasswordPage
   ],
   imports: [
     BrowserModule, HttpModule,
@@ -56,8 +58,8 @@ import { ReturnServiceProvider } from '../providers/return-service/return-servic
     ReturnPage,
     SignupPage,
     PaymentInfoPage,
-    AutocompletePage
-
+    AutocompletePage,
+    ForgotPasswordPage
   ],
   providers: [
     StatusBar,
