@@ -1,6 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, Platform, ModalController} from 'ionic-angular';
+
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import moment from 'moment';
 
@@ -30,13 +31,14 @@ export class SignupPage {
   responseData : any;
   loader;
   signupForm: FormGroup;
-  
 
   address;
   geo: any
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, 
     public loadingCtrl: LoadingController, public alertCtrl: AlertController, public authService: AuthServiceProvider, public ModalCtrl: ModalController) {
+
+  
     this.signupForm = formBuilder.group({
       firstName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       lastName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],

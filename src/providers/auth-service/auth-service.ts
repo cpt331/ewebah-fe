@@ -73,7 +73,7 @@ export class AuthServiceProvider {
      let headers: Headers = new Headers();
 
     headers.append('accept','application/json');
-    headers.append('content-Type', 'application/json');3
+    headers.append('content-Type', 'application/json');
     headers.append('authorization','Bearer ' + access_token);
 
     var paymentInfoRequest = {
@@ -168,4 +168,66 @@ export class AuthServiceProvider {
       });
     }
 
+    recieveUpdateData(){
+      return new Promise((resolve, reject) =>{
+        let headers =new Headers();
+
+
+        headers.append('accept','application/json');
+        headers.append('content-type','application/json');
+        headers.append('authorization','Bearer');
+
+        console.log ("Getting user registration Data")
+        this.http.get(apiUrl +'api/account/registerupdatereturn',{headers: headers})
+        
+        
+
+        .subscribe(res => {
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+
+  postUpdateUserInfo(DOB,licNo,licST,add1,add2,suburb,state,postcode,ph,access_token) {
+    return new Promise((resolve, reject) => {
+     let headers: Headers = new Headers();
+
+    headers.append('accept','application/json');
+    headers.append('content-Type', 'application/json');
+    headers.append('authorization','Bearer ' + access_token);
+
+    var userupdateRequest = {
+      DateOfBirth:DOB,
+      LicenceNumber:licNo,
+      LicenceState: licST,
+      AddressLine1: add1,
+      AddressLine2: add2,
+      Suburb:suburb, 
+      State: state,
+      Postcode: postcode,
+      PhoneNumber: ph
+    }
+    
+
+    //console.log(ccYear);
+      this.http.post(apiUrl + 'api/account/registerupdatereturn',userupdateRequest,
+          { headers: headers })
+        //{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+
+        //, {headers: headers})
+        .subscribe(res => {
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+    });
+
+  }
+
 }
+    
+
+

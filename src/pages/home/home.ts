@@ -1,5 +1,5 @@
 import { Component,ViewChild,ElementRef } from '@angular/core';
-import { NavController, App, IonicPage, NavParams, Platform, ModalController} from 'ionic-angular';
+import { NavController, App, Platform, ModalController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { CarServiceProvider } from '../../providers/car-service/car-service';
 import { BookingServiceProvider } from '../../providers/booking-service/booking-service';
@@ -27,7 +27,7 @@ export class HomePage {
   // declared variables
 
   responseData : any;
-  bookingResponseData : any;
+  // userPostData = {"name":"","token":"","email":"","permission":"","carStatus":""};
   private currentUser = {access_token: "", Name: "",Email: "",Id: "", 
   token_type:"",HasOpenBooking: false, OpenBookingId:-1};
   @ViewChild('map') 
@@ -36,8 +36,10 @@ export class HomePage {
   carsData : any;
   mapPins = new Map();
   currentmarker : any;
+
   selectedCarData = {"Model":"","CarCategory":"","Make":"","Transmission":"",
-    "BillingRate":"","Id":""};
+    "BillingRate":"","Suburb":"","Id":""};
+
   loader;
   userPosLat;
   userPosLong;
@@ -55,63 +57,56 @@ export class HomePage {
 private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
 
-  // helper method for loading saved user data
-  this.loadUserData()
+  const data = JSON.parse(localStorage.getItem('userData'));
+  console.log(data);
+  this.currentUser.Name = data.Name;
+  this.currentUser.Email = data.Email;
+  this.currentUser.access_token = data.access_token;
+  this.currentUser.token_type = data.token_type
+  this.currentUser.Id = data.Id
+  this.currentUser.HasOpenBooking = data.HasOpenBooking;
+  this.currentUser.OpenBookingId = data.OpenBookingId;
+
     
     this.address = {
       place: ''   
     };  
   }
 
-    ionViewDidEnter() 
-    {
-  
-      this.loadUserData();
-    }
-
+    // when the view is first shown
   ionViewDidLoad() {
-
-    // this.authService.ckeckAccountLogin(this.currentUser.access_token).then((result) => {
-
-    //   this.responseData = result;
-    //         this.currentUser.HasOpenBooking = this.responseData.HasOpenBooking;
-    //         this.currentUser.OpenBookingId =  this.responseData.OpenBookingId;
-    //         localStorage.setItem('userData', JSON.stringify(this.currentUser));
-
-    // });
-
       this.loadMap();
+
   }
     
-  // useCurrentLocation(){
-  //     this.geolocation.getCurrentPosition().then((currentpos) => {
-  //       let latLng= new google.maps.LatLng(currentpos.coords.latitude, currentpos.coords.longitude);
-  //       alert(latLng)
-  //       this.updateMapLocation(latLng)
-  //     }, err => {
+  useCurrentLocation(){
+      this.geolocation.getCurrentPosition().then((currentpos) => {
+        let latLng= new google.maps.LatLng(currentpos.coords.latitude, currentpos.coords.longitude);
+        alert(latLng)
+        this.updateMapLocation(latLng)
+      }, err => {
     
-  //         // handle location error
+          // handle location error
     
-  //         if(err.message.indexOf("Only secure origins are allowed") == 0) {
-  //           this.dismissLoading();
-  //           this.defaultMelbourneLocation();
-  //         }
-  //         else if(err.TIMEOUT){
-  //           alert("Browser geolocation error !\n\nTimeout. \n\nMelbourne default location");
-  //           this.dismissLoading();
-  //           this.defaultMelbourneLocation();
-  //         }
-  //         else if(err.POSITION_UNAVAILABLE){
-  //           alert("Browser geolocation error !\n\nPosition unavailable. \n\nMelbourne default location");
-  //           this.dismissLoading();
-  //           this.defaultMelbourneLocation();
-  //         }
-  //       });
-  //   }
+          if(err.message.indexOf("Only secure origins are allowed") == 0) {
+            this.dismissLoading();
+            this.defaultMelbourneLocation();
+          }
+          else if(err.TIMEOUT){
+            alert("Browser geolocation error !\n\nTimeout. \n\nMelbourne default location");
+            this.dismissLoading();
+            this.defaultMelbourneLocation();
+          }
+          else if(err.POSITION_UNAVAILABLE){
+            alert("Browser geolocation error !\n\nPosition unavailable. \n\nMelbourne default location");
+            this.dismissLoading();
+            this.defaultMelbourneLocation();
+          }
+        });
+    }
 
   showAddressModal () {
     let modal = this.ModalCtrl.create(AutocompletePage);
-    let me = this;
     modal.onDidDismiss(data => {
       if(!!data){
         this.address.place = data;
@@ -130,6 +125,7 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     this.longitude = results[0].geometry.location.lng();
 
     let latLng= new google.maps.LatLng(this.latitude,this.longitude);
+    alert(latLng)
     this.updateMapLocation(latLng);
    });
   }
@@ -171,29 +167,31 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
         for(let data of this.carsData)
         {
           
+          if (data.Status === "Available")
+          {
+            let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
+
+            let marker= new google.maps.Marker({
+              map: this.map,
+              animation: google.maps.Animation.DROP,
+              position: carPosition,
+              title : "selected"
+            });
+
+            this.mapPins.set(data.Id, marker);
+
+            google.maps.event.addListener(marker, 'click', () => {
+              this.markerClicked(data.Id, marker);
           
-          let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
-
-          let marker= new google.maps.Marker({
-            map: this.map,
-            animation: google.maps.Animation.DROP,
-            position: carPosition,
-            title : "selected"
-          });
-
-          this.mapPins.set(data.Id, marker);
-
-          google.maps.event.addListener(marker, 'click', () => {
-            this.markerClicked(data.Id, marker);
-
             
-          })
+            })
+          }
         };
       })
     }, err => {
 
       // handle location error
-      
+
       if(err.message.indexOf("Only secure origins are allowed") == 0) {
         this.dismissLoading();
         this.defaultMelbourneLocation();
@@ -226,9 +224,42 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     this.selectedCarData.Transmission = this.carsData[id].Transmission;
     this.selectedCarData.BillingRate = this.carsData[id].BillingRate;
     this.selectedCarData.Id = this.carsData[id].Id;
+    this.selectedCarData.Suburb = this.carsData[id].Suburb;
+   
+    
+    let Transmission = "Automatic";
 
+    if(this.selectedCarData.Transmission == "MN")
+    {
+      Transmission = "Manual";
+    }
+    
+    
+    console.log("current location of vehicle is" + this.selectedCarData.Suburb);
+   
+    // update the labels on the user screen //
+    // Car Make and Model
     document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
-    document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
+    //Car Transmission and category
+    document.getElementById("Transmission").innerHTML = Transmission + " " +
+     this.carsData[id].CarCategory +" ";
+    //Car Billing Rate
+    document.getElementById("BillingRate").innerHTML = "Rate per hour is $" + this.selectedCarData.BillingRate;
+    
+    
+    
+       //let carImage=document.getElementById("carPic") as HTMLImageElement;
+       // carImage.src ="assets/images/newSmallCarImage.png";
+           
+      
+       console.log("this car's details are as follows" + 
+       this.selectedCarData.Model + " "+
+       this.selectedCarData.CarCategory +" "+
+       this.selectedCarData.Make +" "+
+       this.selectedCarData.Suburb +" "+
+       this.selectedCarData.Id);
+    
+    
 
     // billing rate to be added
 
@@ -248,8 +279,9 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
       zoom: 12,
       mapTypeId: 'roadmap'
     }
+
     
-    // if the location is blocked the app crashes
+    
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
     this.carService.getAllCars(this.currentUser.access_token).then((result) => {
@@ -276,6 +308,7 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
         google.maps.event.addListener(marker, 'click', () => {
           this.markerClicked(data.Id, marker);
 
+        
           
         })
       };
@@ -339,6 +372,22 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
   // book the currently selected car
   bookThisCar(){
 
+
+  // update the labels on the user screen 
+  
+  // document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
+  // document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
+  //document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
+  //document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
+// billing rate to be added
+
+
+  // marker.setAnimation(google.maps.Animation.BOUNCE);
+  // this.currentmarker = marker;
+
+
+//}
+
 if(!this.currentUser.HasOpenBooking)
 {
 
@@ -352,7 +401,6 @@ if(!this.currentUser.HasOpenBooking)
       else{
         transString = 'manual';
       }
-
     let alert = this.alertCtrl.create({
       title: 'Confirm booking request',
       subTitle: 'you are about to book a ' + this.selectedCarData.Make +' -' +
@@ -362,7 +410,6 @@ if(!this.currentUser.HasOpenBooking)
       buttons: [{
         text: 'Book',
         handler: () => {
-
           this.showBooking();
           // show loading spinner
 
@@ -371,36 +418,18 @@ if(!this.currentUser.HasOpenBooking)
           this.dismissLoading();
           if(result){
 
-            this.bookingResponseData = result;
-            console.log(this.bookingResponseData);
+            this.currentUser.HasOpenBooking = true;
+            this.currentUser.OpenBookingId =  parseInt(this.selectedCarData.Id);
+            localStorage.setItem('userData', JSON.stringify(this.currentUser));
 
-            if(this.bookingResponseData.Success == false){
 
-              let alert = this.alertCtrl.create({
-                title: 'Unable to book',
-                subTitle: this.bookingResponseData.Message, buttons: [{
-                  text: 'Okay', handler: () => { //there is no need to manually call this = alert.dismiss(); it is done automatically
-                  }}]});
-                  alert.present();
-                  return;
-
-            }
-            else{
-              this.currentUser.HasOpenBooking = true;
-              this.currentUser.OpenBookingId =  parseInt(this.bookingResponseData.BookingId);
-              localStorage.setItem('userData', JSON.stringify(this.currentUser));
-  
-  
-              let alert = this.alertCtrl.create({
-                title: 'Confirm booking request',
-                subTitle: 'your car is booked, head to the location to pick it up.', buttons: [{
-                  text: 'Okay', handler: () => { //there is no need to manually call this = alert.dismiss(); it is done automatically
-                  }}]});
-                  alert.present();
-                  return;
-
-            }
-            
+            let alert = this.alertCtrl.create({
+              title: 'Confirm booking request',
+              subTitle: 'your car is booked, head to the location to pick it up.', buttons: [{
+                text: 'Okay', handler: () => { //there is no need to manually call this = alert.dismiss(); it is done automatically
+                }}]});
+                alert.present();
+                return;
           }
           else
           {
@@ -413,8 +442,6 @@ if(!this.currentUser.HasOpenBooking)
                 return;
           }
         });
-
-        
   
         }
       },
@@ -451,19 +478,4 @@ else
 }
 
 }
-
-// helper method for loading user data
-loadUserData(){
-  
-        const data = JSON.parse(localStorage.getItem('userData'));
-        this.currentUser.Name = data.Name;
-        this.currentUser.Email = data.Email;
-        this.currentUser.access_token = data.access_token;
-        this.currentUser.token_type = data.token_type
-        this.currentUser.Id = data.Id
-        this.currentUser.HasOpenBooking = data.HasOpenBooking;
-        this.currentUser.OpenBookingId = data.OpenBookingId;
-  
-      }
-
 }

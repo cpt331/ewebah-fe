@@ -22,7 +22,7 @@ import { AdminHomePage} from '../pages/admin-home/admin-home';
 import { AdminCarsPage } from '../pages/admin-cars/admin-cars';
 import { AdminCarPage} from '../pages/admin-car/admin-car';
 import { AdminEmailTemplatePage} from '../pages/admin-email-template/admin-email-template';
-
+import {PersonalDetailsPage} from '../pages/personal-details/personal-details';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -55,7 +55,8 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     AdminHomePage,
     AdminCarPage,
     AdminCarsPage,
-    AdminEmailTemplatePage
+    AdminEmailTemplatePage,
+    PersonalDetailsPage
   ],
   imports: [
     BrowserModule, HttpModule,
@@ -81,7 +82,8 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     AdminHomePage,
     AdminCarPage,
     AdminCarsPage,
-    AdminEmailTemplatePage
+    AdminEmailTemplatePage,
+    PersonalDetailsPage
   ],
   providers: [
     StatusBar,
