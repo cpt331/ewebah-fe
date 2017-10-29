@@ -365,8 +365,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
   // book the currently selected car
   bookThisCar(){
-
-
   // update the labels on the user screen 
   
   // document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
