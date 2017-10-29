@@ -27,6 +27,7 @@ export class HomePage {
   // declared variables
 
   responseData : any;
+  booking : any;
   // userPostData = {"name":"","token":"","email":"","permission":"","carStatus":""};
   private currentUser = {access_token: "", Name: "",Email: "",Id: "", 
   token_type:"",HasOpenBooking: false, OpenBookingId:-1};
@@ -77,6 +78,12 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
       this.loadMap();
 
   }
+  ionViewDidEnter() 
+  {
+
+    this.loadUserData();
+
+  }
     
   useCurrentLocation(){
       this.geolocation.getCurrentPosition().then((currentpos) => {
@@ -99,6 +106,8 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
             alert("Browser geolocation error !\n\nPosition unavailable. \n\nMelbourne default location");
             this.dismissLoading();
             this.defaultMelbourneLocation();
+          }
+          else{
           }
         });
     }
@@ -152,8 +161,16 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
         mapTypeId: 'roadmap'
       }
 
+      
+
       // if the location is blocked the app crashes
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
+
+      let marker= new google.maps.Marker({
+        map: this.map,
+        icon: 'assets/location.png',
+        position: latLng,
+      });
 
       this.carService.getAllCars(this.currentUser.access_token).then((result) => {
         this.carsData = result;
@@ -365,20 +382,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
   // book the currently selected car
   bookThisCar(){
-  // update the labels on the user screen 
-  
-  // document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
-  // document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
-  //document.getElementById("Make").innerHTML = "Make: " + this.carsData[id].Make;
-  //document.getElementById("Transmission").innerHTML = "Transmission: " + this.selectedCarData.Transmission;
-// billing rate to be added
-
-
-  // marker.setAnimation(google.maps.Animation.BOUNCE);
-  // this.currentmarker = marker;
-
-
-//}
 
 if(!this.currentUser.HasOpenBooking)
 {
@@ -408,12 +411,12 @@ if(!this.currentUser.HasOpenBooking)
           this.bookingService.bookCar(this.currentUser.access_token, this.selectedCarData.Id).then((result) => {
           // check if successful
           this.dismissLoading();
-          if(result){
+          this.booking = result;
+          if(this.booking.Success){
 
             this.currentUser.HasOpenBooking = true;
-            this.currentUser.OpenBookingId =  parseInt(this.selectedCarData.Id);
+            this.currentUser.OpenBookingId =  this.booking.BookingId;
             localStorage.setItem('userData', JSON.stringify(this.currentUser));
-
 
             let alert = this.alertCtrl.create({
               title: 'Confirm booking request',
@@ -470,4 +473,17 @@ else
 }
 
 }
+
+loadUserData(){
+  
+        const data = JSON.parse(localStorage.getItem('userData'));
+        this.currentUser.Name = data.Name;
+        this.currentUser.Email = data.Email;
+        this.currentUser.access_token = data.access_token;
+        this.currentUser.token_type = data.token_type
+        this.currentUser.Id = data.Id
+        this.currentUser.HasOpenBooking = data.HasOpenBooking;
+        this.currentUser.OpenBookingId = data.OpenBookingId;
+  
+      }
 }

@@ -69,11 +69,10 @@ export class PersonalDetailsPage {
     
     }
    
-  
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PersonalDetailsPage');
   }
+
   loadUserData(){
     
           const data = JSON.parse(localStorage.getItem('userData'));
@@ -101,7 +100,8 @@ updatePostData()
 {
   this.authService.postUpdateUserInfo(this.updateForm.value.dob,
     this.updateForm.value.licence,
-    this.updateForm.value.licenceState,
+    //this.updateForm.value.licenceState,
+    "WA",
     this.updateForm.value.address1,
     this.updateForm.value.address2,
     this.updateForm.value.suburb,
@@ -109,8 +109,28 @@ updatePostData()
     this.updateForm.value.postcode,
     this.updateForm.value.phone,
   this.currentUser.access_token).then((result) =>{
-  this.responseData =result;
 
+  this.responseData =result;
+if(this.responseData.Success){
+  let alert = this.alertCtrl.create({
+    title: 'User details updated',
+    subTitle: 'The details will be presented here', buttons: [{
+      text: 'Okay', handler: () => { 
+      }}]});
+
+      alert.present();
+}
+else
+{ 
+  let alert = this.alertCtrl.create({
+    title: 'Unable to update details',
+    subTitle: 'An error has occured. Please try again', buttons: [{
+      text: 'Okay', handler: () => { 
+      }}]});
+
+      alert.present();
+}
+  
 
   console.log(result);
 })

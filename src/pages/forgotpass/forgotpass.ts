@@ -97,7 +97,7 @@ export class ForgotPasswordPage {
       if(this.responseData.Success === true){
         
         let alert = this.alertCtrl.create({
-          title: "User created",
+          title: "Password succesfully reset",
           subTitle: 'Congratulations! Your password has been reset,' + 
           ' head to the login page to use your new password',
           buttons: [{
