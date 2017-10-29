@@ -27,7 +27,8 @@ export class HomePage {
   // declared variables
 
   responseData : any;
-  bookingResponseData : any;
+  booking : any;
+  // userPostData = {"name":"","token":"","email":"","permission":"","carStatus":""};
   private currentUser = {access_token: "", Name: "",Email: "",Id: "", 
   token_type:"",HasOpenBooking: false, OpenBookingId:-1};
   @ViewChild('map') 
@@ -36,8 +37,10 @@ export class HomePage {
   carsData : any;
   mapPins = new Map();
   currentmarker : any;
+
   selectedCarData = {"Model":"","CarCategory":"","Make":"","Transmission":"",
-    "BillingRate":"","Id":""};
+    "BillingRate":"","Suburb":"","Id":""};
+
   loader;
   userPosLat;
   userPosLong;
@@ -55,59 +58,59 @@ export class HomePage {
 private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
 
-  // helper method for loading saved user data
-  this.loadUserData()
+  const data = JSON.parse(localStorage.getItem('userData'));
+  this.currentUser.Name = data.Name;
+  this.currentUser.Email = data.Email;
+  this.currentUser.access_token = data.access_token;
+  this.currentUser.token_type = data.token_type
+  this.currentUser.Id = data.Id
+  this.currentUser.HasOpenBooking = data.HasOpenBooking;
+  this.currentUser.OpenBookingId = data.OpenBookingId;
+
     
     this.address = {
       place: ''   
     };  
   }
 
-    ionViewDidEnter() 
-    {
-  
-      this.loadUserData();
-    }
-
+    // when the view is first shown
   ionViewDidLoad() {
-
-    // this.authService.ckeckAccountLogin(this.currentUser.access_token).then((result) => {
-
-    //   this.responseData = result;
-    //         this.currentUser.HasOpenBooking = this.responseData.HasOpenBooking;
-    //         this.currentUser.OpenBookingId =  this.responseData.OpenBookingId;
-    //         localStorage.setItem('userData', JSON.stringify(this.currentUser));
-
-    // });
-
       this.loadMap();
+
+  }
+  ionViewDidEnter() 
+  {
+
+    this.loadUserData();
+
   }
     
-  // useCurrentLocation(){
-  //     this.geolocation.getCurrentPosition().then((currentpos) => {
-  //       let latLng= new google.maps.LatLng(currentpos.coords.latitude, currentpos.coords.longitude);
-  //       alert(latLng)
-  //       this.updateMapLocation(latLng)
-  //     }, err => {
+  useCurrentLocation(){
+      this.geolocation.getCurrentPosition().then((currentpos) => {
+        let latLng= new google.maps.LatLng(currentpos.coords.latitude, currentpos.coords.longitude);
+        this.updateMapLocation(latLng)
+      }, err => {
     
-  //         // handle location error
+          // handle location error
     
-  //         if(err.message.indexOf("Only secure origins are allowed") == 0) {
-  //           this.dismissLoading();
-  //           this.defaultMelbourneLocation();
-  //         }
-  //         else if(err.TIMEOUT){
-  //           alert("Browser geolocation error !\n\nTimeout. \n\nMelbourne default location");
-  //           this.dismissLoading();
-  //           this.defaultMelbourneLocation();
-  //         }
-  //         else if(err.POSITION_UNAVAILABLE){
-  //           alert("Browser geolocation error !\n\nPosition unavailable. \n\nMelbourne default location");
-  //           this.dismissLoading();
-  //           this.defaultMelbourneLocation();
-  //         }
-  //       });
-  //   }
+          if(err.message.indexOf("Only secure origins are allowed") == 0) {
+            this.dismissLoading();
+            this.defaultMelbourneLocation();
+          }
+          else if(err.TIMEOUT){
+            alert("Browser geolocation error !\n\nTimeout. \n\nMelbourne default location");
+            this.dismissLoading();
+            this.defaultMelbourneLocation();
+          }
+          else if(err.POSITION_UNAVAILABLE){
+            alert("Browser geolocation error !\n\nPosition unavailable. \n\nMelbourne default location");
+            this.dismissLoading();
+            this.defaultMelbourneLocation();
+          }
+          else{
+          }
+        });
+    }
 
   showAddressModal () {
     let modal = this.ModalCtrl.create(AutocompletePage);
@@ -158,8 +161,16 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
         mapTypeId: 'roadmap'
       }
 
+      
+
       // if the location is blocked the app crashes
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
+
+      let marker= new google.maps.Marker({
+        map: this.map,
+        icon: 'assets/location.png',
+        position: latLng,
+      });
 
       this.carService.getAllCars(this.currentUser.access_token).then((result) => {
         this.carsData = result;
@@ -170,29 +181,31 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
         for(let data of this.carsData)
         {
           
+          if (data.Status === "Available")
+          {
+            let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
+
+            let marker= new google.maps.Marker({
+              map: this.map,
+              animation: google.maps.Animation.DROP,
+              position: carPosition,
+              title : "selected"
+            });
+
+            this.mapPins.set(data.Id, marker);
+
+            google.maps.event.addListener(marker, 'click', () => {
+              this.markerClicked(data.Id, marker);
           
-          let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
-
-          let marker= new google.maps.Marker({
-            map: this.map,
-            animation: google.maps.Animation.DROP,
-            position: carPosition,
-            title : "selected"
-          });
-
-          this.mapPins.set(data.Id, marker);
-
-          google.maps.event.addListener(marker, 'click', () => {
-            this.markerClicked(data.Id, marker);
-
             
-          })
+            })
+          }
         };
       })
     }, err => {
 
       // handle location error
-      
+
       if(err.message.indexOf("Only secure origins are allowed") == 0) {
         this.dismissLoading();
         this.defaultMelbourneLocation();
@@ -215,7 +228,7 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
   {
     if(this.currentmarker != null)
     {
-      this.currentmarker.setAnimation(google.maps.Animation.DROP);
+      this.currentmarker.setAnimation(google.maps.Animation.NONE);
     }
 
     // save for use when pushing to book
@@ -225,9 +238,39 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     this.selectedCarData.Transmission = this.carsData[id].Transmission;
     this.selectedCarData.BillingRate = this.carsData[id].BillingRate;
     this.selectedCarData.Id = this.carsData[id].Id;
+    this.selectedCarData.Suburb = this.carsData[id].Suburb;
+   
+    
+    let Transmission = "Automatic";
 
+    if(this.selectedCarData.Transmission == "MN")
+    {
+      Transmission = "Manual";
+    }
+   
+    // update the labels on the user screen //
+    // Car Make and Model
     document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
-    document.getElementById("Car Category").innerHTML = this.carsData[id].CarCategory;
+    //Car Transmission and category
+    document.getElementById("Transmission").innerHTML = Transmission + " " +
+     this.carsData[id].CarCategory +" ";
+    //Car Billing Rate
+    document.getElementById("BillingRate").innerHTML = "Rate per hour is $" + this.selectedCarData.BillingRate;
+    
+    
+    
+       //let carImage=document.getElementById("carPic") as HTMLImageElement;
+       // carImage.src ="assets/images/newSmallCarImage.png";
+           
+      
+      //  console.log("this car's details are as follows" + 
+      //  this.selectedCarData.Model + " "+
+      //  this.selectedCarData.CarCategory +" "+
+      //  this.selectedCarData.Make +" "+
+      //  this.selectedCarData.Suburb +" "+
+      //  this.selectedCarData.Id);
+    
+    
 
     // billing rate to be added
 
@@ -247,8 +290,9 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
       zoom: 12,
       mapTypeId: 'roadmap'
     }
+
     
-    // if the location is blocked the app crashes
+    
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
     this.carService.getAllCars(this.currentUser.access_token).then((result) => {
@@ -275,6 +319,7 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
         google.maps.event.addListener(marker, 'click', () => {
           this.markerClicked(data.Id, marker);
 
+        
           
         })
       };
@@ -351,7 +396,6 @@ if(!this.currentUser.HasOpenBooking)
       else{
         transString = 'manual';
       }
-
     let alert = this.alertCtrl.create({
       title: 'Confirm booking request',
       subTitle: 'you are about to book a ' + this.selectedCarData.Make +' -' +
@@ -361,45 +405,26 @@ if(!this.currentUser.HasOpenBooking)
       buttons: [{
         text: 'Book',
         handler: () => {
-
           this.showBooking();
           // show loading spinner
 
           this.bookingService.bookCar(this.currentUser.access_token, this.selectedCarData.Id).then((result) => {
           // check if successful
           this.dismissLoading();
-          if(result){
+          this.booking = result;
+          if(this.booking.Success){
 
-            this.bookingResponseData = result;
-            console.log(this.bookingResponseData);
+            this.currentUser.HasOpenBooking = true;
+            this.currentUser.OpenBookingId =  this.booking.BookingId;
+            localStorage.setItem('userData', JSON.stringify(this.currentUser));
 
-            if(this.bookingResponseData.Success == false){
-
-              let alert = this.alertCtrl.create({
-                title: 'Unable to book',
-                subTitle: this.bookingResponseData.Message, buttons: [{
-                  text: 'Okay', handler: () => { //there is no need to manually call this = alert.dismiss(); it is done automatically
-                  }}]});
-                  alert.present();
-                  return;
-
-            }
-            else{
-              this.currentUser.HasOpenBooking = true;
-              this.currentUser.OpenBookingId =  parseInt(this.bookingResponseData.BookingId);
-              localStorage.setItem('userData', JSON.stringify(this.currentUser));
-  
-  
-              let alert = this.alertCtrl.create({
-                title: 'Confirm booking request',
-                subTitle: 'your car is booked, head to the location to pick it up.', buttons: [{
-                  text: 'Okay', handler: () => { //there is no need to manually call this = alert.dismiss(); it is done automatically
-                  }}]});
-                  alert.present();
-                  return;
-
-            }
-            
+            let alert = this.alertCtrl.create({
+              title: 'Confirm booking request',
+              subTitle: 'your car is booked, head to the location to pick it up.', buttons: [{
+                text: 'Okay', handler: () => { //there is no need to manually call this = alert.dismiss(); it is done automatically
+                }}]});
+                alert.present();
+                return;
           }
           else
           {
@@ -412,8 +437,6 @@ if(!this.currentUser.HasOpenBooking)
                 return;
           }
         });
-
-        
   
         }
       },
@@ -451,7 +474,6 @@ else
 
 }
 
-// helper method for loading user data
 loadUserData(){
   
         const data = JSON.parse(localStorage.getItem('userData'));
@@ -464,5 +486,4 @@ loadUserData(){
         this.currentUser.OpenBookingId = data.OpenBookingId;
   
       }
-
 }

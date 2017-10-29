@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Map</ion-title>
+    <ion-title>Home</ion-title>
     <ion-buttons end>
       <button ion-button id="logoutButton" color="primary" (click)="logout()">Logout</button>
     </ion-buttons>
@@ -8,61 +8,47 @@
 </ion-header>
 <!-- map style panel-->
 <ion-content padding id="home">
-  
   <h4>Welcome to EweBah {{currentUser.Name}} </h4>
   
-  <!-- map search bar -->
-  <ion-input id="locationField" (click)="showAddressModal()" [(ngModel)]="address.place"type="text" placeholder="Search for Address"></ion-input>
-
   <!-- map reset location to current location -->
-  <button ion-button color="navBGround" id="useCurrentLocation" (click)="useCurrentLocation()">Use Current Location</button>
+  <button ion-button color="navBGround" id="useCurrentLocation" 
+    (click)="useCurrentLocation()">Use Current Location
+  </button>
   
-  <div id="testPanel">
-    <div #map id="map"></div>
+  <!--Show Address -->
+  <ion-input id="locationField" (click)="showAddressModal()" 
+    [(ngModel)]="address.place"type="text" placeholder="Search for Address">
+  </ion-input>
+  
+  
+  <div id = "webPage">
+  <!-- Map is shown here -->
+  <div #map id="map"></div>
+  
+  <!--Instructional Text -->
+  <div id="Instructions"> 
+    <h2>With Ewebah booking a car is simple</h2>
+    <p>1.Just select a car nearby in the map above
+       or search for a location in the search bar</p>
+    <p>2.Select the "Book Car" option</p>
+    <p>3.When you are done, just make sure you are within 50km of a major city<br>
+       and go to the Return Car screen and click "Return Car"</p>
+    <p>4.Go back to life</p>   
+  </div>  
+  
+  <!--Car Information -->
+    <div id="CarInformation">
+    <!--Car Make and Model -->
+    <header><h4 id= "Model"></h4></header>
+    <!--A Promotional Image just to fill space-->
+    <img id="carPic" src="assets/images/newSmallCarImage.png" alt="Promo Picture" />
+    <!-- The car's category -->  
+    <p id="Transmission"></p>
+    <p id="BillingRate"></p>
+  </div>     
   </div>
-
-<!-- will be shown on web only -->
-  <div id="webpage">
-
-    <div class="button-bar">
-      <button ion-button color="navBGround" class="navbtn" (click)="book()">Book</button>
-      <button ion-button color="navBGround" class="navbtn" (click)="return()">Return</button>
-      <button ion-button color="navBGround" class="navbtn" (click)="settings()">Settings</button>
-    </div>
-    <h4>What is EweBah?</h4>
-    <p>
-      EweBah is a revolutionary service that allows users to search for and book cars for their leisure. Using our maps system, you can freely find cars in your local area through exact location or search by address below and book them instantly or even ahead of time! 
-    </p>
-    <p>
-      From this site you can book cars, return any currently borrowed cars, and view your booking history.
-    </p>
-
-  </div>
+  <button ion-button color="navBGround" id="navbtn" (click)="bookThisCar()" type="text">Book this car</button>
+</ion-content>     
   
-  <!-- shown on all platforms 
-  <p>
-    You are currently signed in with {{userPostData.Email}}
-  </p>-->
-  <ion-card>
-  <img src="assets/TeslaPic.PNG" id="CardPic"/>
-  <div class="CardRow">
-    <div class="floatingCarDetailLeft"><p id= "Model"></p></div>
-    <div class="floatingCarDetailRight"><p id= "Car Category"></p></div>
-  </div>
-  <div class="upper"><p id= "Model"></p></div>
-  <div class="upper_right"><p id= "Car Category"></p></div>
 
-  </ion-card>
-  
-  <!--<p id= "Transmission">Transmission:  </p>  
-  <p id= "Make">Make:</p>  <p id= "Model">Model:  </p>
 
-    <p id= "Make">Make: </p>  
-
-      <p id= "Transmission">Transmission:  </p>
-  -->
-      
-
-  
-  <button ion-button color="navBGround" class="navbtn" (click)="bookThisCar()" style="width:100%;padding:0 20% 0 20%">Book this car</button>
-</ion-content>
