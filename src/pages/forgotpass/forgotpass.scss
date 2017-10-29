@@ -1,0 +1,27 @@
+page-forgotpass {
+
+<<<<<<< HEAD:src/pages/forgotpass/forgotpass.scss
+    #forgotpass{
+=======
+    #signup{
+        //background-color: blue;
+>>>>>>> origin/drew2:src/pages/signup/signup.scss
+        background: color($colors, bGround);
+
+        .resetButton{
+            margin-top: 60px;
+        }
+
+        .resetFields{
+            margin-top: 95px;
+            margin-bottom:  15px;
+            margin-left: 10%;
+            width: 80%;
+
+        }
+
+
+        
+    }
+
+}
