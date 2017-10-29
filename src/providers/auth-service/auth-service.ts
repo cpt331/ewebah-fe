@@ -101,6 +101,37 @@ export class AuthServiceProvider {
 
   }
 
+  postPasswordResetInfo(email, dob, licence, password, passwordConfirm) {
+    return new Promise((resolve, reject) => {
+     let headers: Headers = new Headers();
+
+    headers.append('accept','application/json');
+    headers.append('content-Type', 'application/json');3
+    //headers.append('authorization','Bearer ' + access_token);
+
+    var passwordResetRequest = {
+      Email: email,
+      Password: password,
+      ConfirmPassword: passwordConfirm,
+      DateOfBirth: dob,
+      LicenceNumber: licence
+    };
+
+      this.http.post(apiUrl + 'api/account/passwordreset',
+      passwordResetRequest,
+          { headers: headers })
+        //{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+
+        //, {headers: headers})
+        .subscribe(res => {
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+    });
+
+  }
+
   // this is not being returned in a usable fashion
     locationAPIPost() {
       return new Promise((resolve, reject) => {
@@ -182,7 +213,7 @@ export class AuthServiceProvider {
     
 
     //console.log(ccYear);
-      this.http.post(apiUrl + 'api/account/registerupdatereturn',userupdateRequest,
+      this.http.post(apiUrl + 'api/account/registerupdate',userupdateRequest,
           { headers: headers })
         //{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
 

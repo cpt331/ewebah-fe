@@ -1,15 +1,15 @@
-page-signup {
+page-forgotpass {
 
     #signup{
         //background-color: blue;
         background: color($colors, bGround);
 
-        .signupButton{
-            margin-top: 45px;
+        .resetButton{
+            margin-top: 60px;
         }
 
-        .signupFields{
-            margin-top: 55px;
+        .resetFields{
+            margin-top: 95px;
             margin-bottom:  15px;
             margin-left: 10%;
             width: 80%;
@@ -19,6 +19,5 @@ page-signup {
 
         
     }
-
 
 }
