@@ -58,7 +58,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
 
 
   const data = JSON.parse(localStorage.getItem('userData'));
-  console.log(data);
   this.currentUser.Name = data.Name;
   this.currentUser.Email = data.Email;
   this.currentUser.access_token = data.access_token;
@@ -82,7 +81,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
   useCurrentLocation(){
       this.geolocation.getCurrentPosition().then((currentpos) => {
         let latLng= new google.maps.LatLng(currentpos.coords.latitude, currentpos.coords.longitude);
-        alert(latLng)
         this.updateMapLocation(latLng)
       }, err => {
     
@@ -125,7 +123,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     this.longitude = results[0].geometry.location.lng();
 
     let latLng= new google.maps.LatLng(this.latitude,this.longitude);
-    alert(latLng)
     this.updateMapLocation(latLng);
    });
   }
@@ -214,7 +211,7 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
   {
     if(this.currentmarker != null)
     {
-      this.currentmarker.setAnimation(google.maps.Animation.DROP);
+      this.currentmarker.setAnimation(google.maps.Animation.NONE);
     }
 
     // save for use when pushing to book
@@ -233,9 +230,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
     {
       Transmission = "Manual";
     }
-    
-    
-    console.log("current location of vehicle is" + this.selectedCarData.Suburb);
    
     // update the labels on the user screen //
     // Car Make and Model
@@ -252,12 +246,12 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
        // carImage.src ="assets/images/newSmallCarImage.png";
            
       
-       console.log("this car's details are as follows" + 
-       this.selectedCarData.Model + " "+
-       this.selectedCarData.CarCategory +" "+
-       this.selectedCarData.Make +" "+
-       this.selectedCarData.Suburb +" "+
-       this.selectedCarData.Id);
+      //  console.log("this car's details are as follows" + 
+      //  this.selectedCarData.Model + " "+
+      //  this.selectedCarData.CarCategory +" "+
+      //  this.selectedCarData.Make +" "+
+      //  this.selectedCarData.Suburb +" "+
+      //  this.selectedCarData.Id);
     
     
 
