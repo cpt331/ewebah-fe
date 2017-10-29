@@ -64,7 +64,7 @@ export class LoginPage {
     // hard coded inputs for ease of build
 
     // 's3353147@student.rmit.edu.au', 'password1', 'user1@gmail.com', 'password1', 'c@e.com', 'Password1!', this.enteredDetails.Email, this.enteredDetails.Password 'hsimpson@gmail.com', 'password1'
-    this.authService.postDataLogin( 'c@e.com', 'Password1!').then((result) => {
+    this.authService.postDataLogin( 's3353147@student.rmit.edu.au', 'password1').then((result) => {
       this.responseData = result;
 
       

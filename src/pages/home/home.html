@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Bookings</ion-title>
+    <ion-title>Home</ion-title>
     <ion-buttons end>
       <button ion-button id="logoutButton" color="primary" (click)="logout()">Logout</button>
     </ion-buttons>
@@ -21,6 +21,7 @@
   </ion-input>
   
   
+  <div id = "webPage">
   <!-- Map is shown here -->
   <div #map id="map"></div>
   
@@ -40,14 +41,14 @@
     <!--Car Make and Model -->
     <header><h4 id= "Model"></h4></header>
     <!--A Promotional Image just to fill space-->
-    <img id="carPic" src="" alt="Promo Picture" />
+    <img id="carPic" src="assets/images/newSmallCarImage.png" alt="Promo Picture" />
     <!-- The car's category -->  
     <p id="Transmission"></p>
     <p id="BillingRate"></p>
   </div>     
-  
+  </div>
   <button ion-button color="navBGround" id="navbtn"
-   (click)="bookThisCar()">Book this car</button>
+   (click)="bookThisCar()" (focus)="onFocus(markerClicked())" type="text">Book this car</button>
 </ion-content>     
   
 

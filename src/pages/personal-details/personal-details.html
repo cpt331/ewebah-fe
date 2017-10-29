@@ -1,18 +1,108 @@
-<!--
-  Generated template for the PersonalDetailsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
+<ion-content id="update">
 <ion-header>
 
   <ion-navbar>
-    <ion-title>personalDetails</ion-title>
+    <ion-title>Update Personal Details</ion-title>
   </ion-navbar>
 
 </ion-header>
 
+<ion-list class="updateFields">
+  <form [formGroup]="updateForm">
+    
+    <button ion-button clear class="haveAccount" (click)="haveAccount()">Already have an account? login here</button>
+    
+    <ion-item>
+      <ion-label floating>First Name</ion-label>
+      <ion-input formControlName="firstName" type="firstName"></ion-input>
+    </ion-item>
 
-<ion-content padding>
+    <ion-item>
+      <ion-label floating>Last Name</ion-label>
+      <ion-input formControlName="lastName" type="lastName"></ion-input>
+    </ion-item>
 
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input formControlName="email" type="text" value=""></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label floating>Password Confirm</ion-label>
+        <ion-input formControlName="passwordConfirm" type="password"></ion-input>
+      </ion-item>
+
+    <ion-item>
+      <ion-label fixed>Date of Birth</ion-label>
+      <ion-datetime formControlName="dob" pickerFormat="MMMM DD YYYY" displayFormat="DD/MM/YYYY" min="1920" max="1999-09-30"></ion-datetime>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label floating>Licence No.</ion-label>
+      <ion-input formControlName="licence" type="licence"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Licence State.</ion-label>
+      <ion-select formControlName="licence" type="licence"></ion-select>
+      <ion-option>ACT</ion-option>
+      <ion-option>NSW</ion-option>
+      <ion-option>NT</ion-option>
+      <ion-option>QLD</ion-option>
+      <ion-option>SA</ion-option>
+      <ion-option>TAS</ion-option>
+      <ion-option>VIC</ion-option>
+      <ion-option>WA</ion-option>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Phone No.</ion-label>
+      <ion-input formControlName="phone" type="phone"></ion-input>
+    </ion-item>
+
+   <ion-item>
+      <ion-label floating>Address 1</ion-label>
+      <ion-input formControlName="address1" type="address1"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Address 2</ion-label>
+      <ion-input formControlName="address2" type="address2"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Suburb</ion-label>
+      <ion-input formControlName="suburb" type="suburb"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>State</ion-label>
+      <ion-select formControlName="state" type="state">
+        <ion-option>ACT</ion-option>
+        <ion-option>NSW</ion-option>
+        <ion-option>NT</ion-option>
+        <ion-option>QLD</ion-option>
+        <ion-option>SA</ion-option>
+        <ion-option>TAS</ion-option>
+        <ion-option>VIC</ion-option>
+        <ion-option>WA</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Postcode</ion-label>
+      <ion-input formControlName="postcode" type="postcode"></ion-input>
+    </ion-item> -->
+
+    <button ion-button block color="secondary" class="signupButton" (click)="signup()">Update Account</button>
+  </form>
+</ion-list>
 </ion-content>
+
+
+
