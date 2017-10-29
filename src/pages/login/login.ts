@@ -3,8 +3,8 @@ import { IonicPage, NavController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 import { TabsPage } from '../tabs/tabs';
-import { AdminHomePage } from '../admin-home/admin-home';
 import { SignupPage } from '../signup/signup';
+import { ForgotPasswordPage } from "../forgotpass/forgotpass";
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
@@ -63,22 +63,18 @@ export class LoginPage {
     this.showLoading();
     
     // hard coded inputs for ease of build
-    // 'user1@gmail.com', 'password1', c@e.com', 'Password1!', this.enteredDetails.Email, this.enteredDetails.Password 'hsimpson@gmail.com', 'password1'
-    this.authService.postDataLogin('c@e.com', 'Password1!').then((result) => {
+
+    // 's3353147@student.rmit.edu.au', 'password1', 'user1@gmail.com', 'password1', 'c@e.com', 'Password1!', this.enteredDetails.Email, this.enteredDetails.Password 'hsimpson@gmail.com', 'password1'
+    this.authService.postDataLogin( 'user1@gmail.com', 'password1').then((result) => {
       this.responseData = result;
+
       
       //save collected info for later use
       localStorage.setItem('userData', JSON.stringify(this.responseData));
       
   
       this.dismissLoading();
-  
-      if(this.responseData.HasAdminRights){
-        this.navCtrl.push(AdminHomePage, {}, {animate: false});
-      }
-      else{
-        this.navCtrl.push(TabsPage, {}, {animate: false});
-      }
+      this.navCtrl.push(TabsPage, {}, {animate: false});
 
     }, (err) => {
 
@@ -108,8 +104,7 @@ export class LoginPage {
 
   forgotPassword()
   {
-    console.log("that sucks for you");
-    // enter email and let backend know to send a reset password link
+    this.navCtrl.push(ForgotPasswordPage, {}, {animate: false});
   }
     
   
