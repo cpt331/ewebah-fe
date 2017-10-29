@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { PaymentInfoPage } from '../paymentinfo/paymentinfo';
-import { TransactionHistoryPage} from '../transaction-history/transaction-history'
+import { TransactionHistoryPage} from '../transaction-history/transaction-history';
+import { PersonalDetailsPage } from '../personal-details/personal-details'
 
 
 @Component({
@@ -22,7 +23,7 @@ export class SettingsPage {
 
   accountSettings()
   {
-    // this.navCtrl.push(AccountSettingsPage);
+     this.navCtrl.push(PersonalDetailsPage);
   }
 
   paymentSettings(){
