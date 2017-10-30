@@ -1,140 +1,187 @@
+
 page-welcome {
-
-    #welcome{
+    font-family: 'Montserrat', sans-serif; 
+    .content { 
+        background: color($colors, bGround);
+        height: 100%;
         
-        background-color: #cfd8dc;
-        @media only screen and (min-width : 320px) and (max-width : 480px) 
-        {
-            background-color: #cfd8dc;
-            
-        }
+        text-align: center;
+    }
+    .banner {
+        background: url(../../assets/images/chicago.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        height:200px;
         
-        h1
-        {
-            @media only screen and (min-width: 1024px) 
-            {  
-                font-size: 200px;
-                color: black;
-                font-family: 'Cooper Black';
-            }
-           
-            @media only screen and (max-width: 640px) 
-            {
-                font-size: 50px;
-                color: black;
-                font-family: 'Cooper Black';
-                
-            }
-                    
-            
-        }
-        h3{
-            margin-top: 2px;
-            margin-bottom: 5px;
-            color: black;
-        }
-               
-        .signupButton
-        {
-            @media only screen and (max-width: 640px) 
-            {
-                margin-top: 20%;
-            }
-            max-width: 350px;
-            font-size: 22px;
-            font-family: 'Rockwell';
-            
-            
-        }
-        .loginButton
-        {
-            background-color: #ffc82c;
-            font-size: 22px;
-            max-width: 350px;
-            color: black;
-            font-family: 'Rockwell';
-        }
-
-        
-
-        .splashImageSmall
-        {
-            @media only screen and (min-width: 800px) 
-            {  
-                display:none;
-                font-size: 200px;
-                width: 80%;
-                max-width: 500px;
-                max-height: 50%;
-                margin-top: -10px;
-                margin-bottom: 0px;
-                margin-left: 30%;
-                margin-right: 30%;  
-            }
-            @media only screen and (max-width: 640px) 
-            {
-                font-size: 60px;
-                
-            }
-            width: 80%;
-            max-width: 600px;
-            margin-top: 10%;
-            margin-bottom:  20px;
-            margin-left: 30px;
-            margin-right: 15px;
-
-        }
-
-        .splashImage
-        {
-           
-            @media only screen and (max-width: 640px) 
-            {
-                font-size: 60px;
-                display:none;
-                margin-bottom: -10%;
-            }
-            
-        }
-        .mainImage
-        {
-            @media only screen and (max-width: 640px) 
-            {
-            display:none;
-            }
-            float: right;
-            width: 80%;
-            height: 67%;
-            margin-top: -10%;
-            /* background-color: blue; */
-        }
-
-        .CompanyIcon{
-        @media only screen and (min-width: 800px) 
-        {
-        float: left;
-        }
-           float: right;
-        }
-        .fullscreenInfo{
-            @media only screen and (max-width: 640px) 
-            {
-                display:none;
-                
-            }
-            width:100%;
-            height: 30%;
-            background-color: blue;
-            margin-top: 7%;
-            display:inline-block;
-            
-        }
-        .contentBox{
-            width:30%;
-            height:100%;
-            float: left;
-        }
+    }
+    .banner-inner-container {
+        max-width: 800px;
+        margin:auto;
+        position: relative;
+        height:200px;
     }
 
-
+    .banner h1 { color:#fff; margin:0; padding: 12px;  background:#000; position: absolute; bottom:0; letter-spacing: 2px; }
+    h2 { 
+        margin:24px 0 24px 0;
+        color:  color($colors, primary);
+    }
+    
+    .container {   
+        max-width: 800px;
+        padding: 20px 10px;
+        margin:auto; 
+    }
+    .steps { margin-top:40px; }
+    .steps .grid { padding:0;}
+    .steps .step {
+        margin:10px 0;
+        padding:24px;
+        background: #fff;
+        min-height: 100px;
+        color:#555;
+        border-top: solid 8px color($colors, light);
+    }
+    .steps .step img { height:60px;}
 }
+// page-welcome {
+
+//     #welcome{
+        
+//         background-color: #cfd8dc;
+//         @media only screen and (min-width : 320px) and (max-width : 480px) 
+//         {
+//             background-color: #cfd8dc;
+            
+//         }
+        
+//         h1
+//         {
+//             @media only screen and (min-width: 1024px) 
+//             {  
+//                 font-size: 200px;
+//                 color: black;
+//                 font-family: 'Cooper Black';
+//             }
+           
+//             @media only screen and (max-width: 640px) 
+//             {
+//                 font-size: 50px;
+//                 color: black;
+//                 font-family: 'Cooper Black';
+                
+//             }
+                    
+            
+//         }
+//         h3{
+//             margin-top: 2px;
+//             margin-bottom: 5px;
+//             color: black;
+//         }
+               
+//         .signupButton
+//         {
+//             @media only screen and (max-width: 640px) 
+//             {
+//                 margin-top: 20%;
+//             }
+//             max-width: 350px;
+//             font-size: 22px;
+//             font-family: 'Rockwell';
+            
+            
+//         }
+//         .loginButton
+//         {
+//             background-color: #ffc82c;
+//             font-size: 22px;
+//             max-width: 350px;
+//             color: black;
+//             font-family: 'Rockwell';
+//         }
+
+        
+
+//         .splashImageSmall
+//         {
+//             @media only screen and (min-width: 800px) 
+//             {  
+//                 display:none;
+//                 font-size: 200px;
+//                 width: 80%;
+//                 max-width: 500px;
+//                 max-height: 50%;
+//                 margin-top: -10px;
+//                 margin-bottom: 0px;
+//                 margin-left: 30%;
+//                 margin-right: 30%;  
+//             }
+//             @media only screen and (max-width: 640px) 
+//             {
+//                 font-size: 60px;
+                
+//             }
+//             width: 80%;
+//             max-width: 600px;
+//             margin-top: 10%;
+//             margin-bottom:  20px;
+//             margin-left: 30px;
+//             margin-right: 15px;
+
+//         }
+
+//         .splashImage
+//         {
+           
+//             @media only screen and (max-width: 640px) 
+//             {
+//                 font-size: 60px;
+//                 display:none;
+//                 margin-bottom: -10%;
+//             }
+            
+//         }
+//         .mainImage
+//         {
+//             @media only screen and (max-width: 640px) 
+//             {
+//             display:none;
+//             }
+//             float: right;
+//             width: 80%;
+//             height: 67%;
+//             margin-top: -10%;
+//             /* background-color: blue; */
+//         }
+
+//         .CompanyIcon{
+//         @media only screen and (min-width: 800px) 
+//         {
+//         float: left;
+//         }
+//            float: right;
+//         }
+//         .fullscreenInfo{
+//             @media only screen and (max-width: 640px) 
+//             {
+//                 display:none;
+                
+//             }
+//             width:100%;
+//             height: 30%;
+//             background-color: blue;
+//             margin-top: 7%;
+//             display:inline-block;
+            
+//         }
+//         .contentBox{
+//             width:30%;
+//             height:100%;
+//             float: left;
+//         }
+//     }
+
+
+// }
