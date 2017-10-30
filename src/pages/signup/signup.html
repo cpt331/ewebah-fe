@@ -1,4 +1,11 @@
 <ion-content id="signup">
+    
+    <div class="banner">
+        <div class="banner-inner-container">
+          <h1>Ewebah</h1>
+        </div>
+    </div>
+
     <ion-header>
     
       <ion-navbar>
@@ -6,11 +13,13 @@
       </ion-navbar>
       
     </ion-header>
-    
+    <div class="container">
+      <h2>We'll have you on the road in no time!</h2>
+      <p>Just need to grab a few things</p>
    <ion-list class="signupFields">
       <form [formGroup]="signupForm">
         
-        <button ion-button clear class="haveAccount" (click)="haveAccount()">Already have an account? login here</button>
+       
         
         <ion-item>
           <ion-label floating>First Name</ion-label>
@@ -89,4 +98,7 @@
         <button ion-button block color="secondary" class="signupButton" (click)="signup()">Create Account</button>
       </form>
     </ion-list>
+
+    <button ion-button clear class="haveAccount" (click)="haveAccount()">Already have an account? login here</button>
+  </div>
 </ion-content>

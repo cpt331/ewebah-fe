@@ -1,38 +1,12 @@
 
 page-welcome {
-    font-family: 'Montserrat', sans-serif; 
-    .content { 
-        background: color($colors, bGround);
-        height: 100%;
-        
-        text-align: center;
-    }
-    .banner {
-        background: url(../../assets/images/chicago.jpg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-        height:200px;
-        
-    }
-    .banner-inner-container {
-        max-width: 800px;
-        margin:auto;
-        position: relative;
-        height:200px;
-    }
-
-    .banner h1 { color:#fff; margin:0; padding: 12px;  background:#000; position: absolute; bottom:0; letter-spacing: 2px; }
+    text-align: center;
+    .banner, .banner-inner-container { height: 200px; }
     h2 { 
         margin:24px 0 24px 0;
         color:  color($colors, primary);
     }
     
-    .container {   
-        max-width: 800px;
-        padding: 20px 10px;
-        margin:auto; 
-    }
     .steps { margin-top:40px; }
     .steps .grid { padding:0;}
     .steps .step {

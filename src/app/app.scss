@@ -41,3 +41,60 @@ ion-content.content.admin .admin-menu .icon {
     margin: 35px 0;
     color: color($colors, primary);
 }
+
+
+html { font-family: 'Montserrat', sans-serif;  }
+.content { 
+    background: color($colors, bGround);
+    height: 100%;
+    
+}
+.banner {
+    background: url(../../assets/images/chicago.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height:100px;
+    
+}
+.banner-inner-container {
+    max-width: 800px;
+    margin:auto;
+    position: relative;
+    height:100px;
+}
+.banner h1 { color:#fff; margin:0; padding: 12px;  background:#000; position: absolute; bottom:0; letter-spacing: 2px; }
+
+ion-header {
+    position: relative;
+    border-bottom:none;
+}
+.header-md::after, .tabs-md[tabsPlacement="top"] > .tabbar::after, .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
+    background: none;
+    border-bottom:none;
+}
+ion-header ion-navbar.toolbar {
+    max-width: 800px;
+    margin:auto;
+}
+ion-header ion-navbar button .button-inner {
+    color: #fff;
+    background: color($colors, primary);
+    border-radius: 50%;
+    width:32px;
+    height:32px;
+}
+ion-header ion-navbar button .back-button-text { display:none ;}
+ion-header ion-navbar .toolbar-background {
+    background:transparent;
+    
+}
+ion-header ion-navbar .toolbar-title {
+    color: color($colors, primary);
+}
+.container {   
+    max-width: 800px;
+    padding: 20px 10px;
+    margin:auto; 
+    background: color($colors, bGround);
+}
