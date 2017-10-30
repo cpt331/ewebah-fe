@@ -1,0 +1,26 @@
+<ion-content id="otp">
+    <ion-header>
+    
+      <ion-navbar>
+        <ion-title>Activate User</ion-title>
+      </ion-navbar>
+      
+    </ion-header>
+    
+   <ion-list class="otpFields">
+      <form [formGroup]="otpForm">
+        
+        <ion-item>
+          <ion-label floating>Email</ion-label>
+          <ion-input formControlName="email" type="text" value=""></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Passcode</ion-label>
+          <ion-input formControlName="otp" type="text"></ion-input>
+        </ion-item>
+
+        <button ion-button block color="secondary" class="otpButton" (click)="otp()">Active User</button>
+      </form>
+    </ion-list>
+</ion-content>
