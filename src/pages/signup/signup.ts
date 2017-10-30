@@ -5,8 +5,10 @@ import { IonicPage, NavController, NavParams, Platform, ModalController} from 'i
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import moment from 'moment';
 
+
 import { LoginPage } from '../login/login';
 import { AutocompletePage } from '../home/autocompletepage';
+import { otpPage } from '../otp/otp';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
@@ -105,7 +107,7 @@ getMaxDate()
   }
 
   haveAccount(){
-    this.navCtrl.push(LoginPage, {}, {animate: false});
+    this.navCtrl.push(otpPage, {}, {animate: false});
   }
 
   signup(){
@@ -154,11 +156,11 @@ getMaxDate()
         let alert = this.alertCtrl.create({
           title: "User created",
           subTitle: 'Congratulations! Your account has been created,' + 
-          ' head to the login page to startn using the service',
+          ' an email has been sent to your email needed to activate',
           buttons: [{
-            text: 'login page',
+            text: 'activation page',
             handler: () => {
-              this.navCtrl.push(LoginPage, {}, {animate: false});
+              this.navCtrl.push(otpPage, {}, {animate: false});
               console.log(this.responseData);
             }}]
       });
