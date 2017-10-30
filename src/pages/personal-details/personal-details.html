@@ -11,7 +11,7 @@
   <form [formGroup]="updateForm">
     
     <button ion-button clear class="haveAccount" (click)="haveAccount()">Already have an account? login here</button>
-    
+ <!--     
     <ion-item>
       <ion-label floating>First Name</ion-label>
       <ion-input formControlName="firstName" type="firstName"></ion-input>
@@ -20,14 +20,14 @@
     <ion-item>
       <ion-label floating>Last Name</ion-label>
       <ion-input formControlName="lastName" type="lastName"></ion-input>
-    </ion-item>
+    </ion-item> -->
 
     <ion-item>
       <ion-label floating>Email</ion-label>
       <ion-input formControlName="email" type="text" value=""></ion-input>
     </ion-item>
 
-    <ion-item>
+<!--    <ion-item>
       <ion-label floating>Password</ion-label>
       <ion-input formControlName="password" type="password"></ion-input>
     </ion-item>
@@ -35,7 +35,7 @@
     <ion-item>
         <ion-label floating>Password Confirm</ion-label>
         <ion-input formControlName="passwordConfirm" type="password"></ion-input>
-      </ion-item>
+      </ion-item> -->
 
     <ion-item>
       <ion-label fixed>Date of Birth</ion-label>
@@ -47,7 +47,7 @@
       <ion-input formControlName="licence" type="licence"></ion-input>
     </ion-item>
 
-    <ion-item>
+ <!--     <ion-item>
       <ion-label floating>Licence State.</ion-label>
       <ion-select formControlName="licence" type="licence"></ion-select>
       <ion-option>ACT</ion-option>
@@ -58,7 +58,7 @@
       <ion-option>TAS</ion-option>
       <ion-option>VIC</ion-option>
       <ion-option>WA</ion-option>
-    </ion-item>
+    </ion-item> -->
 
     <ion-item>
       <ion-label floating>Phone No.</ion-label>
@@ -97,9 +97,9 @@
     <ion-item>
       <ion-label floating>Postcode</ion-label>
       <ion-input formControlName="postcode" type="postcode"></ion-input>
-    </ion-item> -->
+    </ion-item>
 
-    <button ion-button block color="secondary" class="signupButton" (click)="signup()">Update Account</button>
+    <button ion-button block color="secondary" class="signupButton" (click)="updatePostData()">Update Account</button>
   </form>
 </ion-list>
 </ion-content>
