@@ -1,7 +1,29 @@
-page-contact {
+page-return {
 
-    #contact{
+    #returnDetails{
         background: color($colors, bGround);
     }
+
+    .informtionFields{
+        width:80%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    #bookingHeader{
+        width:90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-bottom: 15px;
+        border-bottom: 1px grey solid;
+
+    }
+
+    #returnButton{
+        width:80%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
 
 }

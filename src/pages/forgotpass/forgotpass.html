@@ -1,0 +1,39 @@
+<ion-content id="forgotpass">
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>forgotpass</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-list class="resetFields">
+    <form [formGroup]="resetFields">
+  <ion-item>
+    <ion-label floating>Email</ion-label>
+    <ion-input formControlName="email" type="email" value="" ></ion-input>>
+  </ion-item>
+
+  <ion-item>
+    <ion-label fixed>Date of Birth</ion-label>
+    <ion-input formControlName="dob" type="date" ></ion-input>
+  </ion-item>
+    
+  <ion-item>
+    <ion-label floating>Licence No.</ion-label>
+    <ion-input formControlName="licence" type="text" ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>New Password</ion-label>
+    <ion-input formControlName="password" type="password" ></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label floating>Confirm New Password</ion-label>
+    <ion-input formControlName="passwordConfirm" type="password" ></ion-input>
+  </ion-item>
+
+  <button ion-button block color="secondary" class="resetButton" (click)="resetPassword()">Reset Password</button>
+</form>
+</ion-list>
+</ion-content>

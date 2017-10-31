@@ -1,11 +1,10 @@
 <ion-content padding id="login">
     <ion-header>
-        
-          <ion-navbar>
-            <ion-title>login</ion-title>
-          </ion-navbar>
-        
-        </ion-header>
+      <ion-navbar>
+        <ion-title>login</ion-title>
+      </ion-navbar>
+    </ion-header>
+  
 
 <ion-content id="login_body">
       <img src="assets/icon/Ewebah_icon.png" class="CompanyIcon"/>
@@ -18,15 +17,18 @@
       <ion-card-content>
       <ion-list>
           <ion-item>
-            <ion-input type="text" placeholder="Username"></ion-input>
+            <ion-input type="text" [(ngModel)]="enteredDetails.Email" placeholder="Username"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input type="text" placeholder="Password"></ion-input>
+
+            <ion-input type="password" [(ngModel)]="enteredDetails.Password" placeholder="Password" (keyup.enter)="login()"></ion-input>
+
           </ion-item>
         </ion-list>
       </ion-card-content>
       </ion-card>
       <p>Dont have an account with us?<a (click)="signup()">   Sign up now</a></p>
+        <button ion-button block class="forgottenPassword" (click)="forgotPassword()">Forgot Password?</button>
         <button ion-button block color="secondary" class="loginButton" (click)="login()">Login</button>
         <div class="mainImage">
           <img src="assets/images/Ewebah-Home.png" >

@@ -1,0 +1,37 @@
+
+  <ion-header>
+    
+      <ion-navbar>
+        <ion-title>Payment Info</ion-title>
+      </ion-navbar>
+      
+    </ion-header>
+    <ion-content id="paymentinfo">
+    <ion-list class="paymentInfo">
+      <form [formGroup]="paymentInfo">
+        
+        <ion-item>
+          <ion-label floating>Name On Credit Card</ion-label>
+          <ion-input formControlName="ccName" type="text" value=""></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Credit Card Number</ion-label>
+          <ion-input formControlName="ccNum" type="text" value=""></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Expiry</ion-label>
+          <ion-input formControlName="ccMonth" type="number" min="1" max="12" value=""></ion-input>
+          <ion-input formControlName="ccYear" type="number" min="2017" max="2099" value=""></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>CVV Number</ion-label>
+          <ion-input formControlName="ccV" type="text" value=""></ion-input>
+        </ion-item>
+
+        <button ion-button block color="secondary" class="submitButton" (click)="submit()">Update Payment Info</button>
+      </form>
+    </ion-list>
+</ion-content>

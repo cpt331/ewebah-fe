@@ -26,6 +26,13 @@
           <ion-label floating>Email</ion-label>
           <ion-input formControlName="email" type="text" value=""></ion-input>
         </ion-item>
+        
+        <div class="card">
+          <div class="item item-text-wrap" style="color:red; font-weight:bold;">
+            Passwords must be at least 8 characters and contain at least one
+            letter and one number. Passwords are case sensitive.
+          </div>
+      </div>
 
         <ion-item>
           <ion-label floating>Password</ion-label>
@@ -52,7 +59,7 @@
           <ion-input formControlName="phone" type="phone"></ion-input>
         </ion-item>
 
-        <ion-item>
+  <!--      <ion-item>
           <ion-label floating>Address 1</ion-label>
           <ion-input formControlName="address1" type="address1"></ion-input>
         </ion-item>
@@ -84,7 +91,7 @@
         <ion-item>
           <ion-label floating>Postcode</ion-label>
           <ion-input formControlName="postcode" type="postcode"></ion-input>
-        </ion-item>
+        </ion-item> -->
 
         <button ion-button block color="secondary" class="signupButton" (click)="signup()">Create Account</button>
       </form>
