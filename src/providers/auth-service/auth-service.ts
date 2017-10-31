@@ -67,32 +67,6 @@ export class AuthServiceProvider {
     });
 
   }
-  
-  postDataOTP(otp, email) {
-    return new Promise((resolve, reject) => {
-     let headers: Headers = new Headers();
-
-    headers.append('accept','application/json');
-    headers.append('content-Type', 'application/json');
-
-    // NEED TO ADD THE REST OF THE FIELDS
-    var OTPRequest = {
-      OTP: otp,
-	  Email: email
-    };
-
-      this.http.post(apiUrl + 'api/account/otp',
-          OTPRequest,
-          { headers: headers })
-
-        .subscribe(res => {
-          resolve(res.json());
-        }, (err) => {
-          reject(err);
-        });
-    });
-
-  }
 
   postDataPaymentInfo(ccName, ccType, ccNum, ccMonth, ccYear, ccV, access_token) {
     return new Promise((resolve, reject) => {
