@@ -43,8 +43,10 @@ export class HomePage {
   loader;
   userPosLat;
   userPosLong;
-  address;
-  geo: any
+  address= {
+    place: ''   
+  };  
+  geo: any;
 
   latitude: number = 0;
   longitude: number = 0;
@@ -67,10 +69,6 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
   this.currentUser.HasOpenBooking = data.HasOpenBooking;
   this.currentUser.OpenBookingId = data.OpenBookingId;
 
-    
-    this.address = {
-      place: ''   
-    };  
   }
 
     // when the view is first shown

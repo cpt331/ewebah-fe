@@ -1,24 +1,36 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-    <ion-buttons end>
-      <button ion-button id="logoutButton" color="primary" (click)="logout()">Logout</button>
-    </ion-buttons>
-  </ion-navbar>
-</ion-header>
+
 <!-- map style panel-->
-<ion-content padding id="home">
+<ion-content id="home">
+    <div class="banner">
+        <div class="banner-inner-container">
+          <h1>Ewebah</h1>
+          
+        </div>
+      </div>
+     
+        <div class="container">
+          
   <h4>Welcome to EweBah {{currentUser.Name}} </h4>
+  <p>Where are you?</p>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+      <ion-item>
+        <!--Show Address -->
+        <ion-input id="locationField" (click)="showAddressModal()" 
+        [(ngModel)]="address.place"type="text" placeholder="Search for Address">
+        </ion-input>
+      </ion-item>
+      </ion-col>
+      <ion-col>
+        <!-- map reset location to current location -->
+        <button ion-button (click)="useCurrentLocation()">Use Current Location</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   
-  <!-- map reset location to current location -->
-  <button ion-button color="navBGround" id="useCurrentLocation" 
-    (click)="useCurrentLocation()">Use Current Location
-  </button>
   
-  <!--Show Address -->
-  <ion-input id="locationField" (click)="showAddressModal()" 
-    [(ngModel)]="address.place"type="text" placeholder="Search for Address">
-  </ion-input>
   
   
   <div id = "webPage">
@@ -49,6 +61,8 @@
   </div>
   <button ion-button color="navBGround" id="navbtn"
    (click)="bookThisCar()" (focus)="onFocus(markerClicked())" type="text">Book this car</button>
+   
+  </div>
 </ion-content>     
   
 
