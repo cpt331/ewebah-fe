@@ -16,7 +16,7 @@ export class SettingsPage {
   }
   
   
-    paymentInfo()
+  paymentSettings()
     {
       this.navCtrl.push(PaymentInfoPage);
     }
@@ -26,9 +26,9 @@ export class SettingsPage {
      this.navCtrl.push(PersonalDetailsPage);
   }
 
-  paymentSettings(){
-    // this.navCtrl.push(paymentSettingsPage);
-  }
+  // paymentSettings(){
+  //   // this.navCtrl.push(paymentSettingsPage);
+  // }
 
   transactioinHistory(){
     this.navCtrl.push(TransactionHistoryPage);

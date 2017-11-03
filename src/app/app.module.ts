@@ -77,6 +77,7 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     PaymentInfoPage,
     AutocompletePage,
     ForgotPasswordPage,
+	  otpPage,
     TransactionHistoryPage,
     AutocompletePage,
     AdminHomePage,
