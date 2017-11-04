@@ -10,8 +10,8 @@ import { TransactionHistoryServiceProvider }
   templateUrl: 'transaction-history.html',
 })
 export class TransactionHistoryPage {
-  page = 5;
-  pageSize = 5;
+  page = 1;
+  pageSize = 15;
   transactionHistoryResult: any;
   transactionHistory: any;
   transactionHistoryTest: any;

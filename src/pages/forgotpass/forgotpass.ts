@@ -72,8 +72,10 @@ export class ForgotPasswordPage {
       this.resetFields.value.password,
       this.resetFields.value.passwordConfirm
   ).then((result) => {
+
       this.responseData = result;
       console.log(this.responseData);
+      console.log(this.resetFields.value.dob);
       
       //save collected info for later use
       //localStorage.setItem('userData', JSON.stringify(this.responseData));
@@ -95,7 +97,7 @@ export class ForgotPasswordPage {
       if(this.responseData.Success === true){
         
         let alert = this.alertCtrl.create({
-          title: "User created",
+          title: "Password succesfully reset",
           subTitle: 'Congratulations! Your password has been reset,' + 
           ' head to the login page to use your new password',
           buttons: [{

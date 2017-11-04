@@ -213,7 +213,7 @@ export class AuthServiceProvider {
     
 
     //console.log(ccYear);
-      this.http.post(apiUrl + 'api/account/registerupdatereturn',userupdateRequest,
+      this.http.post(apiUrl + 'api/account/registerupdate',userupdateRequest,
           { headers: headers })
         //{ headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
 

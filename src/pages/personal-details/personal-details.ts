@@ -47,9 +47,9 @@ export class PersonalDetailsPage {
     
 
       this.updateForm = formBuilder.group({
-        firstName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-        lastName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-        email: ["", Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$"), Validators.required])],
+        // firstName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        // lastName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        email: ["", Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")])],
         password: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
         passwordConfirm: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
         dob: ["", Validators.compose([Validators.required])],
@@ -69,11 +69,10 @@ export class PersonalDetailsPage {
     
     }
    
-  
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PersonalDetailsPage');
   }
+
   loadUserData(){
     
           const data = JSON.parse(localStorage.getItem('userData'));
@@ -99,19 +98,40 @@ this.responseData =result;
 
 updatePostData()
 {
-this.authService.postUpdateUserInfo(this.updateForm.value.dob,
-  this.updateForm.value.licence,
-  this.updateForm.value.licenceState,
-  this.updateForm.value.address1,
-  this.updateForm.value.address2,
-  this.updateForm.value.suburb,
-  this.updateForm.value.state,
-  this.updateForm.value.postcode,
-  this.updateForm.value.phone,
-this.currentUser.access_token).then((result) =>{
-  this.responseData =result;
+  this.authService.postUpdateUserInfo(this.updateForm.value.dob,
+    this.updateForm.value.licence,
+    //this.updateForm.value.licenceState,
+    "WA",
+    this.updateForm.value.address1,
+    this.updateForm.value.address2,
+    this.updateForm.value.suburb,
+    this.updateForm.value.state,
+    this.updateForm.value.postcode,
+    this.updateForm.value.phone,
+  this.currentUser.access_token).then((result) =>{
 
+  this.responseData =result;
+if(this.responseData.Success){
+  let alert = this.alertCtrl.create({
+    title: 'User details updated',
+    subTitle: 'The details will be presented here', buttons: [{
+      text: 'Okay', handler: () => { 
+      }}]});
+
+      alert.present();
+}
+else
+{ 
+  let alert = this.alertCtrl.create({
+    title: 'Unable to update details',
+    subTitle: 'An error has occured. Please try again', buttons: [{
+      text: 'Okay', handler: () => { 
+      }}]});
+
+      alert.present();
+}
   
+
   console.log(result);
 })
 }
