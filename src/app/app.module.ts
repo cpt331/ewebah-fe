@@ -33,6 +33,7 @@ import { CarServiceProvider } from '../providers/car-service/car-service';
 import { BookingServiceProvider } from '../providers/booking-service/booking-service';
 import { ReturnServiceProvider } from '../providers/return-service/return-service';
 import { TransactionHistoryServiceProvider } from '../providers/transaction-history-service/transaction-history-service';
+import { AdminServiceProvider } from '../providers/admin-service/admin-service';
 
 
 
@@ -99,7 +100,8 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     CarServiceProvider,
     BookingServiceProvider,
     ReturnServiceProvider,
-    TransactionHistoryServiceProvider
+    TransactionHistoryServiceProvider,
+    AdminServiceProvider
   ]
 })
 export class AppModule {}

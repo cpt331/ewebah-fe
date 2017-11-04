@@ -37,6 +37,17 @@ ion-content.content.admin .admin-view {
 ion-content.content.admin .admin-menu .icon {
     color: #999;
 }
+
+.admin-error {
+    padding: 12px;
+    margin: 16px 0 16px 16px;
+    border: solid 1px #F48181;
+    border-left: solid 6px #F48181;
+    border-radius:3px;
+    color:#333;
+}
+.admin-error ion-icon { margin-right: 8px; }
+
 .admin h1 {
     margin: 35px 0;
     color: color($colors, primary);

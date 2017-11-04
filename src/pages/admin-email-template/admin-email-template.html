@@ -1,18 +1,64 @@
-<!--
-  Generated template for the AdminEmailTemplatePage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
+  
+    <ion-navbar>
+      <ion-title>Ewebah Administration</ion-title>
+    </ion-navbar>
+  
+  </ion-header>
+  
+  
+  <ion-content padding class="admin">
+      
+    <div class="admin-container">
+      
+              <h1>Email Template</h1>
+              <div class="admin-view" >
 
-  <ion-navbar>
-    <ion-title>Ewebah Administration</ion-title>
-  </ion-navbar>
+                  <div *ngIf="templateLoading"><ion-spinner></ion-spinner>&nbsp;Grabbing latest...</div>
+                  <div *ngIf="!templateLoading">
 
-</ion-header>
+                      <h2>Instructions</h2>
+                      <p>You have access to the following special field names that can be used throughout the template. These will automatically be replaced with actual values once the email is sent to the customer.</p>
+                      <div *ngIf="templateFieldsLoading">
+                          <ion-spinner></ion-spinner>&nbsp;Finding fields...
+                      </div>
+                      <ion-list *ngIf="!templateFieldsLoading">
+                          <ion-item *ngFor="let field of templateFields">{{field.Description}}<span item-right>{{field.Name}}</span></ion-item>
+                      </ion-list>
 
-
-<ion-content padding>
-
-</ion-content>
+                      <h2>Template</h2>
+                      <form [formGroup]="templateForm" (ngSubmit)="submitForm()" >
+                          <ion-item>
+                            <ion-label stacked>Subject</ion-label>
+                            <ion-input type="text" formControlName="Subject" [(ngModel)]="updateRequest.Subject"></ion-input>
+                          </ion-item>
+                          <div class="admin-error" *ngIf="templateForm.get('Subject').errors && templateForm.get('Subject').touched"><ion-icon name="alert"></ion-icon>You must enter a Subject.</div>
+                          <ion-item>
+                            <ion-label stacked>Title</ion-label>
+                            <ion-textarea formControlName="Title" [(ngModel)]="updateRequest.Title"></ion-textarea>
+                          </ion-item>
+                          <div class="admin-error" *ngIf="templateForm.get('Title').errors && templateForm.get('Title').touched"><ion-icon name="alert"></ion-icon>You must enter a Title.</div>
+                          <ion-item>
+                            <ion-label stacked>Body</ion-label>
+                            <ion-input type="text" formControlName="Body" [(ngModel)]="updateRequest.Body"></ion-input>
+                          </ion-item>
+                          <div class="admin-error" *ngIf="templateForm.get('Body').errors && templateForm.get('Body').touched"><ion-icon name="alert"></ion-icon>You must enter a Body.</div>
+                          <ion-item>
+                            <ion-label stacked>Footer</ion-label>
+                            <ion-input type="text" formControlName="Footer" [(ngModel)]="updateRequest.Footer"></ion-input>
+                          </ion-item>
+                          <div class="admin-error" *ngIf="templateForm.get('Footer').errors && templateForm.get('Footer').touched"><ion-icon name="alert"></ion-icon>You must enter a Footer.</div>
+                          
+                       
+                          <br />
+                          <button ion-button type="submit" [disabled]="!templateForm.valid || formSubmitting">Update</button>
+                          <span *ngIf="formSubmitting"><ion-spinner></ion-spinner>&nbsp;Processing...</span>
+                        </form>
+                  </div>
+                  
+              </div>
+  
+    </div>
+  </ion-content>
+  
