@@ -8,7 +8,6 @@ import { HttpModule } from '@angular/http';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
-import { otpPage } from '../pages/otp/otp';
 import { ReturnPage } from '../pages/return/return';
 import { AutocompletePage } from '../pages/home/autocompletepage';
 import { AboutPage } from '../pages/about/about';
@@ -18,6 +17,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { PaymentInfoPage } from '../pages/paymentinfo/paymentinfo';
 import { ForgotPasswordPage } from "../pages/forgotpass/forgotpass";
+import { otpPage} from '../pages/otp/otp';
 import { TransactionHistoryPage} from '../pages/transaction-history/transaction-history';
 import { AdminHomePage} from '../pages/admin-home/admin-home';
 import { AdminCarsPage } from '../pages/admin-cars/admin-cars';
@@ -47,11 +47,11 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     LoginPage,
     SettingsPage,
     SignupPage,
-	otpPage,
     ReturnPage,
     PaymentInfoPage,
     AutocompletePage,
     ForgotPasswordPage,
+	otpPage,
     TransactionHistoryPage,
     AutocompletePage,
     AdminHomePage,
@@ -79,7 +79,7 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     PaymentInfoPage,
     AutocompletePage,
     ForgotPasswordPage,
-	  otpPage,
+	otpPage,
     TransactionHistoryPage,
     AutocompletePage,
     AdminHomePage,
