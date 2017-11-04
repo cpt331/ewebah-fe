@@ -114,7 +114,7 @@ updatePostData()
 if(this.responseData.Success){
   let alert = this.alertCtrl.create({
     title: 'User details updated',
-    subTitle: 'The details will be presented here', buttons: [{
+    subTitle: 'Your details have been successfully updated.', buttons: [{
       text: 'Okay', handler: () => { 
       }}]});
 
