@@ -4,6 +4,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
+import { AdminHomePage } from '../admin-home/admin-home';
 import { ForgotPasswordPage } from "../forgotpass/forgotpass";
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
@@ -16,7 +17,7 @@ import { AlertController } from 'ionic-angular';
 export class LoginPage {
 
   // create a storage structure for the returned values
-  enteredDetails = {"Email": "", "Password":""};
+  enteredDetails = {"Email": "user1@gmail.com", "Password":"password1"};
   userData = {access_token: "", Name: "",Email: "",Id: "", 
   token_type:"",HasOpenBooking: false, OpenBookingId:-1};
 
@@ -74,7 +75,12 @@ export class LoginPage {
       
   
       this.dismissLoading();
-      this.navCtrl.push(TabsPage, {}, {animate: false});
+      if(this.responseData.HasAdminRights){
+        this.navCtrl.push(AdminHomePage, {}, {animate: false});
+      }
+      else{
+        this.navCtrl.push(TabsPage, {}, {animate: false});
+      }
 
     }, (err) => {
 
