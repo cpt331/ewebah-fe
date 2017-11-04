@@ -5,6 +5,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
 import { ForgotPasswordPage } from "../forgotpass/forgotpass";
+import { otpPage } from "../otp/otp";
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
@@ -105,6 +106,11 @@ export class LoginPage {
   forgotPassword()
   {
     this.navCtrl.push(ForgotPasswordPage, {}, {animate: false});
+  }
+  
+  activateAccount()
+  {
+    this.navCtrl.push(otpPage, {}, {animate: false});
   }
     
   
