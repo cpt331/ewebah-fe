@@ -17,6 +17,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { PaymentInfoPage } from '../pages/paymentinfo/paymentinfo';
 import { ForgotPasswordPage } from "../pages/forgotpass/forgotpass";
+import { otpPage} from '../pages/otp/otp';
 import { TransactionHistoryPage} from '../pages/transaction-history/transaction-history';
 import { AdminHomePage} from '../pages/admin-home/admin-home';
 import { AdminCarsPage } from '../pages/admin-cars/admin-cars';
@@ -50,6 +51,7 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     PaymentInfoPage,
     AutocompletePage,
     ForgotPasswordPage,
+	otpPage,
     TransactionHistoryPage,
     AutocompletePage,
     AdminHomePage,
@@ -77,7 +79,7 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     PaymentInfoPage,
     AutocompletePage,
     ForgotPasswordPage,
-	  otpPage,
+	otpPage,
     TransactionHistoryPage,
     AutocompletePage,
     AdminHomePage,
