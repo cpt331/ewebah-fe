@@ -67,6 +67,32 @@ export class AuthServiceProvider {
     });
 
   }
+  
+  postDataOTP(otp, email) {
+    return new Promise((resolve, reject) => {
+     let headers: Headers = new Headers();
+
+    headers.append('accept','application/json');
+    headers.append('content-Type', 'application/json');
+
+    // NEED TO ADD THE REST OF THE FIELDS
+    var OTPRequest = {
+      OTP: otp,
+	  Email: email
+    };
+
+      this.http.post(apiUrl + 'api/account/otp',
+          OTPRequest,
+          { headers: headers })
+
+        .subscribe(res => {
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+    });
+
+  }
 
   postDataPaymentInfo(ccName, ccType, ccNum, ccMonth, ccYear, ccV, access_token) {
     return new Promise((resolve, reject) => {
@@ -148,6 +174,7 @@ export class AuthServiceProvider {
       });
     }
 
+
     ckeckAccountLogin(token) {
       return new Promise((resolve, reject) => {
         let headers = new Headers();
@@ -155,8 +182,7 @@ export class AuthServiceProvider {
         headers.append('accept','application/json');
         headers.append('content-Type', 'application/json');
         headers.append('authorization','Bearer ' + token);
-  
-        console.log("checking current user")
+
         this.http.get(apiUrl + '/api/account/current', {headers: headers})
   
         
@@ -168,30 +194,30 @@ export class AuthServiceProvider {
       });
     }
 
-    recieveUpdateData(){
-      return new Promise((resolve, reject) =>{
-        let headers =new Headers();
+  //   recieveUpdateData(){
+  //     return new Promise((resolve, reject) =>{
+  //       let headers =new Headers();
 
 
-        headers.append('accept','application/json');
-        headers.append('content-type','application/json');
-        headers.append('authorization','Bearer');
+  //       headers.append('accept','application/json');
+  //       headers.append('content-type','application/json');
+  //       headers.append('authorization','Bearer');
 
-        console.log ("Getting user registration Data")
-        this.http.get(apiUrl +'api/account/registerupdatereturn',{headers: headers})
+  //       console.log ("Getting user registration Data")
+  //       this.http.get(apiUrl +'api/account/registerupdatereturn',{headers: headers})
         
         
 
-        .subscribe(res => {
-          resolve(res.json());
-        }, (err) => {
-          reject(err);
-        });
-    });
-  }
+  //       .subscribe(res => {
+  //         resolve(res.json());
+  //       }, (err) => {
+  //         reject(err);
+  //       });
+  //   });
+  // }
 
 
-  postUpdateUserInfo(DOB,licNo,licST,add1,add2,suburb,state,postcode,ph,access_token) {
+  postUpdateUserInfo(fname,lname,email,licNo,licST,add1,add2,suburb,state,postcode,ph,access_token) {
     return new Promise((resolve, reject) => {
      let headers: Headers = new Headers();
 
@@ -200,7 +226,9 @@ export class AuthServiceProvider {
     headers.append('authorization','Bearer ' + access_token);
 
     var userupdateRequest = {
-      DateOfBirth:DOB,
+	  FirstName:fname,
+	  LastName:lname,
+	  Email:email,
       LicenceNumber:licNo,
       LicenceState: licST,
       AddressLine1: add1,
@@ -224,7 +252,24 @@ export class AuthServiceProvider {
           reject(err);
         });
     });
+  }
 
+  registerDetailsCheck(token) {
+    return new Promise((resolve, reject) => {
+      let headers = new Headers();
+
+      headers.append('accept','application/json');
+      headers.append('content-Type', 'application/json');
+      headers.append('authorization','Bearer ' + token);
+
+      this.http.get(apiUrl + '/api/account/registerupdatereturn', {headers: headers})
+
+        .subscribe(res => {
+          resolve(res.json());
+        }, (err) => {
+          reject(err);
+        });
+    });
   }
 
 }

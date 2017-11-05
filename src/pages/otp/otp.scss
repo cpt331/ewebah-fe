@@ -1,0 +1,24 @@
+page-otp {
+
+    #otp{
+        //background-color: blue;
+        background: color($colors, bGround);
+
+        .otpButton{
+            margin-top: 45px;
+        }
+
+        .otpFields{
+            margin-top: 55px;
+            margin-bottom:  15px;
+            margin-left: 10%;
+            width: 80%;
+
+        }
+
+
+        
+    }
+
+
+}

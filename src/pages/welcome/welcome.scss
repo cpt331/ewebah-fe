@@ -30,7 +30,7 @@ page-welcome {
         }
         h3{
             margin-top: 2px;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             color: black;
         }
                
@@ -38,7 +38,7 @@ page-welcome {
         {
             @media only screen and (max-width: 640px) 
             {
-                margin-top: 20%;
+                margin-top: 10%;
             }
             max-width: 350px;
             font-size: 22px;
@@ -48,6 +48,11 @@ page-welcome {
         }
         .loginButton
         {
+            @media only screen and (max-width: 640px) 
+            {
+                margin-top: 5px;
+                
+            }
             background-color: #ffc82c;
             font-size: 22px;
             max-width: 350px;
@@ -74,7 +79,8 @@ page-welcome {
             @media only screen and (max-width: 640px) 
             {
                 font-size: 60px;
-                
+                margin-top: 0%;
+                margin-bottom:  0px;
             }
             width: 80%;
             max-width: 600px;

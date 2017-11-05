@@ -31,8 +31,7 @@ export class PersonalDetailsPage {
     "Suburb":"",
     "State":"",
     "Postcode":"",
-    "PhoneNumber":"",
-    "DateOfBirth":""
+    "PhoneNumber":""
     }
 
   constructor(public navCtrl: NavController,
@@ -45,14 +44,19 @@ export class PersonalDetailsPage {
     public loadingCtrl: LoadingController,
     public formBuilder: FormBuilder){
     
+      // load the user info then get the current details for prefilling the fields
+      // once details are collected construct the page.
+
+      // this probably needs a throbber
+      this.loadUserData()
+      this.getUserRegistrationDetails();
 
       this.updateForm = formBuilder.group({
-        // firstName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-        // lastName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        firstName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        lastName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
         email: ["", Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")])],
         password: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
         passwordConfirm: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
-        dob: ["", Validators.compose([Validators.required])],
         address1: ["", Validators.compose([Validators.required])],
         address2: ["", Validators.compose([Validators.required])],
         suburb: ["", Validators.compose([Validators.required])],
@@ -64,7 +68,7 @@ export class PersonalDetailsPage {
       })
       
 
-    this.loadUserData(); 
+    
       //this.getUserRegistrationDetails();
     
     }
@@ -89,17 +93,33 @@ export class PersonalDetailsPage {
 
 getUserRegistrationDetails()
 {
-  this.authService.recieveUpdateData().then((result) =>{
-this.responseData =result;
-
-    console.log("result is "+result);
+  this.authService.registerDetailsCheck(this.currentUser.access_token).then((result) =>{
+  this.responseData =result;
+  this.updateForm = this.formBuilder.group({
+    firstName: [this.responseData.FirstName, Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+    lastName: [this.responseData.LastName, Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+    email: [this.responseData.Email, Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")])],
+    password: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
+    passwordConfirm: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
+    address1: [this.responseData.AddressLine1, Validators.compose([Validators.required])],
+    address2: [this.responseData.AddressLine2, Validators.compose([Validators.required])],
+    suburb: [this.responseData.Suburb, Validators.compose([Validators.required])],
+    state: [this.responseData.State, Validators.compose([Validators.required])],
+    postcode: [this.responseData.Postcode, Validators.compose([Validators.required])],
+    licence: [this.responseData.DriversLicenceID, Validators.compose([Validators.minLength(5), Validators.maxLength(20), Validators.required])],
+    licenceState:[this.responseData.DriversLicenceState, Validators.compose([Validators.required])],
+    phone: [this.responseData.PhoneNumber, Validators.compose([Validators.minLength(8), Validators.maxLength(15), Validators.pattern('[+0-9 ]*'), Validators.required])]//,
+  })
   });
 }
 
 updatePostData()
 {
-  this.authService.postUpdateUserInfo(this.updateForm.value.dob,
-    this.updateForm.value.licence,
+  this.authService.postUpdateUserInfo(
+    this.updateForm.value.firstName,
+	this.updateForm.value.lastName,
+	this.updateForm.value.email,
+	this.updateForm.value.licence,
     //this.updateForm.value.licenceState,
     "WA",
     this.updateForm.value.address1,
@@ -114,7 +134,8 @@ updatePostData()
 if(this.responseData.Success){
   let alert = this.alertCtrl.create({
     title: 'User details updated',
-    subTitle: 'The details will be presented here', buttons: [{
+    subTitle: 'Your details have been successfully updated.',
+    message: this.responseData, buttons: [{
       text: 'Okay', handler: () => { 
       }}]});
 

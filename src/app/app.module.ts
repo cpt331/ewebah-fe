@@ -3,20 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
-//import {DatePicker} from '@ionic-native/date-picker';
 
 import { WelcomePage } from '../pages/welcome/welcome';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { ReturnPage } from '../pages/return/return';
 import { AutocompletePage } from '../pages/home/autocompletepage';
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SettingsPage } from '../pages/settings/settings';
 import { PaymentInfoPage } from '../pages/paymentinfo/paymentinfo';
 import { ForgotPasswordPage } from "../pages/forgotpass/forgotpass";
+import { otpPage} from '../pages/otp/otp';
 import { TransactionHistoryPage} from '../pages/transaction-history/transaction-history';
 import { AdminHomePage} from '../pages/admin-home/admin-home';
 import { AdminCarsPage } from '../pages/admin-cars/admin-cars';
@@ -32,14 +30,13 @@ import { CarServiceProvider } from '../providers/car-service/car-service';
 import { BookingServiceProvider } from '../providers/booking-service/booking-service';
 import { ReturnServiceProvider } from '../providers/return-service/return-service';
 import { TransactionHistoryServiceProvider } from '../providers/transaction-history-service/transaction-history-service';
+import { AdminServiceProvider } from '../providers/admin-service/admin-service';
 
 
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
     TabsPage,
     WelcomePage,
@@ -50,6 +47,7 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     PaymentInfoPage,
     AutocompletePage,
     ForgotPasswordPage,
+	otpPage,
     TransactionHistoryPage,
     AutocompletePage,
     AdminHomePage,
@@ -65,8 +63,6 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
     HomePage,
     TabsPage,
     WelcomePage,
@@ -77,6 +73,7 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     PaymentInfoPage,
     AutocompletePage,
     ForgotPasswordPage,
+	otpPage,
     TransactionHistoryPage,
     AutocompletePage,
     AdminHomePage,
@@ -87,7 +84,6 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
   ],
   providers: [
     StatusBar,
-    //DatePicker,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
@@ -96,7 +92,8 @@ import { TransactionHistoryServiceProvider } from '../providers/transaction-hist
     CarServiceProvider,
     BookingServiceProvider,
     ReturnServiceProvider,
-    TransactionHistoryServiceProvider
+    TransactionHistoryServiceProvider,
+    AdminServiceProvider
   ]
 })
 export class AppModule {}
