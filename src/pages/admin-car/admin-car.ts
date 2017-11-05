@@ -1,11 +1,16 @@
+//ionic
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import {Geolocation} from '@ionic-native/geolocation';
-import {GoogleMaps, GoogleMap, GoogleMapsEvent,
-  GoogleMapOptions, CameraPosition, MarkerOptions, Marker} from '@ionic-native/google-maps';
 
+//google
+import {GoogleMaps, GoogleMap, GoogleMapsEvent,
+  GoogleMapOptions, CameraPosition, MarkerOptions, Marker} 
+  from '@ionic-native/google-maps';
+
+//custom
 import { AdminCarsPage } from '../admin-cars/admin-cars';
 import { CarServiceProvider } from '../../providers/car-service/car-service'
 import { UpdateCarRequest } from '../../providers/car-service/update-car-request';
@@ -13,28 +18,28 @@ import { UpdateCarResponse } from '../../providers/car-service/update-car-respon
 import { CarCategory } from '../../providers/car-service/car-category';
 import { City } from '../../providers/car-service/city';
 
-/**
- * Generated class for the AdminCarPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
+//this stops typescript errors from occuring when using maps API
 declare var google;
-
-
 
 @IonicPage()
 @Component({
   selector: 'page-admin-car',
   templateUrl: 'admin-car.html',
 })
+
+//this page is used to handle updating and creation of cars in the system
 export class AdminCarPage {
 
   private carForm : FormGroup;
   private formSubmitting : boolean = false;
   private car = null;
-  private currentUser = {access_token: "", Name: "",Email: "",Id: "", token_type:"",HasOpenBooking: false, OpenBookingId:-1};
+  currentUser = { access_token: "", 
+                  Name: "",
+                  Email: "",
+                  Id: "", 
+                  token_type:"",
+                  HasOpenBooking: false, 
+                  OpenBookingId:-1};
   private updateCarResponse : UpdateCarResponse = null;
   private categoriesLoading : boolean = true;
   private categories : CarCategory[] = null;
@@ -53,8 +58,10 @@ export class AdminCarPage {
     public alertCtrl: AlertController,
     public geolocation: Geolocation) {
     
+    //retrieve the car from navigation parameters
     this.car = this.navParams.get('car');
 
+    //if no car was passed in, initialise a new one
     if(!this.car){
       this.car = {
           Id: null,
@@ -64,17 +71,17 @@ export class AdminCarPage {
           Transmission: null,
           Suburb: '',
           Status: '',
-          LatPos: null,//-33.870380
-          LongPos: null //151.205332
+          LatPos: null,
+          LongPos: null
       };
     }
     
+    //setup form with validation logic
     this.carForm = this.formBuilder.group({
       Make: [this.car.Make, Validators.required],
       Model: [this.car.Model, Validators.required],
       CarCategory: [this.car.CarCategory, Validators.required],
       Transmission: [this.car.Transmission, Validators.required],
-      Suburb: [this.car.Suburb, Validators.required],
       Status: [this.car.Status, Validators.required],
       LatPos: [this.car.LatPos, Validators.required],
       LongPos: [this.car.LongPos, Validators.required]
@@ -83,8 +90,8 @@ export class AdminCarPage {
 
   }
   
+  //when the view is loaded initialise relational data for selection
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminCarPage');
     this.loadMap();
     this.loadUserData();
     this.loadCategories();
@@ -92,129 +99,154 @@ export class AdminCarPage {
     this.loadCities();
   }
 
-  //show a google map to indicate where the car is. if it is a new car then use the current
-  //geolocation to populate latitude and longitude
+  //show a google map to indicate where the car is. if it is a new car then 
+  //use the current geolocation to populate latitude and longitude
   loadMap(){
-    
-      if(this.car.LatPos == null || this.car.LongPos == null){
 
-        this.geolocation.getCurrentPosition().then((position) => {
-          
-               let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-               this.carForm.controls['LatPos'].setValue(position.coords.latitude);
-               this.carForm.controls['LongPos'].setValue(position.coords.longitude);
+    //if the car has no co ordinates then it must be a new car
+    if(this.car.LatPos == null || this.car.LongPos == null){
 
-               
-          
-               let mapOptions = {
-                 center: latLng,
-                 zoom: 15,
-                 mapTypeId: google.maps.MapTypeId.ROADMAP
-               }
-          
-               this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      //use the current location as the cars starting location
+      this.geolocation.getCurrentPosition().then((position) => {
 
-               let marker = new google.maps.Marker({
-                map: this.map,
-                animation: google.maps.Animation.DROP,
-                position: this.map.getCenter()
-              });
+        let latLng = new google.maps.LatLng(
+                position.coords.latitude, 
+                position.coords.longitude);
+                
+        this.carForm.controls['LatPos'].setValue(position.coords.latitude);
+        this.carForm.controls['LongPos'].setValue(position.coords.longitude);
+  
+        let mapOptions = {
+          center: latLng,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+  
+        //load map
+        this.map = new google.maps.Map(
+          this.mapElement.nativeElement, 
+          mapOptions);
 
-          
-             }, (err) => {
-               console.log(err);
-             });
+        //set a marker at the location
+        let marker = new google.maps.Marker({
+          map: this.map,
+          animation: google.maps.Animation.DROP,
+          position: this.map.getCenter()
+        });
 
-      }
-      else{
-          
-        let latLng = new google.maps.LatLng(this.car.LatPos, this.car.LongPos);
+  
+      }, (err) => {
+        console.log(err);
+      });
+
+    }
+    else{
         
-           let mapOptions = {
-             center: latLng,
-             zoom: 15,
-             mapTypeId: google.maps.MapTypeId.ROADMAP
-           }
-        
-          this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
-          let marker = new google.maps.Marker({
-            map: this.map,
-            animation: google.maps.Animation.DROP,
-            position: this.map.getCenter()
-          });
-
+      let latLng = new google.maps.LatLng(this.car.LatPos, this.car.LongPos);
+      
+      let mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
       }
-       
-    
+
+      //load map
+      this.map = new google.maps.Map(
+        this.mapElement.nativeElement, 
+        mapOptions);
+
+      //set a marker at the location    
+      let marker = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: this.map.getCenter()
+      });
+    }
   }
   
-//load a list of cities for selection
+  //load a list of cities for selection
   loadCities()  {
-    let subscription = this.carService.getCities(this.currentUser.access_token)
-    .subscribe(
-    value => this.cities = value,
-    error => this.cities = null,
-    () => this.citiesLoading = false
-  );
+    //request cities from back end API
+    let subscription = this.carService.getCities(
+      this.currentUser.access_token)
+      .subscribe(
+      value => this.cities = value,
+      error => this.cities = null,
+      () => this.citiesLoading = false
+    );
   }
 
   //load a list of categories for selection
   loadCategories()  {
-    let subscription = this.carService.getCategories(this.currentUser.access_token)
-    .subscribe(
-    value => this.categories = value,
-    error => this.categories = null,
-    () => this.categoriesLoading = false
-  );
+    //request categories from back end API
+    let subscription = this.carService.getCategories(
+      this.currentUser.access_token)
+      .subscribe(
+        value => this.categories = value,
+        error => this.categories = null,
+        () => this.categoriesLoading = false
+      );
   }
 
   //load a list of statuses for selection
   loadStatuses()  {
-    let subscription = this.carService.getStatuses(this.currentUser.access_token)
-    .subscribe(
-    value => this.statuses = value,
-    error => this.statuses = null,
-    () => this.statusesLoading = false
-  );
+    //request statuses from back end API
+    let subscription = this.carService.getStatuses(
+      this.currentUser.access_token)
+      .subscribe(
+        value => this.statuses = value,
+        error => this.statuses = null,
+        () => this.statusesLoading = false
+      );
   }
 
+  //submit the car update form and post data to back end
   submitForm(){
 
+    //state of form is now submitting and UI will react
     this.formSubmitting = true;
 
+    //create an update request
     let request = new UpdateCarRequest();
-
     if(this.car.Id != null){
       request.Id = this.car.Id;
     }
-
     request.Make = this.carForm.value.Make;
     request.Model = this.carForm.value.Model;
     request.CarCategory = this.carForm.value.CarCategory;
     request.Transmission = this.carForm.value.Transmission;
-    request.Suburb = this.carForm.value.Suburb;
     request.Status = this.carForm.value.Status;
     request.LatPos = this.carForm.value.LatPos;
     request.LongPos = this.carForm.value.LongPos;
 
-    let subscription = this.carService.updateCar(request, this.currentUser.access_token)
+    //send API request to update car. listen for response and process
+    let subscription = this.carService.updateCar(
+      request, 
+      this.currentUser.access_token)
           .subscribe(
-          value => {
-            this.processResponse(value);
-          },
-          error => this.updateCarResponse = null,
-          () => this.formSubmitting = false
-        );
+            value => {
+              this.processResponse(value);
+            },
+            error => {
+              this.updateCarResponse = null;
+              const alert = this.alertCtrl.create({
+                title: "Something went wrong!",
+                buttons: [{
+                  text: 'Ok'
+                }]
+              });
+              alert.present();
+              this.formSubmitting = false;
+            },
+            () => this.formSubmitting = false
+          );
 
-    //
-  
   }
+
+  //handle the response to an update request
   processResponse(response){
-
     this.updateCarResponse = response;
-
-    console.log('process response: ' + response)
+    //send an ionic alert to the user letting them know the status
     const alert = this.alertCtrl.create({
       title: response.Message,
       buttons: [{
@@ -227,10 +259,9 @@ export class AdminCarPage {
       }]
     });
     alert.present();
-    
-    
   }
 
+  //load the current user data from storage
   loadUserData(){
     const data = JSON.parse(localStorage.getItem('userData'));
     this.currentUser.Name = data.Name;
