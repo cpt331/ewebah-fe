@@ -31,8 +31,7 @@ export class PersonalDetailsPage {
     "Suburb":"",
     "State":"",
     "Postcode":"",
-    "PhoneNumber":"",
-    "DateOfBirth":""
+    "PhoneNumber":""
     }
 
   constructor(public navCtrl: NavController,
@@ -53,12 +52,11 @@ export class PersonalDetailsPage {
       this.getUserRegistrationDetails();
 
       this.updateForm = formBuilder.group({
-        // firstName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-        // lastName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        firstName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        lastName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
         email: ["", Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")])],
         password: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
         passwordConfirm: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
-        dob: ["", Validators.compose([Validators.required])],
         address1: ["", Validators.compose([Validators.required])],
         address2: ["", Validators.compose([Validators.required])],
         suburb: ["", Validators.compose([Validators.required])],
@@ -98,12 +96,11 @@ getUserRegistrationDetails()
   this.authService.registerDetailsCheck(this.currentUser.access_token).then((result) =>{
   this.responseData =result;
   this.updateForm = this.formBuilder.group({
-    // firstName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-    // lastName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+    firstName: [this.responseData.FirstName, Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+    lastName: [this.responseData.LastName, Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
     email: [this.responseData.Email, Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")])],
     password: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
     passwordConfirm: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
-    dob: [this.responseData.DateOfBirth, Validators.compose([Validators.required])],
     address1: [this.responseData.AddressLine1, Validators.compose([Validators.required])],
     address2: [this.responseData.AddressLine2, Validators.compose([Validators.required])],
     suburb: [this.responseData.Suburb, Validators.compose([Validators.required])],
@@ -118,8 +115,11 @@ getUserRegistrationDetails()
 
 updatePostData()
 {
-  this.authService.postUpdateUserInfo(this.updateForm.value.dob,
-    this.updateForm.value.licence,
+  this.authService.postUpdateUserInfo(
+    this.updateForm.value.firstName,
+	this.updateForm.value.lastName,
+	this.updateForm.value.email,
+	this.updateForm.value.licence,
     //this.updateForm.value.licenceState,
     "WA",
     this.updateForm.value.address1,

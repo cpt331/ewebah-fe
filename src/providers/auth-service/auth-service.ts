@@ -217,7 +217,7 @@ export class AuthServiceProvider {
   // }
 
 
-  postUpdateUserInfo(DOB,licNo,licST,add1,add2,suburb,state,postcode,ph,access_token) {
+  postUpdateUserInfo(fname,lname,email,licNo,licST,add1,add2,suburb,state,postcode,ph,access_token) {
     return new Promise((resolve, reject) => {
      let headers: Headers = new Headers();
 
@@ -226,7 +226,9 @@ export class AuthServiceProvider {
     headers.append('authorization','Bearer ' + access_token);
 
     var userupdateRequest = {
-      DateOfBirth:DOB,
+	  FirstName:fname,
+	  LastName:lname,
+	  Email:email,
       LicenceNumber:licNo,
       LicenceState: licST,
       AddressLine1: add1,

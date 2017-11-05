@@ -47,7 +47,7 @@ export class AdminCarsPage {
   //load a list of cars from the API
   loadCars(){
     this.carService.getAllCars(this.currentUser.access_token).then((result) => {
-        console.log(result);
+        // console.log(result);
         this.cars = result;
         this.loading = false;
     });
