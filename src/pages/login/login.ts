@@ -13,12 +13,13 @@ import { AlertController } from 'ionic-angular';
 @IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
+  templateUrl: 'login.html'
 })
 export class LoginPage {
 
   // create a storage structure for the returned values
-  enteredDetails = {"Email": "user1@gmail.com", "Password":"password1"};
+  // enteredDetails = {Email: "", Password:""};
+  enteredDetails = {Email: "", Password:""};
   userData = {access_token: "", Name: "",Email: "",Id: "", 
   token_type:"",HasOpenBooking: false, OpenBookingId:-1};
 
