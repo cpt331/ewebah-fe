@@ -139,7 +139,12 @@ private ModalCtrl:ModalController, public loadingCtrl: LoadingController) {
   updateMapLocation(latLng)
   {
     // if the location is blocked the app crashes
+    try {
     this.map = new google.maps.Map(this.map.panTo(latLng))
+    }
+    catch(err) {
+
+    }
   }
 
   loadMap() 
