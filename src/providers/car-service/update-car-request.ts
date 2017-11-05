@@ -4,7 +4,6 @@ export class UpdateCarRequest {
     Model: string;
     CarCategory: string;
     Transmission: string;
-    Suburb: string;
     Status: string;
     LatPos: number;
     LongPos: number;

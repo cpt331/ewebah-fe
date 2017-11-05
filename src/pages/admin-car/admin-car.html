@@ -71,18 +71,6 @@
                                 </ion-item>
                                 <div class="admin-car-error" *ngIf="carForm.get('LongPos').errors && carForm.get('LongPos').touched"><ion-icon name="alert"></ion-icon>You must enter a Longitude.</div>
                                 
-                                <ion-item *ngIf="citiesLoading">
-                                  <ion-label stacked>City</ion-label>
-                                  <p>Loading...</p>
-                                </ion-item>
-                                <ion-item *ngIf="!citiesLoading">
-                                  <ion-label stacked>City</ion-label>
-                                  <ion-select formControlName="Suburb">
-                                    <ion-option *ngFor="let city of cities" [value]="city.CityName">{{city.CityName}}</ion-option>
-                                  </ion-select>
-                                </ion-item>
-                                <div class="admin-car-error" *ngIf="carForm.get('Suburb').errors && carForm.get('Suburb').touched"><ion-icon name="alert"></ion-icon>You must enter a City.</div>
-                                
                           </ion-col>
                         </ion-row>
                       </ion-grid>
