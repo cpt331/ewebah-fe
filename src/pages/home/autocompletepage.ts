@@ -38,12 +38,21 @@ export class AutocompletePage {
       return;
     }
     let me = this;
-    this.service.getPlacePredictions({ input: this.autocomplete.query,  componentRestrictions: {country: 'AU'} }, function (predictions, status) {
+    this.service.getPlacePredictions({ input: this.autocomplete.query,  componentRestrictions: {country: 'AU'} }, 
+    function (predictions, status) {
       me.autocompleteItems = []; 
-      me.zone.run(function () {
-        predictions.forEach(function (prediction) {
+      me.zone.run(function () 
+      {
+        try{
+        predictions.forEach(function (prediction) 
+        {
           me.autocompleteItems.push(prediction.description);
+
         });
+      }
+      catch (e){
+        me.autocompleteItems.push("no results");
+      }
       });
     });
   }

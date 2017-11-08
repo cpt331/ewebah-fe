@@ -20,10 +20,13 @@
           <ion-input formControlName="ccNum" type="text" value=""></ion-input>
         </ion-item>
 
-        <ion-item>
-          <ion-label floating>Expiry</ion-label>
+        <ion-item ID="expiryMonth">
+          <ion-label floating>Expiry Month (MM)</ion-label>
           <ion-input formControlName="ccMonth" type="number" min="1" max="12" value=""></ion-input>
-          <ion-input formControlName="ccYear" type="number" min="2017" max="2099" value=""></ion-input>
+        </ion-item>
+        <ion-item ID="expiryYear">
+          <ion-label floating>Expiry Year (YYYY)</ion-label>
+          <ion-input formControlName="ccYear" type="number" min="2017" max="2099" value="" ></ion-input>
         </ion-item>
 
         <ion-item>
