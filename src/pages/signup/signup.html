@@ -6,7 +6,7 @@
       </ion-navbar>
       
     </ion-header>
-    
+    <div id = "signupPage">
    <ion-list class="signupFields">
       <form [formGroup]="signupForm">
         
@@ -27,17 +27,17 @@
           <ion-input formControlName="email" type="text" value=""></ion-input>
         </ion-item>
         
+        <ion-item>
+          <ion-label floating>Password</ion-label>
+          <ion-input id="password" formControlName="password" type="password"></ion-input>
+        </ion-item>
+
         <div class="card">
-          <div class="item item-text-wrap" style="color:red; font-weight:bold;">
+          <div id="passwordInformation" style="color:red; font-weight:bold;">
             Passwords must be at least 8 characters and contain at least one
             letter and one number. Passwords are case sensitive.
           </div>
       </div>
-
-        <ion-item>
-          <ion-label floating>Password</ion-label>
-          <ion-input formControlName="password" type="password"></ion-input>
-        </ion-item>
 
         <ion-item>
             <ion-label floating>Password Confirm</ion-label>
@@ -46,7 +46,8 @@
 
         <ion-item>
           <ion-label fixed>Date of Birth</ion-label>
-          <ion-datetime formControlName="dob" pickerFormat="MMMM DD YYYY" displayFormat="DD/MM/YYYY" min="1920" max="1999-09-30"></ion-datetime>
+          <ion-datetime formControlName="dob" pickerFormat="MMMM DD YYYY" 
+              displayFormat="DD/MM/YYYY" min="1920" max="1999-09-30"></ion-datetime>
         </ion-item>
         
         <ion-item>
@@ -96,4 +97,5 @@
         <button ion-button block color="secondary" class="signupButton" (click)="signup()">Create Account</button>
       </form>
     </ion-list>
+  </div>
 </ion-content>
