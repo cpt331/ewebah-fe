@@ -16,6 +16,7 @@ export class PersonalDetailsPage {
 
   //declare variables
   responseData : any;
+  loader;
 
   private currentUser = {access_token: "", Name: "",Email: "",Id: "", 
   token_type:"",HasOpenBooking: false, OpenBookingId:-1};
@@ -54,7 +55,7 @@ export class PersonalDetailsPage {
       this.updateForm = formBuilder.group({
         firstName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
         lastName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-        email: ["", Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")])],
+        // email: ["", Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")])],
         password: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
         passwordConfirm: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
         address1: ["", Validators.compose([Validators.required])],
@@ -75,6 +76,11 @@ export class PersonalDetailsPage {
    
 
   ionViewDidLoad() {
+    
+  }
+  
+  ionViewDidEnter() {
+    this.getUserRegistrationDetails();
   }
 
   loadUserData(){
@@ -98,7 +104,7 @@ getUserRegistrationDetails()
   this.updateForm = this.formBuilder.group({
     firstName: [this.responseData.FirstName, Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
     lastName: [this.responseData.LastName, Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-    email: [this.responseData.Email, Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")])],
+    //email: [this.responseData.Email, Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")])],
     password: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
     passwordConfirm: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
     address1: [this.responseData.AddressLine1, Validators.compose([Validators.required])],
@@ -115,13 +121,13 @@ getUserRegistrationDetails()
 
 updatePostData()
 {
+  this.showLoading();
   this.authService.postUpdateUserInfo(
-    this.updateForm.value.firstName,
+  this.updateForm.value.firstName,
 	this.updateForm.value.lastName,
-	this.updateForm.value.email,
+	this.currentUser.Email,
 	this.updateForm.value.licence,
-    //this.updateForm.value.licenceState,
-    "WA",
+    this.updateForm.value.licenceState,
     this.updateForm.value.address1,
     this.updateForm.value.address2,
     this.updateForm.value.suburb,
@@ -132,10 +138,11 @@ updatePostData()
 
   this.responseData =result;
 if(this.responseData.Success){
+  this.dismissLoading();
   let alert = this.alertCtrl.create({
     title: 'User details updated',
-    subTitle: 'Your details have been successfully updated.',
-    message: this.responseData, buttons: [{
+    //subTitle: 'Your details have been successfully updated.',
+    message: this.responseData.Message, buttons: [{
       text: 'Okay', handler: () => { 
       }}]});
 
@@ -143,6 +150,7 @@ if(this.responseData.Success){
 }
 else
 { 
+  this.dismissLoading();
   let alert = this.alertCtrl.create({
     title: 'Unable to update details',
     subTitle: 'An error has occured. Please try again', buttons: [{
@@ -158,5 +166,22 @@ else
 }
   
   
+  //loader function to stop the loader being called when it already exists
+  // and dismissed when it doesn not exist
+  showLoading() {
+    if(!this.loader){
+        this.loader = this.loadingCtrl.create({
+          content: "updating details...",
+        });
+        this.loader.present();
+    }
+  }
+
+  dismissLoading(){
+    if(this.loader){
+        this.loader.dismiss();
+        this.loader = null;
+    }
+  }
 }
 
