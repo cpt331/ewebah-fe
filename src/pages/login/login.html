@@ -4,15 +4,24 @@
         <ion-title>login</ion-title>
       </ion-navbar>
     </ion-header>
-  
+
+
+    <div id="banner-img">
+    <img src="assets/images/car-vertical-banner2.jpg" id="vert-banner">
+    </div>
+
 
 <ion-content id="login_body">
-      <img src="assets/icon/Ewebah_icon.png" class="CompanyIcon"/>
-      <h1>EweBah</h1>
+      
+      <div id="titles">
+          <h1>EweBah</h1>
+          <img src="assets/images/Small Car Image2.png" class="splashImageSmall">
       <h3>Going somewhere?</h3>
       <h3>Drive yourself in our car</h3>
-      <h4></h4>
-      <img src="assets/images/Small Car Image2.png" class="splashImageSmall">
+    </div>
+
+      
+
  <ion-card id="LoginCard"> 
       <ion-card-content>
       <ion-list>
@@ -20,20 +29,26 @@
             <ion-input type="text" [(ngModel)]="enteredDetails.Email" placeholder="Username"></ion-input>
           </ion-item>
           <ion-item>
-
             <ion-input type="password" [(ngModel)]="enteredDetails.Password" placeholder="Password" (keyup.enter)="login()"></ion-input>
-
           </ion-item>
         </ion-list>
       </ion-card-content>
-      </ion-card>
-      <p>Dont have an account with us?<a (click)="signup()">   Sign up now</a></p>
-        <button ion-button block class="loginButton" (click)="forgotPassword()">Forgot Password?</button>
-		<button ion-button block class="loginButton" (click)="activateAccount()">Activate Account</button>
-        <button ion-button block color="secondary" class="loginButton" (click)="login()">Login</button>
-        <div class="mainImage">
-          <img src="assets/images/Ewebah-Home.png" >
+  </ion-card>
+
+
+      <p id="signup-link">Dont have an account with us?<a (click)="signup()">   Sign up now</a></p>
+      <div id = "buttons">
+      <div id = "forgot-button">
+
+        <button  ion-button block class="loginButton" (click)="forgotPassword()">Forgot Password?</button>
         </div>
-      </ion-content>
+        <div id = "activate-button" >
+        <button ion-button block class="loginButton" (click)="activateAccount()">Activate Account</button>
+      </div>
+      <div id = "login-button">
+      <button ion-button block color="secondary" class="loginButton" (click)="login()">Login</button>
+    </div>
+  </div>
+  </ion-content>
   
 </ion-content>  
