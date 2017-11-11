@@ -1,9 +1,11 @@
+//ionic
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import * as Constants from '../providerConstants';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/observable';
 
+//custom
 import { UpdateCarRequest } from './update-car-request';
 import { UpdateCarResponse } from './update-car-response';
 import { CarCategory } from './car-category';
@@ -16,8 +18,8 @@ let apiUrl = Constants.API_ENDPOINT
 export class CarServiceProvider {
 
   constructor(public http: Http) {
-  }
 
+  }
 
   //return a list of all cars in the system no matter the status
   getAllCars(token) {

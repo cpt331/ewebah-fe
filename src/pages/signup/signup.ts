@@ -7,6 +7,7 @@ import moment from 'moment';
 
 import { LoginPage } from '../login/login';
 import { AutocompletePage } from '../home/autocompletepage';
+import { otpPage } from '../otp/otp';
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 

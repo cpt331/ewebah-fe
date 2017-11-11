@@ -38,6 +38,10 @@ export class TransactionHistoryPage {
       this.transactionHistory = this.transactionHistoryResult.Bookings;
 
     console.log(this.transactionHistory);
+    if(this.transactionHistory[0] == null)
+    {
+      this.transactionHistory[0] = {BookingId :"No transactions", TotalHours : " 0"}
+    }
 
     }, (err) => {
 
