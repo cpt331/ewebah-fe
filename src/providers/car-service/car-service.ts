@@ -13,7 +13,8 @@ import { City } from './city';
 
 let apiUrl = Constants.API_ENDPOINT
 
-
+//this provider is used to handle requests for cars, searching and 
+//related data associated with cars like categories and stauses
 @Injectable()
 export class CarServiceProvider {
 
@@ -24,14 +25,15 @@ export class CarServiceProvider {
   //return a list of all cars in the system no matter the status
   getAllCars(token) {
     return new Promise((resolve, reject) => {
+
+      //pass in the current authenticated token via headers
       let headers = new Headers();
       headers.append('accept','application/json');
       headers.append('content-Type', 'application/json');
       headers.append('authorization','Bearer ' + token);
       
-      
+      //send http post request with data and resolve promise
       this.http.get(apiUrl + "api/cars", {headers: headers})
-
         .subscribe(res => {
           resolve(res.json());
         }, (err) => {
@@ -42,70 +44,72 @@ export class CarServiceProvider {
   }
 
   //update a cars details with the supplied information
-  updateCar(request: UpdateCarRequest, token: string) : Observable<UpdateCarResponse> {
-        console.log('carService: updateCar(${request})');
+  updateCar(request: UpdateCarRequest, token: string) 
+  : Observable<UpdateCarResponse> {
     
-            let headers: Headers = new Headers();
-            headers.append('accept','application/json');
-            headers.append('content-Type', 'application/json');
-            headers.append('authorization','Bearer ' + token);
-    
-            return this.http.post(
-                apiUrl +'api/cars/update', 
-                request, 
-                {headers:headers})
-            .map(response=> response.json());
+    //pass in the current authenticated token via headers
+    let headers: Headers = new Headers();
+    headers.append('accept','application/json');
+    headers.append('content-Type', 'application/json');
+    headers.append('authorization','Bearer ' + token);
+
+    //send http post request with data and trigger observable
+    return this.http.post(
+        apiUrl +'api/cars/update', 
+        request, 
+        {headers:headers})
+    .map(response=> response.json());
   }
 
 
   //return a list of available car categories for a car
   getCategories(token : string) : Observable<CarCategory[]>{
-    
-    console.log('carService: getCategories()');
 
-        let headers: Headers = new Headers();
-        headers.append('accept','application/json');
-        headers.append('content-Type', 'application/json');
-        headers.append('authorization','Bearer ' + token);
-    
-        return this.http.get(
-            apiUrl +'api/cars/categories', 
-            {headers:headers})
-        .map(response=> response.json());
+    //pass in the current authenticated token via headers
+    let headers: Headers = new Headers();
+    headers.append('accept','application/json');
+    headers.append('content-Type', 'application/json');
+    headers.append('authorization','Bearer ' + token);
+
+    //send http get request with data and trigger observable
+    return this.http.get(
+        apiUrl +'api/cars/categories', 
+        {headers:headers})
+    .map(response=> response.json());
         
   }
 
   //returns a list of available cities a car can be assigned to
   getCities(token : string) : Observable<City[]>{
     
-    console.log('carService: getCities()');
+    //pass in the current authenticated token via headers
+    let headers: Headers = new Headers();
+    headers.append('accept','application/json');
+    headers.append('content-Type', 'application/json');
+    headers.append('authorization','Bearer ' + token);
 
-        let headers: Headers = new Headers();
-        headers.append('accept','application/json');
-        headers.append('content-Type', 'application/json');
-        headers.append('authorization','Bearer ' + token);
-    
-        return this.http.get(
-            apiUrl +'api/cities', 
-            {headers:headers})
-        .map(response=> response.json());
+    //send http get request with data and trigger observable
+    return this.http.get(
+        apiUrl +'api/cities', 
+        {headers:headers})
+    .map(response=> response.json());
         
   }
 
   //returns a list of available statuses that can be assigned to a car
   getStatuses(token : string) : Observable<string[]>{
     
-    console.log('carService: getStatuses()');
+    //pass in the current authenticated token via headers
+    let headers: Headers = new Headers();
+    headers.append('accept','application/json');
+    headers.append('content-Type', 'application/json');
+    headers.append('authorization','Bearer ' + token);
 
-        let headers: Headers = new Headers();
-        headers.append('accept','application/json');
-        headers.append('content-Type', 'application/json');
-        headers.append('authorization','Bearer ' + token);
-    
-        return this.http.get(
-            apiUrl +'api/cars/statuses', 
-            {headers:headers})
-        .map(response=> response.json());
+    //send http get request with data and trigger observable
+    return this.http.get(
+        apiUrl +'api/cars/statuses', 
+        {headers:headers})
+    .map(response=> response.json());
         
   }
       

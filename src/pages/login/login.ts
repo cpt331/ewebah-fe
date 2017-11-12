@@ -19,7 +19,7 @@ export class LoginPage {
 
   // create a storage structure for the returned values
   // enteredDetails = {Email: "", Password:""};
-  enteredDetails = {Email: "", Password:""};
+  enteredDetails = {Email: "hsimpson@gmail.com", Password:"password1"};
   userData = {access_token: "", Name: "",Email: "",Id: "", 
   token_type:"",HasOpenBooking: false, OpenBookingId:-1};
 
@@ -68,7 +68,7 @@ export class LoginPage {
     // hard coded inputs for ease of build
 
     // 's3353147@student.rmit.edu.au', 'password1', 'user1@gmail.com', 'password1', 'c@e.com', 'Password1!', this.enteredDetails.Email, this.enteredDetails.Password 'hsimpson@gmail.com', 'password1'
-    this.authService.postDataLogin('c@e.com', 'Password1!').then((result) => {
+    this.authService.postDataLogin(this.enteredDetails.Email, this.enteredDetails.Password).then((result) => {
       this.responseData = result;
 
       
