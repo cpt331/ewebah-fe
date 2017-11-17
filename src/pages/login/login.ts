@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, Tabs } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 import { TabsPage } from '../tabs/tabs';
@@ -9,20 +9,24 @@ import { ForgotPasswordPage } from "../forgotpass/forgotpass";
 import { otpPage } from "../otp/otp";
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { ReturnPage } from '../return/return';
+
 
 @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
+  
 })
+
+
 export class LoginPage {
 
   // create a storage structure for the returned values
   // enteredDetails = {Email: "", Password:""};
-  enteredDetails = {Email: "", Password:""};
+  enteredDetails = {Email: "c@e.com", Password:"Password1!"};
   userData = {access_token: "", Name: "",Email: "",Id: "", 
   token_type:"",HasOpenBooking: false, OpenBookingId:-1};
-
   responseData : any;
   loader;
 
@@ -30,7 +34,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, 
     public alertCtrl: AlertController, public authService: AuthServiceProvider){
- 
+
 }
 
   ionViewDidLoad() {
@@ -81,6 +85,8 @@ export class LoginPage {
         this.navCtrl.push(AdminHomePage, {}, {animate: false});
       }
       else{
+        // let nav = this['rootNav'];
+        // nav.setRoot(TabsPage,{index:2});//Can be switched to fourth tab
         this.navCtrl.push(TabsPage, {}, {animate: false});
       }
 

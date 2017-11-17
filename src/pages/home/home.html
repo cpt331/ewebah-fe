@@ -1,5 +1,6 @@
 <ion-header>
   <ion-navbar>
+      <h4 start id = "welcome-note">Welcome {{currentUser.Name}} </h4>
     <ion-title>Home</ion-title>
     <ion-buttons end>
       <button ion-button id="logoutButton" color="primary" (click)="logout()">Logout</button>
@@ -8,12 +9,12 @@
 </ion-header>
 <!-- map style panel-->
 <ion-content padding id="home">
-  <h4>Welcome to EweBah {{currentUser.Name}} </h4>
   
-  <!-- map reset location to current location -->
+  <ion-icon id = "locate" name="locate" (click)="useCurrentLocation()"></ion-icon>
+  <!-- map reset location to current location 
   <button ion-button color="navBGround" id="useCurrentLocation" 
     (click)="useCurrentLocation()">Use Current Location
-  </button>
+  </button>-->
   
   <!--Show Address -->
   <ion-input id="locationField" (click)="showAddressModal()" 
@@ -27,11 +28,10 @@
   
   <!--Instructional Text -->
   <div id="Instructions"> 
-    <h2>With Ewebah booking a car is simple</h2>
+    <p></p>
     <p>1.Select a car from the map or search for a location</p>
     <p>2.Press Book</p>
-    <p>3.Return within 50km of a major city via the return tab</p>
-    <p>4.Go back to life</p>   
+    <p>3.Return within 50km of a major city via the return tab</p> 
   </div>  
   
   <!--Car Information -->
@@ -41,11 +41,20 @@
     <!--A Promotional Image just to fill space-->
     <img id="carPic" src="assets/images/newSmallCarImage.png" alt="Promo Picture" />
     <!-- The car's category -->  
-    <p id="Transmission"></p>
-    <p id="BillingRate"></p>
+    <div>
+      <p id="Transmission"></p>
+    </div>
+    <div>
+      <p id="BillingRate"></p>
+    </div>
   </div>     
   </div>
-  <button ion-button color="navBGround" id="navbtn" (click)="bookThisCar()" type="text">Book this car</button>
+  <button ion-button color="navBGround" id="bookButton" 
+    (click)="bookThisCar()" type="text" [color]="bookButtonColour">Book this car</button>
+  <!--Instructional Text -->
+  <div id="existingBookingInstructions"> 
+      <p>You have a car already booked out, you must return it before booking another</p> 
+    </div>  
 </ion-content>     
   
 
