@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, App, Platform } from 'ionic-angular';
 import { ReturnServiceProvider } from '../../providers/return-service/return-service';
 import {Geolocation} from '@ionic-native/geolocation';
 
@@ -32,6 +32,7 @@ export class ReturnPage {
     public loadingCtrl: LoadingController,
     public geolocation: Geolocation, 
     public alertCtrl: AlertController,
+    public app: App,
     public returnServiceProvider: ReturnServiceProvider) {
 
     this.loadUserData();
@@ -252,7 +253,16 @@ export class ReturnPage {
 }
   
 
+logout(){
+  // Remove API token 
+  localStorage.clear();
+  setTimeout(() => this.backToWelcome(), 100);
+}
 
+backToWelcome(){
+const root = this.app.getRootNav();
+root.popToRoot();
+}
 
     //loading/spinner functions
     showLoadingChecking() {
