@@ -31,7 +31,7 @@ export class SignupPage {
   userData = {"access_token": "", "Name": "","Email": "","Id": "", "token_type":""};
   responseData : any;
   loader;
-  signupForm: FormGroup;
+  signupFields: FormGroup;
 
   address;
   geo: any
@@ -40,7 +40,7 @@ export class SignupPage {
     public loadingCtrl: LoadingController, public alertCtrl: AlertController, public authService: AuthServiceProvider, public ModalCtrl: ModalController) {
 
   
-    this.signupForm = formBuilder.group({
+    this.signupFields = formBuilder.group({
       firstName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       lastName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       email: ["", Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$"), Validators.required])],
@@ -109,26 +109,21 @@ getMaxDate()
   }
 
   signup(){
-    this.enteredDetails.firstName = this.signupForm.value.firstName;
+    this.enteredDetails.firstName = this.signupFields.value.firstName;
 
     // loader caller here, could wrap this in the loader instead if wanted
     this.showLoading();
 
     
     // hard coded inputs for ease of build
-    this.authService.postDataSignUp(this.signupForm.value.firstName, 
-    this.signupForm.value.lastName,
-    this.signupForm.value.email, 
-    this.signupForm.value.password,
-    this.signupForm.value.passwordConfirm, 
-    this.signupForm.value.dob, 
-    this.signupForm.value.licence, 
-    this.signupForm.value.phone//, 
-    //this.signupForm.value.address1, 
-    //this.signupForm.value.address2, 
-    //this.signupForm.value.suburb, 
-    //this.signupForm.value.state, 
-    //this.signupForm.value.postcode
+    this.authService.postDataSignUp(this.signupFields.value.firstName, 
+    this.signupFields.value.lastName,
+    this.signupFields.value.email, 
+    this.signupFields.value.password,
+    this.signupFields.value.passwordConfirm, 
+    this.signupFields.value.dob, 
+    this.signupFields.value.licence, 
+    this.signupFields.value.phone
   ).then((result) => {
       this.responseData = result;
       
