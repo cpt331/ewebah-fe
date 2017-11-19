@@ -1,47 +1,31 @@
-
-<ion-content padding id="welcome">
-    <div id = "mobile">
-  <img src="assets/icon/Ewebah_icon.png" class="CompanyIcon"/>
-  <h1>EweBah</h1>
-  <h3>Going somewhere?</h3>
-  <h3>Drive yourself in our car</h3>
-  <h4></h4>
-  <img src="assets/images/Small Car Image2.png" class="splashImageSmall">
-  <button ion-button block class="signupButton" (click)="signup()"><p>Signup</p></button>
-  <button ion-button block class="loginButton" (click)="login()">Login</button>
-  <div class="mainImage">
-  <img src="assets/images/Ewebah-Home.png" >
-</div>
-</div>
-
-
-<div id = "web">
-<div class="banner">
-    <img src="assets/images/Chicago-Night.jpg" id="bannerImage">
-
-  <div class="banner-inner-container">
-    <h1>Ewebah</h1>
-<div class="container">
-    <h2><strong>Going somewhere?</strong> Drive yourself in our car!</h2>
-    <h5>Just follow these simple steps to get started</h5>
+<ion-content id="welcome">
     
-    <div class="steps">
-        <div class="step">
-            <h4>Create an account in less than one minute!</h4>  
-            <button class="signupButton" ion-button (click)="signup()">Signup</button>
+    <div class="banner">
+      <div class="banner-inner-container">
+        <h1>Ewebah</h1>
+        
+      </div>
+    </div>
+    <div class="container">
+        <h2><strong>Going somewhere?</strong> Drive yourself in our car!</h2>
+        <h3>Just follow these simple steps to get started</h3>
+        
+        <div class="steps">
+            <div class="step">
+                <p>Create an account in less than one minute!</p>  
+                <button ion-button (click)="signup()">Signup</button>
+            </div>
+            <div class="step">
+                <p>Or if you have already had the pleasure</p>  
+                <button ion-button (click)="login()" color="secondary">Login</button>
+            </div>
+            <div class="step">
+                <img src="../assets/icon/ewebah_icon.png" />
+                <h3>Start driving!</h3>
+              </div>
         </div>
-        <div class="step">
-            <h4>Or if you have already had the pleasure</h4>  
-            <button class="loginButton" ion-button (click)="login()" color="secondary">Login</button>
-        </div>
-        <div class="step">
-            <img src="../assets/icon/ewebah_icon.png" />
-            <h3>Start driving!</h3>
-          </div>
+        
     </div>
     
-</div>
-</div>
-</div>
-</div>
+ 
 </ion-content>

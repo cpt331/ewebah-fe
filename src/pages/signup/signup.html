@@ -1,16 +1,27 @@
-<ion-content id="signup">
-    <ion-header>
+<ion-header>
     
       <ion-navbar>
         <ion-title>Sign up</ion-title>
       </ion-navbar>
       
     </ion-header>
-    <div id = "signupPage">
+
+<ion-content id="signup">
+ 
+
+    <div class="banner">
+        <div class="banner-inner-container">
+          <h1>Ewebah</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>We'll have you on the road in no time!</h2>
+        <p>Just need to grab a few things</p>
    <ion-list class="signupFields">
       <form [formGroup]="signupForm">
         
-        <button ion-button clear class="haveAccount" (click)="haveAccount()">Already have an account? login here</button>
+        
         
         <ion-item>
           <ion-label floating>First Name</ion-label>
@@ -94,8 +105,20 @@
           <ion-input formControlName="postcode" type="postcode"></ion-input>
         </ion-item> -->
 
-        <button ion-button block color="secondary" class="signupButton" (click)="signup()">Create Account</button>
+        
+
+        
       </form>
+      <ion-grid>
+          <ion-row>
+            <ion-col>
+                <button ion-button clear class="haveAccount" (click)="haveAccount()">Already have an account? login here</button>
+            </ion-col>
+            <ion-col>
+                <button ion-button block color="secondary" class="signupButton" (click)="signup()">Create Account</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
     </ion-list>
   </div>
 </ion-content>

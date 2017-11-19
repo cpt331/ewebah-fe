@@ -15,7 +15,6 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-
 ion-content.content.admin {
     
     margin-top:40px;
@@ -37,7 +36,10 @@ ion-content.content.admin .admin-view {
 ion-content.content.admin .admin-menu .icon {
     color: #999;
 }
-
+ion-header .toolbar-background { background: color($colors, menuBGround);  }
+ion-header .back-button, ion-header #logoutButton { color: #fff; }
+ion-header ion-title .toolbar-title, ion-header ion-title .toolbar-title-md { color: #fff; }
+ion-header { border-bottom: solid 1px #111; }
 .admin-error {
     padding: 12px;
     margin: 16px 0 16px 16px;
@@ -51,4 +53,32 @@ ion-content.content.admin .admin-menu .icon {
 .admin h1 {
     margin: 35px 0;
     color: color($colors, primary);
+}
+
+html { font-family: 'Montserrat', sans-serif;  }
+.content { 
+    background: color($colors, bGround);
+    height: 100%;
+    
+}
+.banner {
+    background: url(../../assets/images/chicago.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height:150px;
+    
+}
+.banner-inner-container {
+    max-width: 800px;
+    margin:auto;
+    position: relative;
+    height:150px;
+}
+.banner h1 { color:#fff; margin:0; padding: 12px;  background:#000; position: absolute; bottom:0; letter-spacing: 2px; }
+.container {   
+    max-width: 800px;
+    padding: 20px 10px;
+    margin:auto; 
+    background: color($colors, bGround);
 }

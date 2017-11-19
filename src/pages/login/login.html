@@ -1,23 +1,21 @@
 
     <ion-header id="head">
       <ion-navbar>
-        <ion-title>login</ion-title>
+        <ion-title>Login</ion-title>
       </ion-navbar>
     </ion-header>
 
-    <div id="banner-img">
-    <img src="assets/images/car-vertical-banner2.jpg" id="vert-banner">
-    </div>
 
-
-<ion-content padding id="login_body">
+<ion-content class="">
       
-      <div id="titles">
-          <h1>EweBah</h1>
-          <img src="assets/images/Small Car Image2.png" class="splashImageSmall">
-      <h3>Going somewhere?</h3>
-      <h3>Drive yourself in our car</h3>
+  <div class="banner">
+    <div class="banner-inner-container">
+      <h1>Ewebah</h1>
     </div>
+</div>
+
+  <div class="container">
+    <h2>Lets get started!</h2>
 
       
 
@@ -36,18 +34,22 @@
 
 
       <p id="signup-link">Dont have an account with us?<a (click)="signup()">   Sign up now</a></p>
-      <div id = "buttons">
-      <div id = "forgot-button">
 
-        <button  ion-button block class="loginButton" (click)="forgotPassword()">Forgot Password?</button>
-        </div>
-        <div id = "activate-button" >
-        <button ion-button block class="loginButton" (click)="activateAccount()">Activate Account</button>
-      </div>
-    </div>
-      <div id = "login-button">
-      <button ion-button block color="secondary" class="loginButton" (click)="login()">Login</button>
-    </div>
+      <ion-grid>
+          <ion-row>
+            <ion-col>
+                <button  ion-button block class="loginButton" (click)="forgotPassword()">Forgot Password?</button>
+            </ion-col>
+            <ion-col>
+                <button ion-button block class="loginButton" (click)="activateAccount()">Activate Account</button>
+            </ion-col>
+            <ion-col>
+                <button ion-button block color="secondary" class="loginButton" (click)="login()">Login</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      
   
-  
+  </div>
 </ion-content>  

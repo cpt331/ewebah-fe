@@ -1,6 +1,5 @@
 <ion-header>
   <ion-navbar>
-      <h4 start id = "welcome-note">Welcome {{currentUser.Name}} </h4>
     <ion-title>Home</ion-title>
     <ion-buttons end>
       <button ion-button id="logoutButton" color="primary" (click)="logout()">Logout</button>
@@ -8,18 +7,27 @@
   </ion-navbar>
 </ion-header>
 <!-- map style panel-->
-<ion-content padding id="home">
-  
-  <ion-icon id = "locate" name="locate" (click)="useCurrentLocation()"></ion-icon>
-  <!-- map reset location to current location 
-  <button ion-button color="navBGround" id="useCurrentLocation" 
-    (click)="useCurrentLocation()">Use Current Location
-  </button>-->
-  
-  <!--Show Address -->
-  <ion-input id="locationField" (click)="showAddressModal()" 
-    [(ngModel)]="address.place"type="text" placeholder="Search for Address">
-  </ion-input>
+<ion-content id="home">
+    <div class="banner">
+        <div class="banner-inner-container">
+          <h1>Ewebah</h1>
+        </div>
+    </div>
+  <div class="container">
+  <h2>Hi {{currentUser.Name}}, where are you looking for a car?</h2>
+<ion-grid>
+  <ion-row>
+      <ion-col>
+          <ion-input id="locationField" (click)="showAddressModal()" 
+          [(ngModel)]="address.place"type="text" placeholder="Search for Address">
+        </ion-input>
+      </ion-col>
+      <ion-col>
+        <button ion-button block color="primary" (click)="useCurrentLocation()">Use my Location</button>
+      </ion-col>
+  </ion-row>
+</ion-grid>
+
   
   
   <div id = "webPage">
@@ -27,19 +35,20 @@
   <div #map id="map"></div>
   
   <!--Instructional Text -->
-  <div id="Instructions"> 
-    <p></p>
-    <p>1.Select a car from the map or search for a location</p>
-    <p>2.Press Book</p>
-    <p>3.Return within 50km of a major city via the return tab</p> 
-  </div>  
+
   
   <!--Car Information -->
     <div id="CarInformation">
+        <div id="Instructions"> 
+            <h3>What do I do here?</h3>
+            <p>1.Select a car from the map or search for a location</p>
+            <p>2.Press Book</p>
+            <p>3.Return within 50km of a major city via the return tab</p> 
+          </div>  
+
     <!--Car Make and Model -->
     <header><h4 id= "Model"></h4></header>
-    <!--A Promotional Image just to fill space-->
-    <img id="carPic" src="assets/images/newSmallCarImage.png" alt="Promo Picture" />
+    
     <!-- The car's category -->  
     <div>
       <p id="Transmission"></p>
@@ -47,14 +56,17 @@
     <div>
       <p id="BillingRate"></p>
     </div>
+    <button ion-button color="navBGround" id="bookButton" 
+    (click)="bookThisCar()" type="text" [color]="bookButtonColour">Book this car</button>
   </div>     
   </div>
-  <button ion-button color="navBGround" id="bookButton" 
-    (click)="bookThisCar()" type="text" [color]="bookButtonColour">Book this car</button>
+
   <!--Instructional Text -->
   <div id="existingBookingInstructions"> 
       <p>You have a car already booked out, you must return it before booking another</p> 
     </div>  
+
+  </div>
 </ion-content>     
   
 
