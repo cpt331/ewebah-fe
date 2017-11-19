@@ -160,8 +160,6 @@ else
       alert.present();
 }
   
-
-  console.log(result);
 })
 }
   

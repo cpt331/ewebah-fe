@@ -69,7 +69,6 @@ getMaxDate()
   let year = moment().format('YYYY');
   let month = moment().format('MM');
   let day = moment().format("DD");
-  //console.log('today is: ', day + 'and month: ',month + 'and year: ',year);
   
 }
   
@@ -160,7 +159,6 @@ getMaxDate()
             text: 'login page',
             handler: () => {
               this.navCtrl.push(LoginPage, {}, {animate: false});
-              console.log(this.responseData);
             }}]
       });
       alert.present();

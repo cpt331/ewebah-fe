@@ -74,8 +74,6 @@ export class ForgotPasswordPage {
   ).then((result) => {
 
       this.responseData = result;
-      console.log(this.responseData);
-      console.log(this.resetFields.value.dob);
       
       //save collected info for later use
       //localStorage.setItem('userData', JSON.stringify(this.responseData));

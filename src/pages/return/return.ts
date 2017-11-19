@@ -100,12 +100,6 @@ export class ReturnPage {
           // return successful ...
           this.responseData = returnDetails;
 
-
-          console.log(this.responseData);
-
-
-
-
           if(this.responseData.Success)
           {
             document.getElementById("Message").innerHTML = this.responseData.Message;

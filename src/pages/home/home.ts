@@ -439,7 +439,6 @@ if(!this.currentUser.HasOpenBooking)
           // check if successful
           this.dismissLoading();
           this.booking = result;
-          console.log(this.booking);
           if(this.booking.Success){
 
             this.currentUser.HasOpenBooking = true;
