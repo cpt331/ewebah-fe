@@ -7,10 +7,11 @@
       
     </ion-header>
     <div id = "signupPage">
-   <ion-list class="signupFields">
-      <form [formGroup]="signupForm">
         
-        <button ion-button clear class="haveAccount" (click)="haveAccount()">Already have an account? login here</button>
+   <ion-list class="signupFields">
+      <button ion-button clear class="haveAccount" (click)="haveAccount()">Already have an account? login here</button>
+      <form [formGroup]="signupForm">
+   
         
         <ion-item>
           <ion-label floating>First Name</ion-label>
