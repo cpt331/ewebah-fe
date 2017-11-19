@@ -328,25 +328,26 @@ export class HomePage {
       for(let data of this.carsData)
       {
         
-        
-        let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
+        if (data.Status === "Available")
+        {
+          let carPosition = new google.maps.LatLng(data.LatPos, data.LongPos);
 
-        let marker= new google.maps.Marker({
-          map: this.map,
-          animation: google.maps.Animation.DROP,
-          position: carPosition,
-          title : "selected"
-        });
+          let marker= new google.maps.Marker({
+            map: this.map,
+            animation: google.maps.Animation.DROP,
+            position: carPosition,
+            title : "selected"
+          });
 
-        this.mapPins.set(data.Id, marker);
+          this.mapPins.set(data.Id, marker);
 
-        google.maps.event.addListener(marker, 'click', () => {
-          this.markerClicked(data.Id, marker);
-
+          google.maps.event.addListener(marker, 'click', () => {
+            this.markerClicked(data.Id, marker);
         
           
-        })
-      };
+          })
+        }
+      }
       this.dismissLoading();
     })
 
