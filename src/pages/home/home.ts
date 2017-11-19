@@ -107,7 +107,8 @@ export class HomePage {
     
   useCurrentLocation(){
       this.geolocation.getCurrentPosition().then((currentpos) => {
-        let latLng= new google.maps.LatLng(currentpos.coords.latitude, currentpos.coords.longitude);
+        let latLng= new google.maps.LatLng(currentpos.coords.latitude, 
+            currentpos.coords.longitude);
         this.updateMapLocation(latLng)
       }, err => {
     
@@ -118,12 +119,14 @@ export class HomePage {
             this.defaultMelbourneLocation();
           }
           else if(err.TIMEOUT){
-            alert("Browser geolocation error !\n\nTimeout. \n\nMelbourne default location");
+            alert("Browser geolocation error !\n\nTimeout. " + 
+              "\n\nMelbourne default location");
             this.dismissLoading();
             this.defaultMelbourneLocation();
           }
           else if(err.POSITION_UNAVAILABLE){
-            alert("Browser geolocation error !\n\nPosition unavailable. \n\nMelbourne default location");
+            alert("Browser geolocation error !\n\nPosition unavailable. " + 
+              "\n\nMelbourne default location");
             this.dismissLoading();
             this.defaultMelbourneLocation();
           }
@@ -176,7 +179,8 @@ export class HomePage {
     //get user location
     this.geolocation.getCurrentPosition().then((position) => 
     {
-      let latLng= new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+      let latLng = 
+        new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
             
       //set map options
       let mapOptions = 
@@ -234,12 +238,14 @@ export class HomePage {
         this.defaultMelbourneLocation();
       }
       else if(err.TIMEOUT){
-        alert("Browser geolocation error !\n\nTimeout. \n\nMelbourne default location");
+        alert("Browser geolocation error !\n\nTimeout. " + 
+          "\n\nMelbourne default location");
         this.dismissLoading();
         this.defaultMelbourneLocation();
       }
       else if(err.POSITION_UNAVAILABLE){
-        alert("Browser geolocation error !\n\nPosition unavailable. \n\nMelbourne default location");
+        alert("Browser geolocation error !\n\n" + 
+          "Position unavailable. \n\nMelbourne default location");
         this.dismissLoading();
         this.defaultMelbourneLocation();
       }
@@ -271,7 +277,6 @@ export class HomePage {
     this.selectedCarData.Id = this.carsData[id].Id;
     this.selectedCarData.Suburb = this.carsData[id].Suburb;
    
-    
     let Transmission = "Automatic";
 
     if(this.selectedCarData.Transmission == "MN")
@@ -281,29 +286,17 @@ export class HomePage {
    
     // update the labels on the user screen //
     // Car Make and Model
-    document.getElementById("Model").innerHTML = this.carsData[id].Make+" "+this.carsData[id].Model;
-    //Car Transmission and category
-    document.getElementById("Transmission").innerHTML = Transmission + " " +
-     this.carsData[id].CarCategory +" ";
-    //Car Billing Rate
-    document.getElementById("BillingRate").innerHTML = "Rate per hour is $" + this.selectedCarData.BillingRate;
-    
-    
-    
-       //let carImage=document.getElementById("carPic") as HTMLImageElement;
-       // carImage.src ="assets/images/newSmallCarImage.png";
-           
-      
-      //  console.log("this car's details are as follows" + 
-      //  this.selectedCarData.Model + " "+
-      //  this.selectedCarData.CarCategory +" "+
-      //  this.selectedCarData.Make +" "+
-      //  this.selectedCarData.Suburb +" "+
-      //  this.selectedCarData.Id);
-    
-    
+    document.getElementById("Model").innerHTML = 
+      this.carsData[id].Make+" "+this.carsData[id].Model;
 
-    // billing rate to be added
+    //Car Transmission and category
+    document.getElementById("Transmission").innerHTML = 
+      Transmission + " " +
+     this.carsData[id].CarCategory +" ";
+
+    //Car Billing Rate
+    document.getElementById("BillingRate").innerHTML = 
+      "Rate per hour is $" + this.selectedCarData.BillingRate;
 
     marker.setAnimation(google.maps.Animation.BOUNCE);
     this.currentmarker = marker;
@@ -429,7 +422,8 @@ if(!this.currentUser.HasOpenBooking)
       }
     let alert = this.alertCtrl.create({
       title: 'Confirm booking request',
-      subTitle: 'you are about to book a ' + this.selectedCarData.Make +' -' +
+      subTitle: 'you are about to book a ' + 
+      this.selectedCarData.Make +' -' +
       this.selectedCarData.Model +' - ' +
       transString + ', at a rate of $' +
       this.selectedCarData.BillingRate +' per hour.',
@@ -439,7 +433,8 @@ if(!this.currentUser.HasOpenBooking)
           this.showBooking();
           // show loading spinner
 
-          this.bookingService.bookCar(this.currentUser.access_token, this.selectedCarData.Id).then((result) => {
+          this.bookingService.bookCar(this.currentUser.access_token, 
+            this.selectedCarData.Id).then((result) => {
           // check if successful
           this.dismissLoading();
           this.booking = result;
@@ -448,12 +443,14 @@ if(!this.currentUser.HasOpenBooking)
 
             this.currentUser.HasOpenBooking = true;
             this.currentUser.OpenBookingId =  this.booking.BookingId;
-            localStorage.setItem('userData', JSON.stringify(this.currentUser));
+            localStorage.setItem('userData', 
+              JSON.stringify(this.currentUser));
 
             let alert = this.alertCtrl.create({
               title: 'Confirm booking request',
-              subTitle: 'your car is booked, head to the location to pick it up.', buttons: [{
-                text: 'Okay', handler: () => { //there is no need to manually call this = alert.dismiss(); it is done automatically
+              subTitle: 'your car is booked, head to ' + 
+                'the location to pick it up.', buttons: [{
+                text: 'Okay', handler: () => { 
                 }}]});
                 alert.present();
                 return;
@@ -462,7 +459,9 @@ if(!this.currentUser.HasOpenBooking)
           {
             let alert = this.alertCtrl.create({
               title: 'Unable to book this car',
-              subTitle: 'Oh no, this car cannot be booked right now. Reason: ' + this.booking.Message, buttons: [{
+              subTitle: 'Oh no, this car cannot be ' + 
+                'booked right now. Reason: ' 
+                + this.booking.Message, buttons: [{
                 text: 'Okay', handler: () => { 
                 }}]});
                 alert.present();
@@ -496,7 +495,8 @@ else
 {
   let alert = this.alertCtrl.create({
     title: 'You already have a car booked',
-    subTitle: 'Please return your current booking before making another', buttons: [{
+    subTitle: 'Please return your current ' + 
+      'booking before making another', buttons: [{
       text: 'Got it', handler: () => { 
         // send to return page??
       }}]});
