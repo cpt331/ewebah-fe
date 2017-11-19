@@ -1,168 +1,249 @@
 page-home 
 {
     
-    @media only screen and (max-width: 640px)
+
+    // web layout
+    @media only screen and (min-width: 1240px) 
     {
-        width:100%;
-    }
 
-    #autocomplete {
-      width: 100%;
-    }
-
-    #useCurrentLocation {
-        @media only screen and (max-width: 640px)
-        {
-            width:100%;
-            margin-left: 0%;
-            margin-right: 0%;
+        #useCurrentLocation {
+            width:80%;
+            margin-left: 10%;
+            margin-right: 10%; 
         }
-        width:80%;
-        margin-left: 10%;
-        margin-right: 10%;
-        
-    }
 
-    #home{
-        background: color($colors, bGround); 
-    }
+        #autocomplete {
+            width: 100%;
+          }
 
+          #home{
+            background: color($colors, bGround); 
+        }
+
+        #navbtn 
+        {
+            width:80%;
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+
+        #locationField 
+        {
+            width:80%;
+            margin-left: 10%;
+            margin-right: 10%;
+            background-color:rgb(255, 255, 255);
+        }
     
-    #navbtn 
-    {
-        @media only screen and (max-width: 640px)
-        {
-            width:100%;
-            margin-left: 0%;
-            margin-right: 0%;
+        #webPage{
+            display: inline;
         }
-        width:80%;
-        margin-left: 10%;
-        margin-right: 10%;
-    }
+
+        #map
+        {
+            width: 50%;
+            height: 56%;
+            margin-left: 10%;
+            float: left;
+        }
+
+        #Instructions
+        {
+            width: 26%;
+            margin-left: 0%;
+            margin-right: 13%;
+            font-family: 'Cooper Black';
+            float: right;
+        }
+
+        #CarInformation
+        {
+            width:80%;
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+
+        #CarInformation h4
+        {
+
+            border-bottom: 1px grey solid;
+            font-family: 'Cooper Black';
+            font-size: 25px;
     
-    #locationField 
-    {
-        @media only screen and (max-width: 640px)
-        {
-            width:100%;
-            margin-left: 0%;
-            margin-right: 0%;
         }
-        width:80%;
-        margin-left: 10%;
-        margin-right: 10%;
-        background-color:rgb(255, 255, 255);
-    }
 
-    #webPage{
-        display: inline;
-    }
-    #map
-    {
-        @media only screen and (max-width: 640px)
-        {
-            width:100%;
-            margin-left: 0%;
-            margin-right: 0%;
-        }
-        width: 50%;
-        height: 56%;
-        margin-left: 10%;
-        float: left;
-    }
-
-
-    #Instructions
-    {
-        @media only screen and (max-width: 640px)
-        {
-            width:100%;
-            margin-left: 0%;
-            margin-right: 0%;
-        }
-        width: 26%;
-        margin-left: 0%;
-        margin-right: 13%;
-        font-family: 'Cooper Black';
-        float: right;
-    }
-    #Instructions h2
-    {
-        @media only screen and (min-width: 800px)
-        {
-        font-size: 36px;
-        }
-        font-family: 'Cooper Black';
-    }
-   
-
-    
-    
-    
-    #CarInformation
-    {
-        @media only screen and (max-width: 640px)
-        {
-            width:100%;
-            margin-left: 0%;
-            margin-right: 0%;
-        }
-        width:80%;
-        margin-left: 10%;
-        margin-right: 10%;
-    }
-
-    #CarInformation h4
-    {
-        @media only screen and (min-width: 800px)
+        #CarInformation p
         {
             font-size: 36px;
+            //border-bottom: 1px grey solid;
+            font-family: 'Cooper Black';
+    
         }
-        border-bottom: 1px grey solid;
-        font-family: 'Cooper Black';
-        font-size: 25px;
 
-    }
-
-    #CarInformation p
-    {
-        @media only screen and (min-width: 800px)
+        #CarCategory
         {
-            font-size: 36px;
+            font-size: 60px;
+            margin: 0px;
+            //display:inline;
+    
         }
-        //border-bottom: 1px grey solid;
-        font-family: 'Cooper Black';
-        font-size: 25px;
 
-    }
-
-    #CarCategory
-    {
-        @media only screen and (max-width: 640px)
-        {
-            width:100%;
-            margin-left: 0%;
-            margin-right: 0%;
-        }
-        font-size: 60px;
-        margin: 0px;
-        //display:inline;
-
-    }
-    #carPic
-    {
-        @media only screen and (min-width: 800px)
+        #carPic
         {
             margin-left: 15%;
             margin-bottom: 47px;
-           
+ 
         }
+    }
+
+
+
+    // mobile layout
+    @media only screen and (max-width: 1240px) 
+    {
+        width:100%;
+
+        #welcome-note{
+            font-size: 14px;
+            margin-top: -10px;
+            padding-top: -1px;
+            margin-bottom: 4px;
+        }
+
+        #locate{
+            position: fixed;
+            margin-right: 10%;
+            margin-left: 80%;
+            margin-top: 13%;
+            z-index: 1;
+            font-size: 300%;
+        }
+        #useCurrentLocation {
+            width:100%;
+            margin-left: 0%;
+            margin-right: 0%;   
+        }
+
+        #autocomplete {
+            width: 100%;
+        }
+
+        #home{
+            background: color($colors, bGround); 
+        }
+
+        #bookButton 
+        {
+            width:100%;
+            margin-left: 0%;
+            margin-right: 0%;
+            margin-top:-10px;
+        }
+
+        #existingBookingInstructions{
+            width:100%;
+            margin-left: 0%;
+            margin-right: 0%;
+            margin-top: 1%;
+        }
+
+        #locationField 
+        {
+            margin-top: -10px;
+            width:100%;
+            margin-left: 0%;
+            margin-right: 0%;
+            background-color:rgb(255, 255, 255);
+        }
+    
+        #webPage{
+            display: inline;
+        }
+
+        #map
+        {
+            width:100%;
+            margin-left: 0%;
+            margin-right: 0%;
+            float: left;
+            height: 72%;
+        }
+
+        #Instructions
+        {
+            width:100%;
+            margin-left: 0%;
+            margin-right: 0%;
+        }
+
+
+        #CarInformation
+        {
+            width:100%;
+            margin-left: 0%;
+            margin-right: 0%;
+            
+        }
+
+        #CarInformation h4
+        {
+            border-bottom: 1px grey solid;
+            font-family: 'Cooper Black';
+            font-size: 200%;
+        }
+
+        #CarInformation p
+        {
+            font-family: 'Cooper Black';
+            font-size: 120%;
+            margin-top: 0px;
+            width:40%;
+            margin-left: 0;
+        }
+
+        #Transmission{
+            float:left;
+            width:49%;
+            margin-right:1%;
+        }
+
+        #BillingRate{
+            float: right;
+            width:40%;
+        }
+
+        #CarCategory
+        {
+            width:100%;
+            margin-left: 0%;
+            margin-right: 0%;
+        }
+
+        #carPic
+        {
+            display: none !important;
             width: 70%;
             margin-left: 10%;
             margin-bottom: 10px;
         }
+            
         
     }
+
+    $colors: (
+        primary:    #607D8B,
+        secondary:  #FFC82C,
+        danger:     #f53d3d,
+        light:      #f4f4f4,
+        dark:       #222,
+        bGround:    #cfd8dc,
+        menuBGround: #546e7a
+      );
+}
+
+
+
+    
+    
 
 
