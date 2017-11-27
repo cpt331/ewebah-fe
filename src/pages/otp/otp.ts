@@ -96,7 +96,6 @@ export class otpPage {
             text: 'login page',
             handler: () => {
               this.navCtrl.push(LoginPage, {}, {animate: false});
-              console.log(this.responseData);
             }}]
       });
       alert.present();

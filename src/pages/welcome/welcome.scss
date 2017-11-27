@@ -10,7 +10,8 @@ page-welcome {
             
             width: 90%;
             
-            -webkit-mask-image:-webkit-gradient(linear, left 30%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))
+            -webkit-mask-image:-webkit-gradient(linear, left 30%, left bottom, 
+                from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))
         }
 
         #web {

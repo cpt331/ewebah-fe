@@ -78,7 +78,6 @@ export class PaymentInfoPage {
 
     submit(){
       this.enteredDetails.ccName = this.paymentInfo.value.ccName;
-      console.log(this.enteredDetails.ccName);
   
       // loader caller here, could wrap this in the loader instead if wanted
       this.showLoading();
@@ -94,7 +93,6 @@ export class PaymentInfoPage {
       this.paymentInfo.value.ccV,
       this.userData.access_token).then((result) => {
         this.responseData = result;
-        console.log(this.responseData);
         
         //save collected info for later use
         //localStorage.setItem('userData', JSON.stringify(this.responseData));

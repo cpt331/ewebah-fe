@@ -1,16 +1,13 @@
 <ion-content id="signup">
-    <ion-header>
-    
+    <ion-header id = "signupHeader">
       <ion-navbar>
         <ion-title>Sign up</ion-title>
       </ion-navbar>
-      
     </ion-header>
-    <div id = "signupPage">
+        <div>
    <ion-list class="signupFields">
-      <form [formGroup]="signupForm">
-        
-        <button ion-button clear class="haveAccount" (click)="haveAccount()">Already have an account? login here</button>
+      <form [formGroup]="signupFields">
+      <button ion-button clear class="haveAccount" (click)="haveAccount()">Already have an account? login here</button>
         
         <ion-item>
           <ion-label floating>First Name</ion-label>
@@ -34,14 +31,13 @@
 
         <div class="card">
           <div id="passwordInformation" style="color:red; font-weight:bold;">
-            Passwords must be at least 8 characters and contain at least one
-            letter and one number. Passwords are case sensitive.
+            8 or more characters, contain 1 letter and 1 number, case sensitive.
           </div>
       </div>
 
         <ion-item>
-            <ion-label floating>Password Confirm</ion-label>
-            <ion-input formControlName="passwordConfirm" type="password"></ion-input>
+            <ion-label id= "passwordConfirmLabel" floating>Password Confirm</ion-label>
+            <ion-input id= "passwordConfirm" formControlName="passwordConfirm" type="password"></ion-input>
           </ion-item>
 
         <ion-item>
