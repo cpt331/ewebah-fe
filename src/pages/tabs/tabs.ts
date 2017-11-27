@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { HomePage } from '../home/home';
 import { ReturnPage } from '../return/return';
 import { SettingsPage } from '../settings/settings';
@@ -14,6 +13,6 @@ export class TabsPage {
   tab3Root = SettingsPage;
 
   constructor() {
-
   }
+
 }
