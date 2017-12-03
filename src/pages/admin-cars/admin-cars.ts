@@ -1,3 +1,13 @@
+//======================================
+//
+//Name: admin-cars.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Steven Innes
+//Contributor: Shawn Burriss
+//
+//======================================
+
 //ionic
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';

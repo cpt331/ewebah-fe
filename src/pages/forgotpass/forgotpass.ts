@@ -1,3 +1,13 @@
+//======================================
+//
+//Name: forgotpass.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//Contributor: Drew Gamble
+//
+//======================================
+
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -18,7 +28,8 @@ import { AlertController } from 'ionic-angular';
 export class ForgotPasswordPage {
 
   // create a storage structure for the returned values
-  newPasswordDetails = {"Email": "", "DateofBirth": "", "Licence": "", "Password":"", "ConfirmPassword":""};
+  newPasswordDetails = {"Email": "", "DateofBirth": "", 
+  "Licence": "", "Password":"", "ConfirmPassword":""};
   userData = {access_token: "", Name: "",Email: "",Id: "", 
   token_type:"",HasOpenBooking: false, OpenBookingId:-1};
 
@@ -28,14 +39,22 @@ export class ForgotPasswordPage {
 
   submitAttempt: boolean = false;
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public formBuilder: FormBuilder, 
-    public alertCtrl: AlertController, public authService: AuthServiceProvider){
+  constructor(public navCtrl: NavController, 
+    public loadingCtrl: LoadingController, 
+    public formBuilder: FormBuilder, 
+    public alertCtrl: AlertController, 
+    public authService: AuthServiceProvider){
     this.resetFields = formBuilder.group({
-      email: ["", Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$"), Validators.required])],
+      email: ["", Validators.compose([Validators.maxLength(255), 
+        Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$"), 
+        Validators.required])],
       dob: ["", Validators.compose([Validators.required])],
-      licence: ["", Validators.compose([Validators.minLength(5), Validators.maxLength(20), Validators.required])],
-      password: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
-      passwordConfirm: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])]
+      licence: ["", Validators.compose([Validators.minLength(5), 
+        Validators.maxLength(20), Validators.required])],
+      password: ["", Validators.compose([Validators.minLength(7), 
+        Validators.maxLength(255), Validators.required])],
+      passwordConfirm: ["", Validators.compose([Validators.minLength(7), 
+        Validators.maxLength(255), Validators.required])]
     })
   }
 
@@ -74,9 +93,6 @@ export class ForgotPasswordPage {
   ).then((result) => {
 
       this.responseData = result;
-      
-      //save collected info for later use
-      //localStorage.setItem('userData', JSON.stringify(this.responseData));
   
       this.dismissLoading();
 
@@ -112,7 +128,8 @@ export class ForgotPasswordPage {
       // Error handling
         let alert = this.alertCtrl.create({
           title: "Something went wrong :( ",
-          subTitle: 'Unable to reset your password, please check your network connection and try again',
+          subTitle: 'Unable to reset your password, ' + 
+          'please check your network connection and try again',
           buttons: [{
             text: 'Try again',
             handler: () => {

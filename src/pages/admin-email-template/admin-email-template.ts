@@ -1,13 +1,25 @@
-//ionic
+//======================================
+//
+//Name: admin-email-template.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Steven Innes
+//Contributor: Shawn Burriss
+//
+//======================================
+
 import { Component } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
 //custom
-import { AdminServiceProvider } from '../../providers/admin-service/admin-service';
-import { TemplateUpdateRequest } from '../../providers/admin-service/template-update-request';
-import { TemplateUpdateResponse } from '../../providers/admin-service/template-update-response';
+import { AdminServiceProvider } from 
+'../../providers/admin-service/admin-service';
+import { TemplateUpdateRequest } from 
+'../../providers/admin-service/template-update-request';
+import { TemplateUpdateResponse } from 
+'../../providers/admin-service/template-update-response';
 import { Template } from '../../providers/admin-service/template';
 import { TemplateField } from '../../providers/admin-service/template-field';
 import { AdminHomePage } from '../admin-home/admin-home';

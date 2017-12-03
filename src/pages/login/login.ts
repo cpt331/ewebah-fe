@@ -1,6 +1,16 @@
+//======================================
+//
+//Name: login.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//Contributor: Drew Gamble, Steven Innes
+//======================================
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, Tabs } from 'ionic-angular';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { AuthServiceProvider } from 
+'../../providers/auth-service/auth-service';
 
 import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
@@ -32,8 +42,10 @@ export class LoginPage {
 
   submitAttempt: boolean = false;
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, 
-    public alertCtrl: AlertController, public authService: AuthServiceProvider){
+  constructor(public navCtrl: NavController, 
+    public loadingCtrl: LoadingController, 
+    public alertCtrl: AlertController, 
+    public authService: AuthServiceProvider){
 
 }
 
@@ -70,9 +82,10 @@ export class LoginPage {
     this.showLoading();
     
     // hard coded inputs for ease of build
-
     // 's3353147@student.rmit.edu.au', 'password1', 'user1@gmail.com', 'password1', 'c@e.com', 'Password1!', this.enteredDetails.Email, this.enteredDetails.Password 'hsimpson@gmail.com', 'password1'
-    this.authService.postDataLogin(this.enteredDetails.Email, this.enteredDetails.Password).then((result) => {
+    
+    this.authService.postDataLogin(this.enteredDetails.Email, 
+      this.enteredDetails.Password).then((result) => {
       this.responseData = result;
 
       

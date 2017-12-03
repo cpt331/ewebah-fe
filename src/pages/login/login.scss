@@ -1,5 +1,16 @@
+//======================================
+//
+//Name: login.csss
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+// contributor: Michael Davidson
+//
+//======================================
+
 page-login {
 
+    // web format
     @media only screen and (min-width: 1240px) 
     {
         background: color($colors, bGround);
@@ -92,6 +103,8 @@ page-login {
     
         }
     }
+    
+    // mobile format
     
     @media only screen and (max-width: 1240px) 
     {

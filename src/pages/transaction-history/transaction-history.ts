@@ -1,3 +1,12 @@
+//======================================
+//
+//Name: transaction-history.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//
+//======================================
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TransactionHistoryServiceProvider } 
@@ -33,7 +42,8 @@ export class TransactionHistoryPage {
 
   loadTransactionHistoryWithPage(pageNo, pageSize){
 
-    this.transService.getTransactionHistory(this.currentUser.access_token, pageNo, pageSize).then((result) => {
+    this.transService.getTransactionHistory(this.currentUser.access_token, 
+      pageNo, pageSize).then((result) => {
       this.transactionHistoryResult = result;
       this.transactionHistory = this.transactionHistoryResult.Bookings;
 
@@ -43,11 +53,8 @@ export class TransactionHistoryPage {
     }
 
     }, (err) => {
-
-      
+ // error handling here
     });
-
-
   }
 
   // move to the next page of transaction details.
@@ -63,7 +70,7 @@ export class TransactionHistoryPage {
     
       }
 
-
+// load user information from the login
 loadUserData(){
   
         const data = JSON.parse(localStorage.getItem('userData'));

@@ -1,12 +1,24 @@
-import { Component,ViewChild,ElementRef , ChangeDetectorRef } from '@angular/core';
-import { NavController, App, Platform, ModalController} from 'ionic-angular';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { CarServiceProvider } from '../../providers/car-service/car-service';
-import { BookingServiceProvider } from '../../providers/booking-service/booking-service';
+//======================================
+//
+//Name: home.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//Contributor: Drew Gamble, Steven Innes, Shawn Burriss
+//
+//======================================
+
+import { Component,ViewChild,ElementRef , 
+  ChangeDetectorRef } from '@angular/core';
+import { NavController, App, Platform, 
+  ModalController} from 'ionic-angular';
+import { AuthServiceProvider } from 
+'../../providers/auth-service/auth-service';
+import { CarServiceProvider } from 
+'../../providers/car-service/car-service';
+import { BookingServiceProvider } from 
+'../../providers/booking-service/booking-service';
 import {Geolocation} from '@ionic-native/geolocation';
-// import {GoogleMaps, GoogleMap, GoogleMapsEvent,
-//   GoogleMapOptions, CameraPosition, MarkerOptions, Marker} 
-//   from '@ionic-native/google-maps';
 import { SettingsPage } from '../settings/settings';
 import {AutocompletePage} from '../home/autocompletepage';
 import { ReturnPage } from '../return/return';
@@ -49,7 +61,7 @@ export class HomePage {
   latitude: number = 0;
   longitude: number = 0;
 
-
+// class construtor initailising the tools for later use
   constructor(public navCtrl: NavController, 
     public app: App, 
     public alertCtrl: AlertController, 
@@ -73,11 +85,15 @@ export class HomePage {
     this.address = { place: '' };  
   }
 
-    // when the view is first shown
+  // when the view is first shown
   ionViewDidLoad() {       
   }
 
   // when the view is shown on the screen
+  // checks if the user is coming into the view for the first time
+  // the loading of the map is determined by the first load of the view
+  // if the user has an open booking they will be automatically
+  // redirected to the return page instead of the main map/booking
   ionViewDidEnter() {
     document.getElementById("bookButton").hidden = true;
     document.getElementById("existingBookingInstructions").hidden = true;
@@ -105,6 +121,7 @@ export class HomePage {
 
   }
     
+  // get the users current location for the map
   useCurrentLocation(){
       this.geolocation.getCurrentPosition().then((currentpos) => {
         let latLng= new google.maps.LatLng(currentpos.coords.latitude, 
@@ -135,6 +152,7 @@ export class HomePage {
         });
     }
 
+  // allow the user to enter a location in the search bar by a modal display
   showAddressModal () {
     let modal = this.ModalCtrl.create(AutocompletePage);
     modal.onDidDismiss(data => {
@@ -159,18 +177,13 @@ export class HomePage {
    });
   }
   
-
+  // update the area shown on the map by passing location lat and long
   updateMapLocation(latLng)
   {
     this.map.panTo(latLng);
-    // // if the location is blocked the app crashes
-    // try {
-    // //this.map = new google.maps.Map(this.map.panTo(latLng));
-    // }
-    // catch(err) {
-    // }
   }
 
+  // map loading function
   loadMap() 
   {
     // display loading throbber to the user
@@ -190,7 +203,6 @@ export class HomePage {
         mapTypeId: 'roadmap'
       }
 
-      // if the location is blocked the app crashes
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
       new google.maps.Marker({
@@ -199,12 +211,14 @@ export class HomePage {
         position: latLng,
       });
 
+      // get all the cars to display on the map
       this.carService.getAllCars(this.currentUser.access_token).then((result) => {
         this.carsData = result;
 
         this.dismissLoading();
 
 
+        // create the pins for the map showing the car locations
         for(let data of this.carsData)
         {
           
@@ -252,7 +266,8 @@ export class HomePage {
     });
   }
 
-
+// handle a user clicking on a car
+// display the car information on the screen for the selected car
   markerClicked(id, marker)
   {
     document.getElementById("Instructions").hidden = true;
@@ -302,7 +317,8 @@ export class HomePage {
     this.currentmarker = marker;
   }
 
-
+// if the location is blocked, Melbourne is used as a default location
+// the creates the map and pins in the same way as the regular map creation
   defaultMelbourneLocation(){
 
     let latLng = new google.maps.LatLng(-37.8136, 144.9631);
@@ -315,15 +331,11 @@ export class HomePage {
       mapTypeId: 'roadmap'
     }
 
-    
-    
+
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
     this.carService.getAllCars(this.currentUser.access_token).then((result) => {
       this.carsData = result;
-
-      
-
 
       for(let data of this.carsData)
       {
@@ -354,6 +366,7 @@ export class HomePage {
   }
 
   //loading/spinner functions
+
   showLoading() {
     if(!this.loader){
         this.loader = this.loadingCtrl.create({
@@ -379,7 +392,7 @@ export class HomePage {
     }
   }
 
-
+// website button functions
   book()
   {
     this.navCtrl.push(HomePage);
@@ -411,7 +424,8 @@ export class HomePage {
 if(!this.currentUser.HasOpenBooking)
 {
 
-    if(this.selectedCarData.Make != null && this.selectedCarData.Make != ""){
+    if(this.selectedCarData.Make != null && 
+      this.selectedCarData.Make != ""){
 
 
       var transString;
@@ -431,9 +445,9 @@ if(!this.currentUser.HasOpenBooking)
       buttons: [{
         text: 'Book',
         handler: () => {
-          this.showBooking();
           // show loading spinner
-
+          this.showBooking();
+        
           this.bookingService.bookCar(this.currentUser.access_token, 
             this.selectedCarData.Id).then((result) => {
           // check if successful
@@ -455,12 +469,14 @@ if(!this.currentUser.HasOpenBooking)
                 alert.present();
                 return;
           }
+          // if the server returns a problem with the booking possibility
+          // of the car, the user is displayed information why
           else
           {
             let alert = this.alertCtrl.create({
-              title: 'Unable to book this car',
+              title: this.booking.Message,
               subTitle: 'Oh no, this car cannot be ' + 
-                'booked right now. Reason: ' 
+                'booked right now : ' 
                 + this.booking.Message, buttons: [{
                 text: 'Okay', handler: () => { 
                 }}]});
@@ -491,6 +507,8 @@ if(!this.currentUser.HasOpenBooking)
         return;
     }
 }
+// users cannot book two cars at once, this handles the 
+// instance of a car already being booked by the user
 else
 {
   let alert = this.alertCtrl.create({
@@ -498,13 +516,14 @@ else
     subTitle: 'Please return your current ' + 
       'booking before making another', buttons: [{
       text: 'Got it', handler: () => { 
-        // send to return page??
       }}]});
       alert.present();
       return;
 }
 
 }
+
+// load the information for the current user
 
 loadUserData(){
   

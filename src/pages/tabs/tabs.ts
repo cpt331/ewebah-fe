@@ -1,3 +1,12 @@
+//======================================
+//
+//Name: tabs.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//
+//======================================
+
 import { Component } from '@angular/core';
 import { HomePage } from '../home/home';
 import { ReturnPage } from '../return/return';

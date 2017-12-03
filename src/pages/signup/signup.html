@@ -1,3 +1,13 @@
+<!--//======================================
+//
+//Name: signup.html
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//Contributor: Steven Innes, Michael Davidson, Drew Gamble
+//
+//======================================-->
+
 <ion-content id="signup">
     <ion-header id = "signupHeader">
       <ion-navbar>
@@ -7,7 +17,8 @@
         <div>
    <ion-list class="signupFields">
       <form [formGroup]="signupFields">
-      <button ion-button clear class="haveAccount" (click)="haveAccount()">Already have an account? login here</button>
+      <button ion-button clear class="haveAccount" (click)="haveAccount()">
+        Already have an account? login here</button>
         
         <ion-item>
           <ion-label floating>First Name</ion-label>
@@ -37,7 +48,8 @@
 
         <ion-item>
             <ion-label id= "passwordConfirmLabel" floating>Password Confirm</ion-label>
-            <ion-input id= "passwordConfirm" formControlName="passwordConfirm" type="password"></ion-input>
+            <ion-input id= "passwordConfirm" formControlName="passwordConfirm" 
+            type="password"></ion-input>
           </ion-item>
 
         <ion-item>
@@ -56,41 +68,8 @@
           <ion-input formControlName="phone" type="phone"></ion-input>
         </ion-item>
 
-  <!--      <ion-item>
-          <ion-label floating>Address 1</ion-label>
-          <ion-input formControlName="address1" type="address1"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label floating>Address 2</ion-label>
-          <ion-input formControlName="address2" type="address2"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label floating>Suburb</ion-label>
-          <ion-input formControlName="suburb" type="suburb"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label floating>State</ion-label>
-          <ion-select formControlName="state" type="state">
-            <ion-option>ACT</ion-option>
-            <ion-option>NSW</ion-option>
-            <ion-option>NT</ion-option>
-            <ion-option>QLD</ion-option>
-            <ion-option>SA</ion-option>
-            <ion-option>TAS</ion-option>
-            <ion-option>VIC</ion-option>
-            <ion-option>WA</ion-option>
-          </ion-select>
-        </ion-item>
-
-        <ion-item>
-          <ion-label floating>Postcode</ion-label>
-          <ion-input formControlName="postcode" type="postcode"></ion-input>
-        </ion-item> -->
-
-        <button ion-button block color="secondary" class="signupButton" (click)="signup()">Create Account</button>
+        <button ion-button block color="secondary" class="signupButton" 
+        (click)="signup()">Create Account</button>
       </form>
     </ion-list>
   </div>

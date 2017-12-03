@@ -1,3 +1,13 @@
+//======================================
+//
+//Name: admin-car.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Steven Innes
+//Contributor: Shawn Burriss
+//
+//======================================
+
 //ionic
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';

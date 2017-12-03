@@ -1,3 +1,13 @@
+
+<!--======================================
+//
+//Name: home.html
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//Contributor: Drew Gamble, Steven Innes, Shawn Burriss, Michael Davidson
+//
+//======================================-->
 <ion-header>
   <ion-navbar>
       <h4 start id = "welcome-note">Welcome {{currentUser.Name}} </h4>
@@ -39,7 +49,8 @@
     <!--Car Make and Model -->
     <header><h4 id= "Model"></h4></header>
     <!--A Promotional Image just to fill space-->
-    <img id="carPic" src="assets/images/newSmallCarImage.png" alt="Promo Picture" />
+    <img id="carPic" src="assets/images/newSmallCarImage.png" 
+      alt="Promo Picture" />
     <!-- The car's category -->  
     <div>
       <p id="Transmission"></p>
@@ -50,10 +61,12 @@
   </div>     
   </div>
   <button ion-button color="navBGround" id="bookButton" 
-    (click)="bookThisCar()" type="text" [color]="bookButtonColour">Book this car</button>
+    (click)="bookThisCar()" type="text" 
+      [color]="bookButtonColour">Book this car</button>
   <!--Instructional Text -->
   <div id="existingBookingInstructions"> 
-      <p>You have a car already booked out, you must return it before booking another</p> 
+      <p>You have a car already booked out, you must return 
+        it before booking another</p> 
     </div>  
 </ion-content>     
   
