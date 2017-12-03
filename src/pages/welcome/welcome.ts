@@ -1,14 +1,18 @@
+//======================================
+//
+//Name: welcome.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//Contributor: Drew Gamble, Steven Innes, Shawn Burriss
+//
+//======================================
+
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
-/**
- * Generated class for the WelcomePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

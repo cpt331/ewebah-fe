@@ -1,7 +1,21 @@
+//======================================
+//
+//Name: settings.scss
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//
+//======================================
+
 page-settings {
 
     #settings{
         background: color($colors, bGround);
+    }
+
+    button{
+        padding-left: 10%;
+        padding-right: 10%;
     }
 
     #FTC{

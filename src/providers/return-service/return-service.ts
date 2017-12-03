@@ -1,3 +1,13 @@
+//======================================
+//
+//Name: return-service.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//Contributor: Steven Innes
+//
+//======================================
+
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import * as Constants from '../providerConstants';

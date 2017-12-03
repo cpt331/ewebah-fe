@@ -1,14 +1,28 @@
-page-signup {
-    
-    #signupPage
-    {
-        margin: 5px;
+//======================================
+//
+//Name: signup.scss
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//Contributor: Steven Innes, Michael Davidson
+//
+//======================================
 
+page-signup {
+
+    #signup{
+    background: color($colors, bGround);
     }
 
-    #signupFields
+    #signupHeader{
+        margin-bottom: 1px;
+        padding-bottom: 0px;
+    }
+    .signupFields
     {
-
+        margin-bottom:  15px;
+        margin-left: 5%;
+        width: 90%;
     }
 
     #password
@@ -20,9 +34,20 @@ page-signup {
     #passwordInformation
     {
         font-size: 12px;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 15px;
-        padding-bottom: 0px;
+        padding-left: 5px;
+        padding-right:0px;
+        margin-top:0px;
+        margin-bottom: 0px;
+        background-color: white;
+    }
+
+    #passwordConfirm{
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    #passwordConfirmLabel{
+        margin-top: 0px;
+        padding-top: 0px;
     }
 }

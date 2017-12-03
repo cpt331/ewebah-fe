@@ -1,3 +1,13 @@
+//======================================
+//
+//Name: paymentinfo.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//Contibutor: Drew Gamble
+//
+//======================================
+
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -14,7 +24,8 @@ import { HomePage } from '../home/home';
 })
 export class PaymentInfoPage {
 
-  userData = {"access_token": "", "Name": "","Email": "","Id": "", "token_type":"","HasOpenBooking":"","OpenBookingId":""};
+  userData = {"access_token": "", "Name": "","Email": "",
+  "Id": "", "token_type":"","HasOpenBooking":"","OpenBookingId":""};
   enteredDetails = {"ccName": "","ccNum": "","ccExpiry": "","ccV": ""};
   
   // for saving the entered data. Could be useful to enter the users data into 
@@ -23,18 +34,28 @@ export class PaymentInfoPage {
   loader;
   paymentInfo: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, 
-    public loadingCtrl: LoadingController, public alertCtrl: AlertController, public authService: AuthServiceProvider) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public formBuilder: FormBuilder, 
+    public loadingCtrl: LoadingController, 
+    public alertCtrl: AlertController, 
+    public authService: AuthServiceProvider) {
     this.paymentInfo = formBuilder.group({
-      ccName: ["", Validators.compose([Validators.maxLength(120), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-      ccNum: ["", Validators.compose([Validators.maxLength(16), Validators.pattern('[0-9]*'), Validators.required])],
-      ccMonth: ["", Validators.compose([Validators.maxLength(2), Validators.required])],
-      ccYear: ["", Validators.compose([Validators.minLength(4), Validators.maxLength(4), Validators.required])],
-      ccV: ["", Validators.compose([Validators.minLength(3), Validators.maxLength(4), Validators.required])]
+      ccName: ["", Validators.compose([Validators.maxLength(120), 
+        Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+      ccNum: ["", Validators.compose([Validators.maxLength(16), 
+        Validators.pattern('[0-9]*'), Validators.required])],
+      ccMonth: ["", Validators.compose([Validators.maxLength(2), 
+        Validators.required])],
+      ccYear: ["", Validators.compose([Validators.minLength(4), 
+        Validators.maxLength(4), Validators.required])],
+      ccV: ["", Validators.compose([Validators.minLength(3), 
+        Validators.maxLength(4), Validators.required])]
     })
     this.loadUserData();
   }
 
+  // loading the current user data from when the user signed in
     loadUserData(){
       
      const data = JSON.parse(localStorage.getItem('userData'));
@@ -48,6 +69,7 @@ export class PaymentInfoPage {
       
      }
 
+     // loading indicators
     showLoading() {
       if(!this.loader){
           this.loader = this.loadingCtrl.create({
@@ -78,7 +100,6 @@ export class PaymentInfoPage {
 
     submit(){
       this.enteredDetails.ccName = this.paymentInfo.value.ccName;
-      console.log(this.enteredDetails.ccName);
   
       // loader caller here, could wrap this in the loader instead if wanted
       this.showLoading();
@@ -94,7 +115,6 @@ export class PaymentInfoPage {
       this.paymentInfo.value.ccV,
       this.userData.access_token).then((result) => {
         this.responseData = result;
-        console.log(this.responseData);
         
         //save collected info for later use
         //localStorage.setItem('userData', JSON.stringify(this.responseData));
@@ -132,7 +152,8 @@ export class PaymentInfoPage {
         // Error handling
           let alert = this.alertCtrl.create({
             title: "Something went wrong :( ",
-            subTitle: 'Unable to register payment details, please check your network connection and try again',
+            subTitle: 'Unable to register payment details, ' + 
+            'please check your network connection and try again',
             buttons: [{
               text: 'Try again',
               handler: () => {

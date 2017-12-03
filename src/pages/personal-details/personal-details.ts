@@ -1,5 +1,15 @@
+//======================================
+//
+//Name: personal-details.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//
+//======================================
+
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,App,Platform,ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,App,
+  Platform,ModalController } from 'ionic-angular';
 
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { AlertController } from 'ionic-angular';
@@ -53,36 +63,40 @@ export class PersonalDetailsPage {
       this.getUserRegistrationDetails();
 
       this.updateForm = formBuilder.group({
-        firstName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-        lastName: ["", Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-        // email: ["", Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")])],
-        password: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
-        passwordConfirm: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
+        firstName: ["", Validators.compose([Validators.maxLength(60), 
+          Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        lastName: ["", Validators.compose([Validators.maxLength(60), 
+          Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        password: ["", Validators.compose([Validators.minLength(7), 
+          Validators.maxLength(255), Validators.required])],
+        passwordConfirm: ["", Validators.compose([Validators.minLength(7), 
+          Validators.maxLength(255), Validators.required])],
         address1: ["", Validators.compose([Validators.required])],
         address2: ["", Validators.compose([Validators.required])],
         suburb: ["", Validators.compose([Validators.required])],
         state: ["", Validators.compose([Validators.required])],
         postcode: ["", Validators.compose([Validators.required])],
-        licence: ["", Validators.compose([Validators.minLength(5), Validators.maxLength(20), Validators.required])],
+        licence: ["", Validators.compose([Validators.minLength(5), 
+          Validators.maxLength(20), Validators.required])],
         licenceState:["", Validators.compose([Validators.required])],
-        phone: ["", Validators.compose([Validators.minLength(8), Validators.maxLength(15), Validators.pattern('[+0-9 ]*'), Validators.required])]//,
+        phone: ["", Validators.compose([Validators.minLength(8), 
+          Validators.maxLength(15), Validators.pattern('[+0-9 ]*'), Validators.required])]//,
       })
       
-
-    
-      //this.getUserRegistrationDetails();
-    
     }
-   
+
+    //view loading functions
 
   ionViewDidLoad() {
     
   }
   
+  
   ionViewDidEnter() {
     this.getUserRegistrationDetails();
   }
 
+  // loading the user information from the login
   loadUserData(){
     
           const data = JSON.parse(localStorage.getItem('userData'));
@@ -96,29 +110,43 @@ export class PersonalDetailsPage {
     
   }
 
-
+// load existing data to fields
 getUserRegistrationDetails()
 {
   this.authService.registerDetailsCheck(this.currentUser.access_token).then((result) =>{
   this.responseData =result;
   this.updateForm = this.formBuilder.group({
-    firstName: [this.responseData.FirstName, Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-    lastName: [this.responseData.LastName, Validators.compose([Validators.maxLength(60), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-    //email: [this.responseData.Email, Validators.compose([Validators.maxLength(255), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$")])],
-    password: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
-    passwordConfirm: ["", Validators.compose([Validators.minLength(7), Validators.maxLength(255), Validators.required])],
-    address1: [this.responseData.AddressLine1, Validators.compose([Validators.required])],
-    address2: [this.responseData.AddressLine2, Validators.compose([Validators.required])],
-    suburb: [this.responseData.Suburb, Validators.compose([Validators.required])],
-    state: [this.responseData.State, Validators.compose([Validators.required])],
-    postcode: [this.responseData.Postcode, Validators.compose([Validators.required])],
-    licence: [this.responseData.DriversLicenceID, Validators.compose([Validators.minLength(5), Validators.maxLength(20), Validators.required])],
-    licenceState:[this.responseData.DriversLicenceState, Validators.compose([Validators.required])],
-    phone: [this.responseData.PhoneNumber, Validators.compose([Validators.minLength(8), Validators.maxLength(15), Validators.pattern('[+0-9 ]*'), Validators.required])]//,
+    firstName: [this.responseData.FirstName, 
+      Validators.compose([Validators.maxLength(60), 
+        Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+    lastName: [this.responseData.LastName, 
+      Validators.compose([Validators.maxLength(60), 
+        Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+    passwordConfirm: ["", Validators.compose([Validators.minLength(7), 
+      Validators.maxLength(255), Validators.required])],
+    address1: [this.responseData.AddressLine1, 
+      Validators.compose([Validators.required])],
+    address2: [this.responseData.AddressLine2, 
+      Validators.compose([Validators.required])],
+    suburb: [this.responseData.Suburb, 
+      Validators.compose([Validators.required])],
+    state: [this.responseData.State, 
+      Validators.compose([Validators.required])],
+    postcode: [this.responseData.Postcode, 
+      Validators.compose([Validators.required])],
+    licence: [this.responseData.DriversLicenceID, 
+      Validators.compose([Validators.minLength(5), 
+        Validators.maxLength(20), Validators.required])],
+    licenceState:[this.responseData.DriversLicenceState, 
+      Validators.compose([Validators.required])],
+    phone: [this.responseData.PhoneNumber, 
+      Validators.compose([Validators.minLength(8), 
+        Validators.maxLength(15), Validators.pattern('[+0-9 ]*'), Validators.required])]//,
   })
   });
 }
 
+// send the data to the provider to update the server
 updatePostData()
 {
   this.showLoading();
@@ -141,7 +169,6 @@ if(this.responseData.Success){
   this.dismissLoading();
   let alert = this.alertCtrl.create({
     title: 'User details updated',
-    //subTitle: 'Your details have been successfully updated.',
     message: this.responseData.Message, buttons: [{
       text: 'Okay', handler: () => { 
       }}]});
@@ -160,8 +187,6 @@ else
       alert.present();
 }
   
-
-  console.log(result);
 })
 }
   

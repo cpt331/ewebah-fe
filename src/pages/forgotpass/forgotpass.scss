@@ -1,7 +1,16 @@
+//======================================
+//
+//Name: forgotpass.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//Contributor: Drew Gamble
+//
+//======================================
+
 page-forgotpass {
 
     #forgotpass{
-        //background-color: blue;
         background: color($colors, bGround);
 
         .resetButton{
@@ -11,8 +20,8 @@ page-forgotpass {
         .resetFields{
             margin-top: 95px;
             margin-bottom:  15px;
-            margin-left: 10%;
-            width: 80%;
+            margin-left: 5%;
+            width: 90%;
 
         }
 

@@ -1,27 +1,44 @@
-
+<!--//======================================
+//
+//Name: settings.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//
+//======================================-->
   <ion-header>
   <ion-navbar>
     <ion-title>
       Settings
     </ion-title>
     <ion-buttons end>
-        <button ion-button id="logoutButton" color="primary" (click)="logout()">Logout</button>
+        <button ion-button id="logoutButton" color="primary" 
+          (click)="logout()">Logout</button>
       </ion-buttons>
   </ion-navbar>
 </ion-header>
+
 <ion-content id="settings">
     
-      <button ion-item (click)="accountSettings()">
+      <ion-item (click)="accountSettings()">
+          <ion-icon name="cog" item-start></ion-icon>
         Account Information
-      </button> 
-      <button ion-item (click)="paymentSettings()">
+        <p>Update your personal details</p>
+      </ion-item> 
+      <ion-item ion-item (click)="paymentSettings()">
+          <ion-icon name="card" item-start></ion-icon>
        Billing Information
-      </button> 
-      <button ion-item (click)="transactioinHistory()">
+       <p>Change your payment details</p>
+      </ion-item> 
+      <ion-item ion-item (click)="transactioinHistory()">
+          <ion-icon name="document" item-start></ion-icon>
         Transaction History
-      </button> 
+        <p>View your hire history</p>
+      </ion-item> 
       <div id="FTC">
-      <p> Ewebah is a product of the French Toast Consortium. Follow in in the toaster @frenchToastConsortium or on the grill #FrenchToastAllTheWay</p>
+      <p> Ewebah is a product of the French Toast Consortium. </p>
+      <p>Follow in in the toaster @frenchToastConsortium or 
+          on the grill #FrenchToastAllTheWay</p>
       </div>
     </ion-content>
 

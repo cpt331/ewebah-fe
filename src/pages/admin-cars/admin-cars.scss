@@ -1,4 +1,14 @@
-page-admin-cars button.new-car {
+//======================================
+//
+//Name: admin-cars.scss
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Steven Innes
+//
+//======================================
+
+page-admin-cars button.new-car 
+{
     color: color($colors, primary);
     background: color($colors, light);
     font-weight: bold;

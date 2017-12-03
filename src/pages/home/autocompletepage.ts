@@ -1,3 +1,12 @@
+//======================================
+//
+//Name: AutocompletePage.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Drew Gamble
+//
+//======================================
+
 import {Component, NgZone} from '@angular/core';
 import {ViewController} from 'ionic-angular';
 

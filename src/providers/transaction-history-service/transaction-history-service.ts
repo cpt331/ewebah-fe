@@ -1,3 +1,13 @@
+//======================================
+//
+//Name: transaction-history-service.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//Contributor: Steven Innes
+//
+//======================================
+
 //ionic
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';

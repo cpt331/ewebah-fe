@@ -1,6 +1,16 @@
+//======================================
+//
+//Name: return.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Chris Espie
+//
+//======================================
+
 import { Component } from '@angular/core';
 import { NavController, App, Platform } from 'ionic-angular';
-import { ReturnServiceProvider } from '../../providers/return-service/return-service';
+import { ReturnServiceProvider } from 
+'../../providers/return-service/return-service';
 import {Geolocation} from '@ionic-native/geolocation';
 
 import { AlertController } from 'ionic-angular';
@@ -17,16 +27,14 @@ export class ReturnPage {
     responseData : any;
     selectedCarData = {"Model":"","CarCategory":"","Make":"","Transmission":"",
       "BillingRate":"","Id":""};
-    bookingData = {Message: "", City: "",TotalHours: "", HourlyRate:"",TotalAmount: "", Success: ""};
+    bookingData = {Message: "", City: "",TotalHours: "", 
+    HourlyRate:"",TotalAmount: "", Success: ""};
     loader;
-
     userLat;
     userLong;
 
     private currentUser = {access_token: "", Name: "",Email: "",Id: "", 
     token_type:"",HasOpenBooking: false, OpenBookingId:-1};
-
-
 
   constructor(public navCtrl: NavController, public platform: Platform,
     public loadingCtrl: LoadingController,
@@ -100,21 +108,20 @@ export class ReturnPage {
           // return successful ...
           this.responseData = returnDetails;
 
-
-          console.log(this.responseData);
-
-
-
-
           if(this.responseData.Success)
           {
             document.getElementById("Message").innerHTML = this.responseData.Message;
-            document.getElementById("City").innerHTML = "Location : " + this.responseData.City;
-            document.getElementById("TotalHours").innerHTML = "Hours : " + this.responseData.TotalHours;
-            document.getElementById("HourlyRate").innerHTML = "Hourly rate : " + this.responseData.HourlyRate;
-            document.getElementById("TotalAmount").innerHTML = "Total : " + this.responseData.TotalAmount;
+            document.getElementById("City").innerHTML = "Location : " + 
+            this.responseData.City;
+            document.getElementById("TotalHours").innerHTML = "Hours : " + 
+            this.responseData.TotalHours;
+            document.getElementById("HourlyRate").innerHTML = "Hourly rate : " + 
+            this.responseData.HourlyRate;
+            document.getElementById("TotalAmount").innerHTML = "Total : " + 
+            this.responseData.TotalAmount;
           }
-          else if((this.responseData.Success == false) && (this.responseData.Message == "No cities are within a 10000m radius")){
+          else if((this.responseData.Success == false) && 
+          (this.responseData.Message == "No cities are within a 10000m radius")){
             document.getElementById("Message").innerHTML = "You are not in an eligible return area.";
             document.getElementById("City").innerHTML = "Cars can only be returned within 10km of a capital city";
             document.getElementById("TotalHours").innerHTML = "Please to this area to return your car.";
@@ -143,11 +150,9 @@ export class ReturnPage {
                         this.dismissLoading();
                       }}]
                 });
-                alert.present();
-                    
+                alert.present();     
         })}
       )}
-
   }
 
 
@@ -156,8 +161,10 @@ export class ReturnPage {
       if(this.currentUser.HasOpenBooking){
     let alert = this.alertCtrl.create({
       title: 'Confirm booking return',
-      subTitle: "You will be charged " + this.responseData.TotalAmount + " for using the vehicle a total of " + 
-      this.responseData.TotalHours + " hours at a rate of " + this.responseData.HourlyRate + " per hour",
+      subTitle: "You will be charged " + this.responseData.TotalAmount + 
+      " for using the vehicle a total of " + 
+      this.responseData.TotalHours + " hours at a rate of " + 
+      this.responseData.HourlyRate + " per hour",
       buttons: [{
         text: 'Return',
         handler: () => {
@@ -173,7 +180,8 @@ export class ReturnPage {
 
       // attempt return
       this.showLoadingReturning()
-      this.returnServiceProvider.closeCurrentBooking(this.currentUser.access_token,this.currentUser.OpenBookingId,
+      this.returnServiceProvider.closeCurrentBooking(this.currentUser.access_token,
+        this.currentUser.OpenBookingId,
         this.userLat, this.userLong).then((returnDetails) =>{
 
          // return successful ...
@@ -188,10 +196,14 @@ export class ReturnPage {
 
            document.getElementById("bookingHeader").innerHTML = " Vehicle has been returned"
            document.getElementById("Message").innerHTML = this.responseData.Message;
-           document.getElementById("City").innerHTML = "Returned to " + this.responseData.City;
-           document.getElementById("TotalHours").innerHTML = "Usage : " + this.responseData.TotalHours + " hours";
-           document.getElementById("HourlyRate").innerHTML = "Rate per hour: " + this.responseData.HourlyRate;
-           document.getElementById("TotalAmount").innerHTML = "You have been charged a total of " + this.responseData.TotalAmount;
+           document.getElementById("City").innerHTML = "Returned to " 
+           + this.responseData.City;
+           document.getElementById("TotalHours").innerHTML = "Usage : " 
+           + this.responseData.TotalHours + " hours";
+           document.getElementById("HourlyRate").innerHTML = "Rate per hour: " 
+           + this.responseData.HourlyRate;
+           document.getElementById("TotalAmount").innerHTML = "You have been charged a total of " + 
+           this.responseData.TotalAmount;
 
            // hide the button
            document.getElementById("returnButton").hidden = true;
@@ -227,7 +239,7 @@ export class ReturnPage {
       });
       alert.present();
           
-        })//}
+        })
       }},
       {
         text: 'Cancel',
@@ -251,7 +263,6 @@ export class ReturnPage {
 
   }
 }
-  
 
 logout(){
   // Remove API token 
@@ -290,6 +301,8 @@ root.popToRoot();
           this.loader = null;
       }
     }
+
+    // load the user data from the login
 
     loadUserData(){
 

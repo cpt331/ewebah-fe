@@ -1,3 +1,12 @@
+//======================================
+//
+//Name: otp.ts
+//Version: 1.0
+//Date: 03/12/2017
+//Developer: Shawn Burriss
+// Contributor: Chris Espie
+//======================================
+
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -27,11 +36,17 @@ export class otpPage {
   otpForm: FormGroup;
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, 
-    public loadingCtrl: LoadingController, public alertCtrl: AlertController, public authService: AuthServiceProvider) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public formBuilder: FormBuilder, 
+    public loadingCtrl: LoadingController, 
+    public alertCtrl: AlertController, 
+    public authService: AuthServiceProvider) {
     this.otpForm = formBuilder.group({
-      otp: ["", Validators.compose([Validators.minLength(6), Validators.maxLength(6), Validators.pattern('[0-9 ]*')])],
-	  email: ["", Validators.compose([Validators.maxLength(100), Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$"), Validators.required])]
+      otp: ["", Validators.compose([Validators.minLength(6), 
+        Validators.maxLength(6), Validators.pattern('[0-9 ]*')])],
+    email: ["", Validators.compose([Validators.maxLength(100), 
+      Validators.pattern("^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$"), Validators.required])]
     })
   }
 
@@ -96,7 +111,6 @@ export class otpPage {
             text: 'login page',
             handler: () => {
               this.navCtrl.push(LoginPage, {}, {animate: false});
-              console.log(this.responseData);
             }}]
       });
       alert.present();
@@ -109,7 +123,8 @@ export class otpPage {
       // Error handling
         let alert = this.alertCtrl.create({
           title: "Something went wrong :( ",
-          subTitle: 'Unable to activate, please check your network connection and try again',
+          subTitle: 'Unable to activate, ' + 
+          'please check your network connection and try again',
           buttons: [{
             text: 'Try again',
             handler: () => {
