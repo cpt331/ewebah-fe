@@ -10,10 +10,9 @@
 
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
-import { TabsPage } from '../tabs/tabs';
 import { SignupPage } from '../signup/signup';
 import { LoginPage } from '../login/login';
 import { LoadingController } from 'ionic-angular';

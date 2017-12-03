@@ -8,7 +8,7 @@
 //======================================
 
 import { Component } from '@angular/core';
-import { IonicPage, NavController, Tabs } from 'ionic-angular';
+import { IonicPage, NavController} from 'ionic-angular';
 import { AuthServiceProvider } from 
 '../../providers/auth-service/auth-service';
 
@@ -19,7 +19,6 @@ import { ForgotPasswordPage } from "../forgotpass/forgotpass";
 import { otpPage } from "../otp/otp";
 import { LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { ReturnPage } from '../return/return';
 
 
 @IonicPage()

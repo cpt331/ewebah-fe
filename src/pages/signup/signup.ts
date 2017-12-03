@@ -10,7 +10,7 @@
 
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, Platform, ModalController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController} from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import moment from 'moment';
 import { LoginPage } from '../login/login';
