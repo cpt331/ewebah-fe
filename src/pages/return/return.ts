@@ -23,7 +23,6 @@ import { LoadingController } from 'ionic-angular';
 export class ReturnPage {
 
     // declared variables
-
     responseData : any;
     selectedCarData = {"Model":"","CarCategory":"","Make":"","Transmission":"",
       "BillingRate":"","Id":""};
@@ -83,7 +82,7 @@ export class ReturnPage {
     err => {
       
               let alert = this.alertCtrl.create({
-                title: "Location Error",//this.responseData.Message,
+                title: "Location Error",
                 subTitle: 'Cannot get current location. Please check your location settings',
                 buttons: [{
                   text: 'Ok',
@@ -98,7 +97,8 @@ export class ReturnPage {
     // continue on with the default location for now
 
     
-      this.returnServiceProvider.checkCurrentBooking(this.currentUser.access_token,this.currentUser.OpenBookingId,
+      this.returnServiceProvider.checkCurrentBooking(this.currentUser.access_token,
+        this.currentUser.OpenBookingId,
         this.userLat, this.userLong).then((returnDetails) =>{
 
           // display details
@@ -175,8 +175,6 @@ export class ReturnPage {
             this.userLat = position.coords.latitude;
             this.userLong = position.coords.longitude;
     });
-
-    //if(this.currentUser.HasOpenBooking){
 
       // attempt return
       this.showLoadingReturning()

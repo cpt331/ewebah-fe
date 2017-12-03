@@ -33,8 +33,8 @@ import { ReturnPage } from '../return/return';
 export class LoginPage {
 
   // create a storage structure for the returned values
-  // enteredDetails = {Email: "", Password:""};
-  enteredDetails = {Email: "c@e.com", Password:"Password1!"};
+
+  enteredDetails = {Email: "", Password:""};
   userData = {access_token: "", Name: "",Email: "",Id: "", 
   token_type:"",HasOpenBooking: false, OpenBookingId:-1};
   responseData : any;
@@ -81,9 +81,6 @@ export class LoginPage {
     // loader caller here, could wrap this in the loader instead if wanted
     this.showLoading();
     
-    // hard coded inputs for ease of build
-    // 's3353147@student.rmit.edu.au', 'password1', 'user1@gmail.com', 'password1', 'c@e.com', 'Password1!', this.enteredDetails.Email, this.enteredDetails.Password 'hsimpson@gmail.com', 'password1'
-    
     this.authService.postDataLogin(this.enteredDetails.Email, 
       this.enteredDetails.Password).then((result) => {
       this.responseData = result;
@@ -98,8 +95,7 @@ export class LoginPage {
         this.navCtrl.push(AdminHomePage, {}, {animate: false});
       }
       else{
-        // let nav = this['rootNav'];
-        // nav.setRoot(TabsPage,{index:2});//Can be switched to fourth tab
+
         this.navCtrl.push(TabsPage, {}, {animate: false});
       }
 

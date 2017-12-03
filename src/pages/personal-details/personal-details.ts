@@ -58,7 +58,6 @@ export class PersonalDetailsPage {
       // load the user info then get the current details for prefilling the fields
       // once details are collected construct the page.
 
-      // this probably needs a throbber
       this.loadUserData()
       this.getUserRegistrationDetails();
 
@@ -141,7 +140,8 @@ getUserRegistrationDetails()
       Validators.compose([Validators.required])],
     phone: [this.responseData.PhoneNumber, 
       Validators.compose([Validators.minLength(8), 
-        Validators.maxLength(15), Validators.pattern('[+0-9 ]*'), Validators.required])]//,
+        Validators.maxLength(15), Validators.pattern('[+0-9 ]*'), 
+        Validators.required])]
   })
   });
 }
