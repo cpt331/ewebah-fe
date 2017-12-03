@@ -252,17 +252,24 @@ export class HomePage {
         this.defaultMelbourneLocation();
       }
       else if(err.TIMEOUT){
-        alert("Browser geolocation error !\n\nTimeout. " + 
-          "\n\nMelbourne default location");
+        alert("Browser geolocation error !\nTimeout. " + 
+          "\nMelbourne default location");
         this.dismissLoading();
         this.defaultMelbourneLocation();
       }
       else if(err.POSITION_UNAVAILABLE){
-        alert("Browser geolocation error !\n\n" + 
-          "Position unavailable. \n\nMelbourne default location");
+        alert("Browser geolocation error !\n" + 
+          "Position unavailable. \nMelbourne default location");
         this.dismissLoading();
         this.defaultMelbourneLocation();
       }
+      else{
+        alert("Browser geolocation error !\n" + 
+        "Position unavailable. \nMelbourne default location");
+        this.dismissLoading();
+        this.defaultMelbourneLocation();
+      }
+
     });
   }
 
